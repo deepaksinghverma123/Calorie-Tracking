@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function($document,$log,$interval) {
+  /* widget controller */
+  var c = this;
+	$log.log("df");
+	 $log.log($document);
+	
+	c.progressValue=0;
+	c.breakfast=0;
+	c.snacks=0;
+	c.lunch=0;
+	c.dinner=0;
+	c.circular={
+		  background: "black" 
+	}
+	
+	//c.circular.background="red";
+	    // var circularProgress= $document[0].querySelectorAll(".circular-progress");
+		   //  var progressValue= $document[0].querySelectorAll(".progress-value");
+
+var progressEndValue = 90,    
+    speed = 1000;
+   var  progressStartValue=0;
+ 
+	var progress= $interval(function(){
+    progressStartValue++;
+		console.log("dff");
+    progressValue = "'"+progressStartValue+"'";
+//    c.circular.background = "conic-gradient(#7d2ae8"+ progressStartValue*3.6+"deg, #ededed 0deg)";
+ c.circular.background = "red";
+
+    //if(progressStartValue == progressEndValue){
+     //   clearInterval(progress);
+    //}    
+}, speed)
+ ;
+	
+	
+	
+	//
+	c.breakfast=120;
+	c.snacks=130;
+	c.lunch=122;
+	c.dinner=134;
+	
+	
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>
+
+
+.circular-progress{
+    position: relative;
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+    background: conic-gradient(#7d2ae8 3.6deg, #ededed 0deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  	margin:auto
+}
+.circular-progress::before{
+    content: "";
+    position: absolute;
+    height: 210px;
+    width: 210px;
+    border-radius: 50%;
+    background-color: #fff;
+}
+.progress-value{
+    position: relative;
+    font-size: 40px;
+    font-weight: 600;
+    color: #7d2ae8;
+}
+
+ </css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>track_data</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Track Data</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {  /* populate the 'data' object */  /* e.g., data.table = $sp.getValue('table'); */})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-07 11:45:49</sys_created_on>
+        <sys_id>551269b247671110d5ff7868f36d43e7</sys_id>
+        <sys_name>Track Data</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sp_widget_551269b247671110d5ff7868f36d43e7</sys_update_name>
+        <template><![CDATA[<div>
+
+  
+  <div class="container ">
+       <div class="row">
+         <div class="col-sm-3 text-center ">
+           	<div class="row mt-auto">
+              <div class="col text-primary">
+                  <h2>BreakFast</h2>
+              </div>
+              <div>
+                   {{c.breakfast}} Cal
+              </div>
+              
+           </div> 
+           	<div class="row">
+              <div class="col text-primary">
+                  <h2>Snacks</h2>
+              </div>
+               <div>
+                   {{c.snacks}} Cal
+              </div>
+           </div> 
+          
+         </div>
+          <div class="col-sm-6 text-center">
+
+            
+            <div class="circular-progress" ng-style='{{c.circular}}'>
+                <span class="progress-value">{{c.progressValue}}%</span>
+            </div>
+
+            
+            
+         </div>
+          <div class="col-sm-3 text-center ">
+           
+            <div class="row">
+                  <div class="col-sm-12 text-primary">
+                    <h2> Lunch</h2>
+                  </div>
+             	 		<div class="col-sm-12">
+                   {{c.lunch}} Cal
+          				</div>
+            </div>
+             <div class="row">
+                  <div class="col-sm-12 text-primary">
+                    <h2> Dinner</h2>
+                  </div>
+             	 		<div class="col-sm-12">
+                   {{c.dinner}} Cal
+          				</div>
+            </div>
+         </div>
+          
+         
+         
+         <div class="panel panel-default">
+  <div class="panel-heading">Panel Heading</div>
+  <div class="panel-body">Panel Content</div>
+  <div class="panel-footer">Panel Footer</div>
+</div>
+         
+         <div class="card">
+  <div class="card-header">Header</div>
+  <div class="card-body">Content</div>
+  <div class="card-footer">Footer</div>
+</div>
+    </div>
+  </div>
+  
+  
+  
+</div>]]></template>
+    </sp_widget>
+</record_update>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_package_dependency_m2m">
+    <sys_package_dependency_m2m action="INSERT_OR_UPDATE">
+        <dependency display_value="Service Management Basics" source="com.snc.service">ff63d6a0f98211108c8bd16244dfe724</dependency>
+        <min_version>1.0.0</min_version>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-06 13:36:07</sys_created_on>
+        <sys_id>13b138ae47631110d5ff7868f36d4337</sys_id>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+    </sys_package_dependency_m2m>
+</record_update>

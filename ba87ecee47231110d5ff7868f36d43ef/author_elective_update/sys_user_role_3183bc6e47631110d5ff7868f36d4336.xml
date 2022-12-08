@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_user_role">
+    <sys_user_role action="DELETE">
+        <assignable_by/>
+        <can_delegate>true</can_delegate>
+        <description/>
+        <elevated_privilege>false</elevated_privilege>
+        <grantable>true</grantable>
+        <includes_roles/>
+        <name>x_942661_fitness.food_user</name>
+        <requires_subscription>-1</requires_subscription>
+        <scoped_admin>false</scoped_admin>
+        <suffix>food_user</suffix>
+        <sys_class_name>sys_user_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-06 13:43:55</sys_created_on>
+        <sys_id>3183bc6e47631110d5ff7868f36d4336</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_942661_fitness.food_user</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sys_user_role_3183bc6e47631110d5ff7868f36d4336</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-12-06 13:43:55</sys_updated_on>
+    </sys_user_role>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</application>
+        <file_path/>
+        <instance_id>e57b120adb9b08180b9d21c405961901</instance_id>
+        <instance_name>dev102074</instance_name>
+        <name>sys_user_role_3183bc6e47631110d5ff7868f36d4336</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_user_role"><sys_user_role action="INSERT_OR_UPDATE"><assignable_by/><can_delegate>true</can_delegate><description/><elevated_privilege>false</elevated_privilege><grantable>true</grantable><includes_roles/><name>x_942661_fitness.food_user</name><requires_subscription>-1</requires_subscription><scoped_admin>false</scoped_admin><suffix>food_user</suffix><sys_class_name>sys_user_role</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2022-12-06 13:43:55</sys_created_on><sys_id>3183bc6e47631110d5ff7868f36d4336</sys_id><sys_mod_count>0</sys_mod_count><sys_name>x_942661_fitness.food_user</sys_name><sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package><sys_policy/><sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope><sys_update_name>sys_user_role_3183bc6e47631110d5ff7868f36d4336</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2022-12-06 13:43:55</sys_updated_on></sys_user_role></record_update>]]></payload>
+        <payload_hash>-1474029735</payload_hash>
+        <record_name>x_942661_fitness.food_user</record_name>
+        <reverted_from/>
+        <source>7a87206647631110d5ff7868f36d4302</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-06 13:43:55</sys_created_on>
+        <sys_id>bd83342247a31110d5ff7868f36d43a6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>184e7adc4490000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-12-06 13:43:55</sys_updated_on>
+        <type>Role</type>
+        <update_guid>f58334221aa31110a896f516138f77a6</update_guid>
+        <update_guid_history>f58334221aa31110a896f516138f77a6:-1474029735</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="x_942661_fitness.food_user">55b9583247631110d5ff7868f36d4309</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-07 06:29:36</sys_created_on>
+        <sys_db_object display_value="" name="sys_user_role">sys_user_role</sys_db_object>
+        <sys_id>09ab9c6ad1ff4c60807b4206a3937040</sys_id>
+        <sys_metadata>3183bc6e47631110d5ff7868f36d4336</sys_metadata>
+        <sys_name>x_942661_fitness.food_user</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_scope_delete display_value="">955332a1052e4fc4a24985372ab46c84</sys_scope_delete>
+        <sys_update_name>sys_user_role_3183bc6e47631110d5ff7868f36d4336</sys_update_name>
+        <sys_update_version display_value="sys_user_role_3183bc6e47631110d5ff7868f36d4336">bd83342247a31110d5ff7868f36d43a6</sys_update_version>
+    </sys_metadata_delete>
+</record_update>

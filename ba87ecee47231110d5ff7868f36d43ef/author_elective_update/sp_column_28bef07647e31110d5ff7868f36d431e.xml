@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_column">
+    <sp_column action="DELETE">
+        <class_name/>
+        <order>1</order>
+        <size>6</size>
+        <size_lg/>
+        <size_sm/>
+        <size_xs/>
+        <sp_row display_value="1">20bef07647e31110d5ff7868f36d431c</sp_row>
+        <sys_class_name>sp_column</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-07 09:11:12</sys_created_on>
+        <sys_id>28bef07647e31110d5ff7868f36d431e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>1</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sp_column_28bef07647e31110d5ff7868f36d431e</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-12-07 09:11:12</sys_updated_on>
+    </sp_column>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</application>
+        <file_path/>
+        <instance_id>e57b120adb9b08180b9d21c405961901</instance_id>
+        <instance_name>dev102074</instance_name>
+        <name>sp_column_28bef07647e31110d5ff7868f36d431e</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_column"><sp_column action="INSERT_OR_UPDATE"><class_name/><order>1</order><size>6</size><size_lg/><size_sm/><size_xs/><sp_row display_value="1">20bef07647e31110d5ff7868f36d431c</sp_row><sys_class_name>sp_column</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2022-12-07 09:11:12</sys_created_on><sys_id>28bef07647e31110d5ff7868f36d431e</sys_id><sys_mod_count>0</sys_mod_count><sys_name>1</sys_name><sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package><sys_policy/><sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope><sys_update_name>sp_column_28bef07647e31110d5ff7868f36d431e</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2022-12-07 09:11:12</sys_updated_on></sp_column></record_update>]]></payload>
+        <payload_hash>768320484</payload_hash>
+        <record_name>1</record_name>
+        <reverted_from/>
+        <source>7a87206647631110d5ff7868f36d4302</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-07 09:11:12</sys_created_on>
+        <sys_id>68bef07647e31110d5ff7868f36d4320</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>184ebda71d20000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-12-07 09:11:12</sys_updated_on>
+        <type>Column</type>
+        <update_guid>a0bef076fbe31110b56fae4f7e4e2620</update_guid>
+        <update_guid_history>a0bef076fbe31110b56fae4f7e4e2620:768320484</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="1">eeceb87647e31110d5ff7868f36d437b</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-07 09:11:37</sys_created_on>
+        <sys_db_object display_value="" name="sp_column">sp_column</sys_db_object>
+        <sys_id>819cda286303470082cf614cf8b3c810</sys_id>
+        <sys_metadata>28bef07647e31110d5ff7868f36d431e</sys_metadata>
+        <sys_name>1</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_scope_delete display_value="">955332a1052e4fc4a24985372ab46c84</sys_scope_delete>
+        <sys_update_name>sp_column_28bef07647e31110d5ff7868f36d431e</sys_update_name>
+        <sys_update_version display_value="sp_column_28bef07647e31110d5ff7868f36d431e">68bef07647e31110d5ff7868f36d4320</sys_update_version>
+    </sys_metadata_delete>
+</record_update>

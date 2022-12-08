@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="ee45f86247a31110d5ff7868f36d4329" label="Tracking" max_length="40" name="x_942661_fitness_tracking" type="collection">
+        <element label="Food" max_length="40" name="food" reference="x_942661_fitness_food" type="string"/>
+        <element label="Meal" max_length="40" name="meal" reference="x_942661_fitness_meal" type="string"/>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element label="Quantity" max_length="40" name="quantity" type="integer"/>
+        <element label="User" max_length="40" name="user" reference="x_942661_fitness_user" type="string"/>
+    </element>
+</database>

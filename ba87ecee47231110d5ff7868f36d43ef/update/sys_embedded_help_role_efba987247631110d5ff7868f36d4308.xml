@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_embedded_help_role">
+    <sys_embedded_help_role action="INSERT_OR_UPDATE">
+        <order>10</order>
+        <role display_value="x_942661_fitness.admin" name="x_942661_fitness.admin">1f9a183247631110d5ff7868f36d4355</role>
+        <sys_class_name>sys_embedded_help_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-07 06:34:07</sys_created_on>
+        <sys_id>efba987247631110d5ff7868f36d4308</sys_id>
+        <sys_name>1f9a183247631110d5ff7868f36d4355</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sys_embedded_help_role_efba987247631110d5ff7868f36d4308</sys_update_name>
+    </sys_embedded_help_role>
+</record_update>

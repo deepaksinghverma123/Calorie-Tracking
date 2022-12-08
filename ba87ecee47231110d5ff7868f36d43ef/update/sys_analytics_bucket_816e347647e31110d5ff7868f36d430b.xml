@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_analytics_bucket">
+    <sys_analytics_bucket action="INSERT_OR_UPDATE">
+        <analytics_channel display_value="web">6496ef61c7001010393d265c95c260b9</analytics_channel>
+        <application_name>Fitness Tracker</application_name>
+        <bucket_document_id>9d3e707647e31110d5ff7868f36d4362</bucket_document_id>
+        <bucket_metadata/>
+        <bucket_table_name>sp_portal</bucket_table_name>
+        <bucket_type>service_portal</bucket_type>
+        <enable_unauthenticated_user_tracking>false</enable_unauthenticated_user_tracking>
+        <enabled>true</enabled>
+        <internal_name_for_index>x_942661_fitness.sp_portal.9d3e707647e31110d5ff7868f36d4362</internal_name_for_index>
+        <sys_class_name>sys_analytics_bucket</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-07 09:09:52</sys_created_on>
+        <sys_id>816e347647e31110d5ff7868f36d430b</sys_id>
+        <sys_name>Fitness Tracker</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sys_analytics_bucket_816e347647e31110d5ff7868f36d430b</sys_update_name>
+    </sys_analytics_bucket>
+</record_update>
