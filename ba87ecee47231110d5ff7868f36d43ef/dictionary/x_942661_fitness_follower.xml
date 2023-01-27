@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="374a9e9947f31910d5ff7868f36d435d" label="Follower" max_length="40" name="x_942661_fitness_follower" type="collection">
+        <element default="javascript:current.follower = gs.getUserID();" label="Follower" mandatory="true" max_length="32" name="follower" read_only="true" reference="sys_user" type="reference"/>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element label="Following" mandatory="true" max_length="32" name="user" reference="sys_user" type="reference"/>
+        <index name="index">
+            <element name="follower"/>
+        </index>
+        <index name="index2">
+            <element name="user"/>
+        </index>
+    </element>
+</database>

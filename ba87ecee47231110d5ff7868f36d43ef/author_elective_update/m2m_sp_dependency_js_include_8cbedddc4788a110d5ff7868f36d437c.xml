@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_dependency_js_include">
+    <m2m_sp_dependency_js_include action="DELETE">
+        <order>100</order>
+        <sp_dependency display_value="Toast">ed9e9ddc4788a110d5ff7868f36d430c</sp_dependency>
+        <sp_js_include display_value="Toast">01ce111047c8a110d5ff7868f36d43cf</sp_js_include>
+        <sys_class_name>m2m_sp_dependency_js_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-24 13:38:51</sys_created_on>
+        <sys_id>8cbedddc4788a110d5ff7868f36d437c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Toast.Toast</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>m2m_sp_dependency_js_include_8cbedddc4788a110d5ff7868f36d437c</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-12-24 13:38:51</sys_updated_on>
+    </m2m_sp_dependency_js_include>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</application>
+        <file_path/>
+        <instance_id>e57b120adb9b08180b9d21c405961901</instance_id>
+        <instance_name>dev102074</instance_name>
+        <name>m2m_sp_dependency_js_include_8cbedddc4788a110d5ff7868f36d437c</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_dependency_js_include"><m2m_sp_dependency_js_include action="INSERT_OR_UPDATE"><order>100</order><sp_dependency display_value="Toast">ed9e9ddc4788a110d5ff7868f36d430c</sp_dependency><sp_js_include display_value="Toast">01ce111047c8a110d5ff7868f36d43cf</sp_js_include><sys_class_name>m2m_sp_dependency_js_include</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2022-12-24 13:38:51</sys_created_on><sys_id>8cbedddc4788a110d5ff7868f36d437c</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Toast.Toast</sys_name><sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package><sys_policy/><sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope><sys_update_name>m2m_sp_dependency_js_include_8cbedddc4788a110d5ff7868f36d437c</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2022-12-24 13:38:51</sys_updated_on></m2m_sp_dependency_js_include></record_update>]]></payload>
+        <payload_hash>1294361117</payload_hash>
+        <record_name>Toast.Toast</record_name>
+        <reverted_from/>
+        <source>76be268b47a31110d5ff7868f36d43e6</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-24 13:38:51</sys_created_on>
+        <sys_id>f2fe151047c8a110d5ff7868f36d430c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>185445b96650000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-12-24 13:38:51</sys_updated_on>
+        <type>Dependency JS Includes</type>
+        <update_guid>3efe1510c8c8a110457d061310d4fa0b</update_guid>
+        <update_guid_history>3efe1510c8c8a110457d061310d4fa0b:1294361117</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Toast.Toast">9a183b1447dc6150d5ff7868f36d435f</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-06 11:03:31</sys_created_on>
+        <sys_db_object display_value="" name="m2m_sp_dependency_js_include">m2m_sp_dependency_js_include</sys_db_object>
+        <sys_id>08fcb61f0926492c80999bcdb2285e10</sys_id>
+        <sys_metadata>8cbedddc4788a110d5ff7868f36d437c</sys_metadata>
+        <sys_name>Toast.Toast</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_scope_delete display_value="">955332a1052e4fc4a24985372ab46c84</sys_scope_delete>
+        <sys_update_name>m2m_sp_dependency_js_include_8cbedddc4788a110d5ff7868f36d437c</sys_update_name>
+        <sys_update_version display_value="m2m_sp_dependency_js_include_8cbedddc4788a110d5ff7868f36d437c">f2fe151047c8a110d5ff7868f36d430c</sys_update_version>
+    </sys_metadata_delete>
+</record_update>

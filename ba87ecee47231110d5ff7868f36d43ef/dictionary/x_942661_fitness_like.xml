@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="6b45161947f31910d5ff7868f36d438e" label="Like" max_length="40" name="x_942661_fitness_like" type="collection">
+        <element choice="3" default="Post" label="Like On" mandatory="true" max_length="40" name="choice" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Comment" value="Comment"/>
+                <element inactive_on_update="false" label="Post" value="Post"/>
+            </choice>
+        </element>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element label="ParentId" mandatory="true" max_length="40" name="parentid" type="string"/>
+        <element default="javascript:current.user=gs.getUserID()" label="User" mandatory="true" max_length="32" name="user" read_only="true" reference="sys_user" type="reference"/>
+        <index name="index">
+            <element name="user"/>
+        </index>
+    </element>
+</database>

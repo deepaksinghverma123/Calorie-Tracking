@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script">
+    <sys_script action="DELETE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>true</action_insert>
+        <action_query>false</action_query>
+        <action_update>true</action_update>
+        <active>false</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>x_942661_fitness_post</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition/>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>LikeOnPost</name>
+        <order>100</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/ ) {
+
+    // Add your code here
+
+    // if someone like the post and insert new record in like table with updated value of likes and comment else delete like from likes table and decrement likes and comments in post table.
+    
+    if (current.getValue("like")==1) {
+         current.setValue("likes",parseInt(current.getValue("likes"))+1);
+		 
+    }else{
+		 current.setValue("likes",parseInt(current.getValue("likes"))-1);
+	}
+
+})(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-19 04:52:25</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>52f1f16e47f7d110d5ff7868f36d43fa</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>LikeOnPost</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sys_script_52f1f16e47f7d110d5ff7868f36d43fa</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-01-02 18:51:27</sys_updated_on>
+        <template/>
+        <when>before</when>
+    </sys_script>
+    <sys_translated_text action="DELETE" query="documentkey=52f1f16e47f7d110d5ff7868f36d43fa"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</application>
+        <file_path/>
+        <instance_id>e57b120adb9b08180b9d21c405961901</instance_id>
+        <instance_name>dev102074</instance_name>
+        <name>sys_script_52f1f16e47f7d110d5ff7868f36d43fa</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update sys_domain="global" table="sys_script"&gt;&lt;sys_script action="INSERT_OR_UPDATE"&gt;&lt;abort_action&gt;false&lt;/abort_action&gt;&lt;access&gt;package_private&lt;/access&gt;&lt;action_delete&gt;false&lt;/action_delete&gt;&lt;action_insert&gt;true&lt;/action_insert&gt;&lt;action_query&gt;false&lt;/action_query&gt;&lt;action_update&gt;true&lt;/action_update&gt;&lt;active&gt;false&lt;/active&gt;&lt;add_message&gt;false&lt;/add_message&gt;&lt;advanced&gt;true&lt;/advanced&gt;&lt;change_fields&gt;false&lt;/change_fields&gt;&lt;client_callable&gt;false&lt;/client_callable&gt;&lt;collection&gt;x_942661_fitness_post&lt;/collection&gt;&lt;condition/&gt;&lt;description/&gt;&lt;execute_function&gt;false&lt;/execute_function&gt;&lt;filter_condition/&gt;&lt;is_rest&gt;false&lt;/is_rest&gt;&lt;message/&gt;&lt;name&gt;LikeOnPost&lt;/name&gt;&lt;order&gt;100&lt;/order&gt;&lt;priority&gt;100&lt;/priority&gt;&lt;rest_method/&gt;&lt;rest_method_text/&gt;&lt;rest_service/&gt;&lt;rest_service_text/&gt;&lt;rest_variables/&gt;&lt;role_conditions/&gt;&lt;script&gt;&lt;![CDATA[(function executeRule(current, previous /*null when async*/ ) {
+
+    // Add your code here
+
+    // if someone like the post and insert new record in like table with updated value of likes and comment else delete like from likes table and decrement likes and comments in post table.
+    
+    if (current.getValue("like")==1) {
+         current.setValue("likes",parseInt(current.getValue("likes"))+1);
+		 
+    }else{
+		 current.setValue("likes",parseInt(current.getValue("likes"))-1);
+	}
+
+})(current, previous);]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2022-12-19 04:52:25&lt;/sys_created_on&gt;&lt;sys_domain&gt;global&lt;/sys_domain&gt;&lt;sys_domain_path&gt;/&lt;/sys_domain_path&gt;&lt;sys_id&gt;52f1f16e47f7d110d5ff7868f36d43fa&lt;/sys_id&gt;&lt;sys_mod_count&gt;6&lt;/sys_mod_count&gt;&lt;sys_name&gt;LikeOnPost&lt;/sys_name&gt;&lt;sys_overrides/&gt;&lt;sys_package display_value="FitnessTracker" source="x_942661_fitness"&gt;ba87ecee47231110d5ff7868f36d43ef&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="FitnessTracker"&gt;ba87ecee47231110d5ff7868f36d43ef&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_52f1f16e47f7d110d5ff7868f36d43fa&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2023-01-02 18:51:27&lt;/sys_updated_on&gt;&lt;template/&gt;&lt;when&gt;before&lt;/when&gt;&lt;/sys_script&gt;&lt;sys_translated_text action="delete_multiple" query="documentkey=52f1f16e47f7d110d5ff7868f36d43fa"/&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-1037227393</payload_hash>
+        <record_name>LikeOnPost</record_name>
+        <reverted_from/>
+        <source>76be268b47a31110d5ff7868f36d43e6</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-02 18:51:27</sys_created_on>
+        <sys_id>b1dc349f47486d10d5ff7868f36d432c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18573d3068a0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-01-02 18:51:27</sys_updated_on>
+        <type>Business Rule</type>
+        <update_guid>39dc349fbc486d100b968553e2ec622b</update_guid>
+        <update_guid_history>39dc349fbc486d100b968553e2ec622b:-1037227393,012c82e6137bd110b540dde227f63f41:575416447,e6ab8ea6f07bd110d0aba5d3c63c92e3:933733138,4417c6a2a87bd11060acf4149b887406:-742918752,62e482227e7bd1101400db4d59a11c7d:-392690658,0ac482ee643bd110e4c1271e38db2e92:-2132192334,c38675a2963bd110f82b618affdc9c28:364716092</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-08 19:10:35</sys_created_on>
+        <sys_db_object display_value="" name="sys_script">sys_script</sys_db_object>
+        <sys_id>0128f188d6744a6e812bcebe1ed254a4</sys_id>
+        <sys_metadata>52f1f16e47f7d110d5ff7868f36d43fa</sys_metadata>
+        <sys_name>LikeOnPost</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_parent display_value="Post">20fb4edd47b31910d5ff7868f36d4367</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_scope_delete display_value="">955332a1052e4fc4a24985372ab46c84</sys_scope_delete>
+        <sys_update_name>sys_script_52f1f16e47f7d110d5ff7868f36d43fa</sys_update_name>
+        <sys_update_version display_value="sys_script_52f1f16e47f7d110d5ff7868f36d43fa">b1dc349f47486d10d5ff7868f36d432c</sys_update_version>
+    </sys_metadata_delete>
+</record_update>

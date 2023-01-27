@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_container">
+    <sp_container action="DELETE">
+        <background_color/>
+        <background_image/>
+        <background_style>default</background_style>
+        <bootstrap_alt>false</bootstrap_alt>
+        <class_name/>
+        <container_class_name/>
+        <name>trends - Container 1</name>
+        <order>1</order>
+        <sp_page display_value="trends">c4eacbb747cced10d5ff7868f36d4334</sp_page>
+        <subheader>false</subheader>
+        <sys_class_name>sp_container</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-04 18:28:59</sys_created_on>
+        <sys_id>94eacbb747cced10d5ff7868f36d4337</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>trends - Container 1</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sp_container_94eacbb747cced10d5ff7868f36d4337</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-01-04 18:29:32</sys_updated_on>
+        <title/>
+        <width>container</width>
+    </sp_container>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</application>
+        <file_path/>
+        <instance_id>e57b120adb9b08180b9d21c405961901</instance_id>
+        <instance_name>dev102074</instance_name>
+        <name>sp_container_94eacbb747cced10d5ff7868f36d4337</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_container"><sp_container action="INSERT_OR_UPDATE"><background_color/><background_image/><background_style>default</background_style><bootstrap_alt>false</bootstrap_alt><class_name/><container_class_name/><name>trends - Container 1</name><order>1</order><sp_page display_value="trends">c4eacbb747cced10d5ff7868f36d4334</sp_page><subheader>false</subheader><sys_class_name>sp_container</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2023-01-04 18:28:59</sys_created_on><sys_id>94eacbb747cced10d5ff7868f36d4337</sys_id><sys_mod_count>2</sys_mod_count><sys_name>trends - Container 1</sys_name><sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package><sys_policy/><sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope><sys_update_name>sp_container_94eacbb747cced10d5ff7868f36d4337</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2023-01-04 18:29:32</sys_updated_on><title/><width>container</width></sp_container></record_update>]]></payload>
+        <payload_hash>-602999498</payload_hash>
+        <record_name>trends - Container 1</record_name>
+        <reverted_from/>
+        <source>76be268b47a31110d5ff7868f36d43e6</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-04 18:29:32</sys_created_on>
+        <sys_id>d40bcbf747cced10d5ff7868f36d433c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1857e0bad010000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-01-04 18:29:32</sys_updated_on>
+        <type>Container</type>
+        <update_guid>dc0bcbf71bcced10295844a6dcd0853b</update_guid>
+        <update_guid_history>dc0bcbf71bcced10295844a6dcd0853b:-602999498,2beacfb717cced10426f441236e2c5b5:-1521547083,18eacbb75ccced108f9a5a17f46e7a38:-602999498</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="trends - Container 1">65487f1447dc6150d5ff7868f36d430f</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-06 11:04:17</sys_created_on>
+        <sys_db_object display_value="" name="sp_container">sp_container</sys_db_object>
+        <sys_id>45739cb4325e48ec9a47d4e10705e811</sys_id>
+        <sys_metadata>94eacbb747cced10d5ff7868f36d4337</sys_metadata>
+        <sys_name>trends - Container 1</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_scope_delete display_value="">955332a1052e4fc4a24985372ab46c84</sys_scope_delete>
+        <sys_update_name>sp_container_94eacbb747cced10d5ff7868f36d4337</sys_update_name>
+        <sys_update_version display_value="sp_container_94eacbb747cced10d5ff7868f36d4337">d40bcbf747cced10d5ff7868f36d433c</sys_update_version>
+    </sys_metadata_delete>
+</record_update>

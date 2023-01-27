@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_942661_fitness.Trends</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>Trends</name>
+        <script><![CDATA[var Trends = Class.create();
+Trends.prototype = {
+    initialize: function() {
+    },
+	getTrendsBetweenDate:function(startDate,endDate,meal){
+			return this.getRecordBetweenDate(startDate,endDate,meal);
+	}
+	,
+	getRecordBetweenDate:function(startDate,endDate,mealType){
+		
+		//var a = gs.dateGenerate(startDate,'00:00:00');
+		var a = new GlideDateTime(startDate+" 00:00:00");
+		var b = new GlideDateTime(endDate+" 00:00:00");
+       // var b = gs.dateGenerate(endDate,'23:59:59');
+        var str = "dateBETWEEN"+a+"@"+b;
+        var track = new GlideRecord("x_942661_fitness_tracking");
+        track.addEncodedQuery(str);
+        track.addQuery("user", gs.getUserID());
+        track.query();
+		
+// 		var meal = new GlideRecord("x_942661_fitness_meal");
+// 		if(mealType!="All"){
+// 			meal.addQuery("name",mealType);
+// 		}
+//         meal.query();
+		
+		var records=[];
+        while (track.next()) {
+            var foods = [];
+            var trackingId = track.sys_id.toString();
+            var tracking_food = new GlideRecord("x_942661_fitness_meal_food_mapping");
+			tracking_food.addQuery("trackings",trackingId);
+            tracking_food.query();
+             var key = track.sys_created_on;
+			 while(tracking_food.next()){
+//              var result =  {  
+// 				     "date": track.date.toString().substring(0,10),
+// 				     "meal" : track.meal.name.toString(),
+// 				     "food" : tracking_food.x_942661_fitness_food.name.toString(),
+// 				     "calories" : parseInt(tracking_food.x_942661_fitness_food.calories) * parseInt(tracking_food.quantity)	
+// 				}
+			 records.push({  
+				     "date": track.date.toString().substring(0,10),
+				     "meal" : track.meal.name.toString(),
+				     "food" : tracking_food.foods.name.toString(),
+				     "calories" : parseInt(tracking_food.foods.calories) * parseInt(tracking_food.quantity)	
+				});
+			}	
+        }
+        return records;
+	},
+	getTargetCaloriesForTrend:function(){
+		 var profile = new GlideRecord("x_942661_fitness_fitness_mapping");
+// 		 profile.addJoinQuery("user","sys_id","x_942661_fitness_fitnessuser");
+       //  profile.addQuery("x_942661_fitness_fitnessuser",gs.getUserID());
+		 profile.orderByDesc("sys_updated_on");
+         profile.query();
+		 var result=[];
+		 while(profile.next()){
+			 if(profile.fitness_user.user==gs.getUserID())
+			 result.push({date: profile.sys_updated_on.toString().substring(0,10), target_calorie: profile.target_calorie.toString() , meal: profile.meal.name.toString()});
+		 }
+		return result;
+		
+	},
+    type: 'Trends'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-08 07:51:03</sys_created_on>
+        <sys_id>d28645c547102550d5ff7868f36d43b3</sys_id>
+        <sys_name>Trends</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sys_script_include_d28645c547102550d5ff7868f36d43b3</sys_update_name>
+    </sys_script_include>
+</record_update>

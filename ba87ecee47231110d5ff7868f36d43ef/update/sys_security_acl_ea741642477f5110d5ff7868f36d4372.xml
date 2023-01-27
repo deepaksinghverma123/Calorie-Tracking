@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl">
+    <sys_security_acl action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <admin_overrides>true</admin_overrides>
+        <advanced>false</advanced>
+        <condition table="x_942661_fitness_comment">userDYNAMIC90d1921e5f510100a9ad2572f2b477fe^EQ<item endquery="false" field="user" goto="false" newquery="false" operator="DYNAMIC" or="false" value="90d1921e5f510100a9ad2572f2b477fe"/>
+            <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
+        </condition>
+        <description>Default access control on x_942661_fitness_comment</description>
+        <name>x_942661_fitness_comment</name>
+        <operation display_value="write">write</operation>
+        <script/>
+        <sys_class_name>sys_security_acl</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-17 17:46:14</sys_created_on>
+        <sys_id>ea741642477f5110d5ff7868f36d4372</sys_id>
+        <sys_name>x_942661_fitness_comment</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sys_security_acl_ea741642477f5110d5ff7868f36d4372</sys_update_name>
+        <type display_value="record">record</type>
+    </sys_security_acl>
+</record_update>

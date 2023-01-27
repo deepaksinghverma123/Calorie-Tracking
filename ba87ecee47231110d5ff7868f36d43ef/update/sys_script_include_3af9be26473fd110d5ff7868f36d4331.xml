@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_942661_fitness.Comment</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>Comment</name>
+        <script><![CDATA[var Comment = Class.create();
+Comment.prototype = {
+    initialize: function() {},
+    addCommentOnPost: function(postId, comment) {
+        var gr = new GlideRecord("x_942661_fitness_comment");
+        gr.setValue("comment", comment);
+        gr.setValue("user", gs.getUserID());
+        gr.setValue("post", postId.toString());
+
+        var comments = new GlideRecord("x_942661_fitness_post");
+        comments.addQuery("sys_id", postId);
+        comments.query();
+        if (comments.next()) {
+            comments.setValue("comments", comments.getValue("comments") + 1);
+            comments.update();
+        }
+		
+       // gr.insert();
+		if(CrudUtil.addRecord("x_942661_fitness_comment",["comment","user","post"] ,[comment,gs.getUserID(),postId])!=null){
+			  gs.addInfoMessage("Your comment has been added!!");
+		}else {
+			gs.addErrorMessage("Something went wrong");
+		}
+      
+    },
+    getCommentOfPost: function(postId) {
+        var gr = new GlideRecord("x_942661_fitness_comment");
+        gr.addQuery("post", postId);
+        gr.orderByDesc("sys_created_on");
+        gr.query();
+        var comments = [];
+        while (gr.next()) {
+            comments.push({ comment: gr.getValue("comment") , postId: postId,  username: gr.user.getValue("name")});
+        }
+        return comments;
+    },
+    type: 'Comment'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-19 09:47:22</sys_created_on>
+        <sys_id>3af9be26473fd110d5ff7868f36d4331</sys_id>
+        <sys_name>Comment</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sys_script_include_3af9be26473fd110d5ff7868f36d4331</sys_update_name>
+    </sys_script_include>
+</record_update>

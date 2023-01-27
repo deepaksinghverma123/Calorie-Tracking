@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="f618382647a31110d5ff7868f36d43b7" label="Meal" max_length="40" name="x_942661_fitness_meal" type="collection">
-        <element label="Meal" max_length="40" name="meal" type="string"/>
-        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element display="true" label="Name" mandatory="true" max_length="20" name="name" type="string"/>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" read_only="true" type="string"/>
     </element>
 </database>

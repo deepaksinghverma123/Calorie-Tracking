@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_container">
+    <sp_container action="DELETE">
+        <background_color/>
+        <background_image/>
+        <background_style>default</background_style>
+        <bootstrap_alt>false</bootstrap_alt>
+        <class_name/>
+        <container_class_name/>
+        <name>Fitness Tracker Home - Container 4</name>
+        <order>4</order>
+        <sp_page display_value="fitness_tracker_home">25ae347647e31110d5ff7868f36d4323</sp_page>
+        <subheader>false</subheader>
+        <sys_class_name>sp_container</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-06 05:57:37</sys_created_on>
+        <sys_id>2912be9c47986150d5ff7868f36d43b4</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>Fitness Tracker Home - Container 4</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sp_container_2912be9c47986150d5ff7868f36d43b4</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-01-06 06:05:27</sys_updated_on>
+        <title/>
+        <width>container</width>
+    </sp_container>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</application>
+        <file_path/>
+        <instance_id>e57b120adb9b08180b9d21c405961901</instance_id>
+        <instance_name>dev102074</instance_name>
+        <name>sp_container_2912be9c47986150d5ff7868f36d43b4</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_container"><sp_container action="INSERT_OR_UPDATE"><background_color/><background_image/><background_style>default</background_style><bootstrap_alt>false</bootstrap_alt><class_name/><container_class_name/><name>Fitness Tracker Home - Container 4</name><order>4</order><sp_page display_value="fitness_tracker_home">25ae347647e31110d5ff7868f36d4323</sp_page><subheader>false</subheader><sys_class_name>sp_container</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2023-01-06 05:57:37</sys_created_on><sys_id>2912be9c47986150d5ff7868f36d43b4</sys_id><sys_mod_count>4</sys_mod_count><sys_name>Fitness Tracker Home - Container 4</sys_name><sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package><sys_policy/><sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope><sys_update_name>sp_container_2912be9c47986150d5ff7868f36d43b4</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2023-01-06 06:05:27</sys_updated_on><title/><width>container</width></sp_container></record_update>]]></payload>
+        <payload_hash>926291325</payload_hash>
+        <record_name>Fitness Tracker Home - Container 4</record_name>
+        <reverted_from/>
+        <source>76be268b47a31110d5ff7868f36d43e6</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-06 06:05:27</sys_created_on>
+        <sys_id>c4e37e1047d86150d5ff7868f36d43b8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18585af28cc0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-01-06 06:05:27</sys_updated_on>
+        <type>Container</type>
+        <update_guid>cce37e10e7d8615057dfd77134335fb7</update_guid>
+        <update_guid_history>cce37e10e7d8615057dfd77134335fb7:926291325,dcd33e10c0d86150cb62f21232bf2c62:-1907582724,f9a37a109bd861502e64512895f9be86:-446489477,c5c2fadc789861502580dc4b3acc9311:-1907582724,6d12be9cb89861505b4da8f21ceac0b5:926291325</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Fitness Tracker Home - Container 4">71e3be1047d86150d5ff7868f36d4357</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-06 06:05:33</sys_created_on>
+        <sys_db_object display_value="" name="sp_container">sp_container</sys_db_object>
+        <sys_id>1e0894540f84468bb7cb9faa53987e79</sys_id>
+        <sys_metadata>2912be9c47986150d5ff7868f36d43b4</sys_metadata>
+        <sys_name>Fitness Tracker Home - Container 4</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_scope_delete display_value="">955332a1052e4fc4a24985372ab46c84</sys_scope_delete>
+        <sys_update_name>sp_container_2912be9c47986150d5ff7868f36d43b4</sys_update_name>
+        <sys_update_version display_value="sp_container_2912be9c47986150d5ff7868f36d43b4">c4e37e1047d86150d5ff7868f36d43b8</sys_update_version>
+    </sys_metadata_delete>
+</record_update>

@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function($scope) {
+  /* widget controller */
+  var c = this;
+  c.chartData=[];
+  c.trendhideWidget=true;
+  $scope.selectedValue="";
+  $scope.previousSelected =""; 
+   $scope.storeIndeForOnLOAD=0;
+  $scope.startDate="";
+  $scope.endDate="";
+  $scope.startDate = {
+    value: new Date(2023, 0, 01)
+  };
+  $scope.endDate={
+     value : new Date()
+  };
+ 
+//  setTimeout(function  initialize(){
+
+//    for(var i=0;i<c.data.meals.length;i++){
+//       c.data.meals[i].hideSelectedMeal=true;
+//       console.log(c.data.meals[i].hideSelectedMeal);
+//    }
+//  },500);
+ 
+  $scope.submitTrends=function(){
+    $scope.targetTrendsData=[];
+    $scope.acheivedCalories=[];
+    c.data.selectedValue= $scope.selectedValue;
+     var stdate = new Date($scope.startDate.value);
+     var enDate= new Date($scope.endDate.value);
+     enDate.setDate(enDate.getDate()+1);
+    //  debugger;
+     var start =  stdate.getFullYear()+ "-"+ stdate.getMonth() +1 + "-" +stdate.getDate();
+     var end =  enDate.getFullYear()+ "-"+ enDate.getMonth()+1 + "-" +enDate.getDate();
+     c.data.startDate=start;
+     c.data.endDate=end;
+     c.data.action="getTrends";
+     c.server.update().then(function(){
+          var dates = [];
+          var localDate = stdate;
+          enDate.setDate(enDate.getDate()-1);
+          var a = new Date(stdate.getFullYear()+ "/"+ stdate.getMonth() +1 + "/" +stdate.getDate());
+          var b = new Date(enDate.getFullYear()+ "/"+ enDate.getMonth()+1 + "/" +enDate.getDate());
+          b.setDate(b.getDate()+1);
+          var cc=0;
+          while(a.toString()!=b.toString()){
+            dates.push(a.toString());
+            a.setDate(a.getDate()+1);
+            cc++;
+            if(cc>40)break;
+        }
+       
+        // console.log("dates");
+        // console.log(dates);
+        // console.log(c.data.trends);
+        // console.log(c.data.targetTrendsCalories);
+        // debugger;
+          dates.forEach(function(e){
+            var target=1000;
+            var cur="2021-02-01";
+            var targetCaloriesToAdd=1000;
+            c.data.targetTrendsCalories.forEach(function(r){
+                    if(new Date(r.date)>new Date(cur) && new Date(r.date).toLocaleDateString()<=new Date(e).toLocaleDateString() && $scope.selectedValue==r.meal){
+                        cur=r.date;
+                        targetCaloriesToAdd=r.target_calorie;
+                    }
+            });
+            var n = c.data.trends.length;
+            var count=0;
+              for(var i=0;i<n;i++){
+               var element =  c.data.trends[i];
+                var f = new Date(element.date);
+                var g= new Date(e);
+                var condition = (f.getFullYear() == g.getFullYear()) && (f.getDate()==g.getDate()) &&(f.getMonth()==g.getMonth());
+                var d = f.getFullYear()+ "-"+ f.getMonth() +1 + "-" +f.getDate();
+                 if(condition){
+                    if(c.selectedValue!="Total" && c.selectedValue==element.meal){
+                        count+=parseInt(element.calories);
+                    }else if($scope.selectedValue==element.meal){
+                        count+=parseInt(element.calories);
+                    }
+                 } 
+              }
+              $scope.acheivedCalories.push(count);
+              $scope.targetTrendsData.push(parseInt(targetCaloriesToAdd));
+            //   console.log("t");
+            //   console.log($scope.targetTrendsData);
+            //  setTimeout(function(){
+                this.showChart();
+            //  }, 500); 
+          });
+     });
+}
+
+
+  $scope.onLoad=function(){
+    $scope.meals= c.data.meals;
+
+    $scope.submitTrends();
+    // c.data.meals.push({ meal:"Total"});
+    // debugger;
+    $scope.selectedValue="";
+    $scope.previousSelected =""; 
+    $scope.storeIndeForOnLOAD=0;
+    var n = c.data.meals.length;
+    for(var i=0;i<n;i++){
+    if( $scope.previousSelected ==  $scope.meals[i].meal){
+      if(key==  $scope.selectedValue.toLowerCase()){
+         c.selectedMealData= value;
+         $scope.meals[i].hideSelectedMeal=false;
+      }
+    }
+    if( $scope.selectedValue== $scope.meals[i].meal){
+        $scope.meals[i].hideSelectedMeal=true;
+    }
+    if(i=='0' &&  $scope.previousSelected==""){
+       
+        $scope.selectedValue=  $scope.meals[i].meal;
+        $scope.previousSelected= $scope.meals[i].meal;
+        $scope.meals[i].selected="selected";
+        $scope.meals[i].hideSelectedMeal=true;
+        // c.storeIndeForOnLOAD=i;       
+      }
+    //   else{
+    //     c.data.meals[i].selected=false;
+    //   }
+     
+     else{
+        $scope.meals[i].selected=false;
+      }
+
+     
+    }
+
+};
+
+
+
+
+$scope.selectFromDropdown=function(meal){
+    $scope.selectedValue=meal.meal;
+    $scope.previousSelected.hideSelectedMeal=false;
+    $scope.meals.forEach(function(e){
+      // console.log(c.previousSelected+ " "+e.meal);
+       if( $scope.previousSelected==e.meal){
+          e.hideSelectedMeal=false;
+       }
+    });
+    $scope.previousSelected=meal.meal;
+    $scope.selectedMeal= meal;
+  //   console.log("selectedmEAL");
+  //   console.log(c.selectedMeal);
+  //   console.log(c.data.trackingByMeals);
+    for( var key in c.data.trackingByMeals ) {
+      var value = c.data.trackingByMeals[key];
+      
+      // console.log(c.data.trackingByMeals);
+      if(key==  $scope.selectedMeal.meal.toLowerCase()){
+        $scope.selectedMealData= value;
+      }
+      // console.log("select emeal data" + c.selectedMeal.meal);
+      // console.log(c.selectedMealData);
+
+    }
+    meal.hideSelectedMeal=true;
+}
+
+ c.dataToRender=[];
+$scope.$on("SendTrends", function (evt, data) {
+    $scope.Message = "fdsjflsfsd: " + data;
+    c.trendhideWidget=false;
+    $scope.onLoad();
+  });
+  $scope.$on("SendCommunity", function (evt, data) {
+    $scope.Message = "fdsjflsfsd: " + data;
+    c.trendhideWidget=true;
+  });
+  $scope.$on("SendHome", function (evt, data) {
+    $scope.Message = "fdsjflsfsd: " + data;
+    c.trendhideWidget=true;
+  });
+
+for( var key in c.data.chartData ) {
+    for(var key2 in c.data.chartData[key]){
+        var obj ={};
+        obj.name= key2;
+        var sum=0;
+       
+        for(var i=0;i<c.data.chartData[key][key2].length;i++){
+            // console.log(c.data.chartData[key][key2][i].target_calorie)
+            sum+= parseInt(c.data.chartData[key][key2][i].target_calorie==''?0 :c.data.chartData[key][key2][i].target_calorie);
+        }
+        obj.data=sum;
+        c.dataToRender.push(obj);
+        for(var i=0;i<c.dataToRender.length;i++){
+               c.chartData.push(c.dataToRender[i].data); 
+        }
+   }
+}
+$scope.acheivedCalories=[];
+$scope.targetTrendsData=[];
+
+showChart=function(){
+    var chart = new Highcharts.Chart({
+        chart: {  
+            renderTo: 'custom_report',     
+        },  
+        title: {
+            text: ''
+        },
+    
+        yAxis: {
+            title: {
+                text: 'Calories'
+            }
+        },
+    
+        xAxis: {
+            type: 'datetime',
+        labels: {
+          formatter: function() {
+            return Highcharts.dateFormat('%a %d %b', this.value);
+          }
+        }
+        },
+    
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle'
+        },
+    
+        plotOptions: {
+            series: {
+                label: {
+                    connectorAllowed: false
+                },
+                pointStart: 2010
+            }
+        },
+    
+        series: [{
+            data: $scope.targetTrendsData,
+            name:"Target Calories",
+            pointStart: Date.UTC(parseInt($scope.startDate.value.getFullYear()), parseInt($scope.startDate.value.getMonth()), parseInt($scope.startDate.value.getDate())),
+            pointInterval: 24 * 3600 * 1000 },
+            {
+                data: $scope.acheivedCalories,
+                name:"Achieved Calories",
+                pointStart: Date.UTC(parseInt($scope.startDate.value.getFullYear()), parseInt($scope.startDate.value.getMonth()), parseInt($scope.startDate.value.getDate())),
+                pointInterval: 24 * 3600 * 1000 }]
+    ,
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 100
+                },
+                chartOptions: {
+                    legend: {
+                        layout: 'horizontal',
+                        align: 'center',
+                        verticalAlign: 'bottom'
+                    }
+                }
+            }]
+        }
+    
+    });
+
+};	
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.chart-container {
+  width: 100%;
+}
+
+.highcharts-container {
+  width: 100% !important;
+}
+.highcharts-background{
+  width: 100% !important;;
+}
+.report-actions{
+  margin-bottom: 12px;
+  margin-left: 0px;
+}
+
+.highcharts-figure,
+.highcharts-data-table table {
+  min-width: 360px;
+  max-width: 800px;
+  margin: 1em auto;
+}
+
+.highcharts-data-table table {  
+  font-family: Verdana, sans-serif;
+  border-collapse: collapse;
+  border: 1px solid #ebebeb;
+  margin: 10px auto;
+  text-align: center;
+  width: 100%;
+  // max-width: 500px;
+}
+
+.highcharts-data-table caption {
+  padding: 1em 0;
+  font-size: 1.2em;
+  color: #555;
+}
+
+.highcharts-data-table th {
+  font-weight: 600;
+  padding: 0.5em;
+}
+
+.highcharts-data-table td,
+.highcharts-data-table th,
+.highcharts-data-table caption {
+  padding: 0.5em;
+}
+
+.highcharts-data-table thead tr,
+.highcharts-data-table tr:nth-child(even) {
+  background: #f8f8f8;
+}
+
+.highcharts-data-table tr:hover {
+  background: #f1f7ff;
+}
+
+.dropdown-button{
+  width: 120px;
+  margin-left: 20px;
+}
+.dropdown-menu{
+  margin-left: 20px;
+}
+#custom_report{
+  margin-top:10px ;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>trends</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Trends</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+  // data.startDate="2023-01-01";
+  // data.endDate= "2023-01-08";
+	
+	
+	
+	// data.trends = new Trends().getTrendsBetweenDate(data.startDate,data.endDate,"All");
+
+
+  var listOfMeals=new Meals().getMeals();
+  data.meals=listOfMeals;
+  // data.meals.push({ meal:"Total"});
+
+  for(var i=0;i<data.meals.length;i++){
+      if(data.meals[i].meal=="Total")
+      data.meals[i].hideSelectedMeal=true;
+      else data.meals[i].hideSelectedMeal=false;
+   }
+
+  data.targetTrendsCalories = new Trends().getTargetCaloriesForTrend();
+	
+  if(input &&input.action=="getTrends"){
+    
+     console.log(input.startDate+ " "+input.endDate);
+     data.trends = new Trends().getTrendsBetweenDate(input.startDate,input.endDate,input.selectedValue);
+     console.log("final");
+     console.log(input);
+  }else {
+    data.startDate="2023-01-01";
+    data.endDate= "2023-01-13";
+    data.trends = new Trends().getTrendsBetweenDate(data.startDate,data.endDate,"Total");
+  }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-14 12:48:04</sys_created_on>
+        <sys_id>2573b54547f3d510d5ff7868f36d434c</sys_id>
+        <sys_name>Trends</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sp_widget_2573b54547f3d510d5ff7868f36d434c</sys_update_name>
+        <template><![CDATA[<div ng-hide="c.trendhideWidget" class="chart-container">
+
+    <div style="font-size: 15px; margin: 10px;color: burlywood;">
+       <!--<h2>Tracking History </h2>-->
+    </div>
+    
+
+
+    <div class="row report-actions">
+        <div class="col-sm-12">
+            <div class="col-sm-3">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle dropdown-button" type="button" id="about-us"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-model="selectedValue">
+                        {{selectedValue}}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="about-us">
+                        <li ng-repeat="(k,v) in meals">
+                            <a href="javascript:void(0)" ng-click="selectFromDropdown(v)" ng-hide="v.hideSelectedMeal">{{v.meal}}</a>
+                            <!-- Test {{v.hideSelectedMeal}} -->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <span class="label " style="height: 30px; font-size: 15px; color: black;">Start Date:</span>
+                <input type="date" id="exampleInput" name="input" ng-model="startDate.value"
+                 placeholder="yyyy-MM-dd" min="2023-01-01" max="" required />
+            </div>
+            <div class="col-sm-3">
+                <span class="label " style="height: 30px; font-size: 15px; color: black;">End Date:</span>
+                <input type="date" id="exampleInput" name="input" ng-model="endDate.value"
+                placeholder="yyyy-MM-dd"  max="2023-02-10" required />
+            </div>
+            <!-- value = {{startDate.value | date: "yyyy-MM-dd"}} -->
+            <div class="col-sm-3" style="text-align: right;">
+                <button class="btn btn-primary" ng-click="submitTrends()">Submit</button>
+            </div>
+        </div>
+    </div>
+    <div id="custom_report"></div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

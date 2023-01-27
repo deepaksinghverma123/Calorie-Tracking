@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_942661_fitness.CrudUtil</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>CrudUtil</name>
+        <script><![CDATA[var CrudUtil = {
+    addRecord: function(table, columns, values) {
+        var gr = new GlideRecord(table);
+        gr.initialize();
+        var n = columns.length;
+        for (var i = 0; i < n; i++) {
+            gr.setValue(columns[i], values[i]);
+        }
+        return gr.insert();
+    },
+    deleteRecordById: function(table, sys_id) {
+        var gr = new GlideRecord(table);
+        gr.addQuery("sys_id", sys_id);
+        if (gr.next()) {
+            if (gr.deleteRecord()) {
+                gs.addInfoMessage("Record has been deleted!!");
+            } else {
+                gs.addInfoMessage("Something went wrong!.Please try sometime later!!");
+            }
+        }
+    },
+    deleteRecordByConditions: function(table,columns, values) {
+        var gr = new GlideRecord(table);
+        var n = columns.length;
+        for (var i = 0; i < n; i++) {
+            gr.addQuery(columns[i], values[i]);
+        }
+        gr.query();
+        if (gr.next()) {
+            return gr.deleteRecord();
+        }
+    },
+    updateRecord: function(table, sys_id, columns, values) {
+        var gr = new GlideRecord(table);
+        gr.addQuery('sys_id', sys_id);
+        gr.query();
+        var n = columns.length;
+        if (gr.hasNext()) {
+            for (var i = 0; i < n; i++) {
+                gr.setValue(columns[i], values[i]);
+            }
+            return gr.update();
+        }
+    },
+    recordExistById: function(table, sys_id) {
+        var gr = new GlideRecord(table);
+        var returnValue = gr.get(sys_id);
+        return returnValue;
+    }
+
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-06 14:11:57</sys_created_on>
+        <sys_id>443b54e04750a150d5ff7868f36d433a</sys_id>
+        <sys_name>CrudUtil</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sys_script_include_443b54e04750a150d5ff7868f36d433a</sys_update_name>
+    </sys_script_include>
+</record_update>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_942661_fitness.Follower</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>Follower</name>
+        <script><![CDATA[var Follower = Class.create();
+Follower.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+	
+		getUserToFollow:function(){
+		
+		var follower = new GlideRecord("x_942661_fitness_follower");
+		follower.addQuery("follower",gs.getUserID());
+		follower.query();
+		var followers =[];
+		while(follower.next()){
+			followers.push(follower.user.sys_id.toString());
+		}
+		var gr = new GlideRecord("sys_user");
+		gr.setLimit(100);
+		gr.query();
+		var result=[];
+		while(gr.next()){
+			if(followers.indexOf(gr.sys_id.toString())<0){		
+				var obj = {};
+				obj.username= gr.name.toString();
+				obj.sys_id= gr.sys_id.toString();
+				result.push(obj);
+			}
+		}
+		return result;	
+	},
+	followUser:function(userId){
+		var record =this.insertFollower(userId);
+		gs.addInfoMessage("You have started following "+ record.user.name);
+	},
+	insertFollower:function(userId){
+// 		var gr = new GlideRecord("x_942661_fitness_follower");
+// 		gr.initialize();
+// 		gr.setValue("user",userId);
+// 		gr.setValue("follower",gs.getUserID());
+		return CrudUtil.addRecord("x_942661_fitness_follower",["user","follower"],[userId,gs.getUserID()]);
+		return gr.insert();
+	},
+    type: 'Follower'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-06 14:42:22</sys_created_on>
+        <sys_id>6c2ae4a04790a150d5ff7868f36d43e8</sys_id>
+        <sys_name>Follower</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sys_script_include_6c2ae4a04790a150d5ff7868f36d43e8</sys_update_name>
+    </sys_script_include>
+</record_update>

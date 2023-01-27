@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function ($window, $rootScope, $scope) {
+	/* widget controller */
+	var c = this;
+	$scope.home = "active";
+	$scope.community = "false";
+	$scope.trends = "false";
+	$scope.height = "";
+	$scope.weight = "";
+	$scope.selected="home";
+
+	
+	$scope.onload = function () {
+		$scope.height = c.data.userData.height;
+		$scope.weight = c.data.userData.weight;
+		console.log("onload");
+		console.log(c.data.height);
+	}
+	$scope.onload();
+
+	c.redirectToHome = function () {
+		$scope.selected= "home";
+		console.log("inside header");
+		console.log(c.data);
+		$rootScope.$broadcast("SendHome", "preference");
+		$scope.home = "active";
+		$scope.community = false;
+		$scope.trends = false;
+	};
+	c.redirectToTrends = function () {
+		// var hosturl = 'https://' + $window.location.host;
+		// $window.open(hosturl,'_blank');
+		//$window.location.href = hosturl; 
+		$scope.selected= "trends";
+		$rootScope.$broadcast("SendTrends", "trends");
+		$scope.home = false;
+		$scope.community = false;
+		$scope.trends = "active";
+
+	};
+	c.redirectToCommunity = function () {
+		// var hosturl = 'https://' + $window.location.host+"/fitness_tracker?id=community";
+		// $window.open(hosturl,'_blank');
+		$scope.selected= "community";
+		$rootScope.$broadcast("SendCommunity", "community");
+		console.log("redirectToCommunity");
+		$scope.home = false;
+		$scope.community = "active";
+		$scope.trends = false;
+	};
+
+
+	c.data.height = "";
+	c.data.weight = "";
+	c.data.target = [];
+	c.maxDate = new Date();
+	c.maxDate = c.maxDate.toString().substring(0, 10);
+
+
+	$scope.addPreferences = function () {
+		var tar =false;
+		for(var i=0;i<c.data.meals.length;i++){
+			console.log(c.data.meals[i].target);
+			if(c.data.meals[i].target=='' || c.data.meals[i].target==undefined){
+				tar=true;	
+			}
+		}
+		if($scope.height=='' || $scope.height==undefined ){
+			return alert("Please enter valid height!");
+		}
+		if($scope.weight==''||$scope.weight==undefined){
+			return alert("Please enter valid weight!");
+		}
+		if(tar==true){
+			return alert("Please enter target values");
+		}
+      $scope.save();
+		//$scope.confirmationDialog("Are you sure you want to add new details!!");
+	};
+
+
+	//   $scope.confirmationDialogConfig = {};
+
+	// 	$scope.confirmationDialog = function(message) {
+	// 		$scope.confirmationDialogConfig = {
+	// 		  title: "Caution!!!",
+	// 		  message: message,
+	// 		  buttons: [{
+	// 			label: "save",
+	// 			action: "save"
+	// 		  }]
+	// 		};
+	// 		$scope.showDialog(true);
+	// 	  };
+
+	// 	  $scope.executeDialogAction = function(action) {
+	// 		if(typeof $scope[action] === "function") {
+	// 				  $scope[action]();
+	// 			}
+	// 	  };
+
+	// 	  $scope.reset = function() {
+	// 		$scope.showDialog();
+	// 	  };
+
+
+	// 	  $scope.save = function() {
+	// 		for(var i=0;i<c.data.meals.length;i++){
+	// 			c.data.target.push({
+	// 			   meal : c.data.meals[i].sys_id.toString(),
+	// 			   target: c.data.meals[i].target
+	// 			});
+	// 		}
+	// 		c.data.action="addPreference";
+	// 		c.server.update().then(function(){
+	// 		  c.data.target=[];
+	// 		});
+
+	// 	  };
+
+	// 	  $scope.showDialog = function(flag) {
+	// 		jQuery("#confirmation-dialog .modal").modal(flag ? 'show' : 'hide');
+	// 	  };
+
+
+
+	// $scope.confirmationDialogConfig = {};
+
+	// $scope.confirmationDialog = function (message) {
+	// 	$scope.confirmationDialogConfig = {
+	// 		title: "Caution!!!",
+	// 		message: message,
+	// 		buttons: [{
+	// 			label: "save",
+	// 			action: "save"
+	// 		}]
+	// 	};
+	// 	$scope.showDialog(true);
+	// };
+
+	// $scope.executeDialogAction = function (action) {
+	// 	if (typeof $scope[action] === "function") {
+	// 		$scope[action]();
+	// 	}
+	// };
+
+	$scope.save = function () {
+		for (var i = 0; i < c.data.meals.length; i++) {
+			c.data.target.push({
+				meal: c.data.meals[i].sys_id.toString(),
+				target: c.data.meals[i].target
+			});
+		}
+		c.data.action = "addPreference";
+		c.data.height=$scope.height;
+		c.data.weight=$scope.weight;
+		c.server.update().then(function () {
+			c.data.target = [];
+		});
+		// jQuery(".profile_form").hide();
+		// $scope.showDialog();
+	};
+
+	// $scope.showDialog = function (flag) {
+	// 	jQuery("#confirmation-dialog-header .modal").modal(flag ? 'show' : 'hide');
+	// };
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.pointer{
+    cursor: pointer;
+}
+.setting{
+    margin-right: 0px;
+}
+
+.target_calories{
+     display: flex;
+     justify-content: space-between;
+     margin-left: 5px;
+     margin-right: 5px;
+}
+.nav_back{
+    background-color: #00825b;
+}
+
+.fitness-navbar{
+  background-color: #333579;
+}
+
+nav ul{ 
+	background-color: #333579; 
+	color: white; 
+} 
+
+.nav &gt; li &gt; a:hover, .nav &gt; li &gt; a:focus {
+    text-decoration: none;
+    background-color: #333579;
+    color: white;
+}
+.selectedd{
+    background-color: #333579 !important;
+    color: white !important;
+    cursor: pointer;
+}
+
+.list-anchor &gt; a{
+  color: #8bc34a;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.modal-content{
+    width: 110%;
+}
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>my_fitness_header</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Header</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+  var listOfMeals=new Meals().getMeals();
+  data.meals=listOfMeals;
+  
+	
+  data.userData =new UserData().getFitnessUserData();
+  if(input && input.action=="addPreference"){
+     console.log(input);
+     new UserData().savePreference(input.height,input.weight,input.target);
+  }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-28 04:19:18</sys_created_on>
+        <sys_id>ad450c214700e510d5ff7868f36d43c6</sys_id>
+        <sys_name>Header</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sp_widget_ad450c214700e510d5ff7868f36d43c6</sys_update_name>
+        <template><![CDATA[<div>
+  <nav class="navbar fitness-navbar">
+    <div class="container-fluid">
+
+      <ul class="nav navbar-nav navbar-left">
+        <li class="{{home}} list-anchor" ng-click="c.redirectToHome()"><a class="{{ selected=='home' ? 'selectedd' : '' }}"  >Dashboard</a></li>
+        <li class="{{community}} list-anchor"><a ng-click="c.redirectToCommunity()" class="{{ selected=='community' ? 'selectedd' : '' }}">Community</a></li>
+        <li  class="{{trends}} list-anchor"><a ng-click="c.redirectToTrends()" class="{{ selected=='trends' ? 'selectedd' : '' }}">Trends</a></li>
+
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <!-- <li><div class="mr-0"> <Button type="button" class="btn btn-primary" data-toggle="modal" -->
+        <!-- data-target="#userSettingModal" ng-click="setMeal(c.selectedValue)" data-whatever="@mdo">Add</Button></div> -->
+        <!-- </li> -->
+        <li class="setting list-anchor"><a class="pointer" ng-click="c.setting()" data-toggle="modal"
+            data-target="#userSettingModal" ng-click="setMeal(c.selectedValue)" data-whatever="@mdo">Profile
+            <!-- <span class="glyphicon glyphicon-cog"></span> -->
+          </a></li>
+      </ul>
+    </div>
+  </nav>
+</div>
+
+
+
+
+<div class="modal fade" id="userSettingModal" tabindex="-1" role="dialog" aria-labelledby="userSettingModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="userSettingModalLabel">Profile:</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <!-- <label for="recipient-name" class="control-label">Search in food database:</label>
+
+            <input type="text" name="food" id="food" ng-model="food" ng-keyup="complete(food)" class="form-control" /> -->
+            <!-- <input type="text" name="food" id="food" ng-model="food" ng-keyup="complete(food)" class="form-control" />  
+              <input type="text" name="food" id="food" ng-model="food" ng-keyup="complete(food)" class="form-control" /> -->
+            <br>
+            <form class="profile_form">
+              <div class="form-group">
+                <div class="row" style="margin-left: 10px;">
+                  <div class="col-sm-6">
+                    <div class="col-sm-6">
+                      <label for="recipient-name" class="control-label" required>Height(in cm):</label>
+                    </div>
+                    <div class="col-sm-6">
+                      <input style="width: 60px; display: inline;" type="text" name="food" id="food"
+                        ng-model="height" class="form-control" />
+                    </div>
+
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="col-sm-6">
+                      <label for="recipient-name" type="number" class="control-label" required>Weight(in kg):</label>
+                    </div>
+
+
+                    <div class="col-sm-6">
+                      <input style="width: 60px; display: inline;" type="text" name="food" id="food"
+                        ng-model="weight" class="form-control" />
+                    </div>
+
+
+                  </div>
+                </div>
+                <hr>
+                <div class="target_calories">
+                  <label>Target Calories(in Cal):</label>
+                   <!-- <input style="width: 100px; display: inline; margin-left: 10px;" type="date" id="exampleInput" -->
+                  <!-- name="input" ng-model="example.value" placeholder="dd-MM-yyyy" max="{{c.maxDate}}" required /> -->
+                </div>
+               
+                <div class="row" style="margin-left: 10px; margin-top: 10px;">
+
+                  <div ng-repeat="ml in c.data.meals">
+                    <div class="col-sm-6" style="margin-bottom: 4px;">
+                      <div class="col-sm-6">
+                        <label for="recipient-name" class="control-label"> {{ml.meal}}:</label>
+                      </div>
+                      <div class="col-sm-6" style="display: inline;">
+                        <input style="width: 60px; display: inline;" type="number" name="food" id="food"
+                          ng-model="ml.target" required class="form-control" />
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+                <div class="row">
+                  <!-- <input type="text" name="food" id="food" ng-model="ml.target" required class="form-control" /> -->
+                </div>
+              </div class="submit_btn">
+              <a data-dismiss="modal"> <button class="btn btn-primary" type="submit" ng-click="addPreferences()">Submit</button></a>
+          </div>
+        </form>
+
+
+      </div>
+
+      </form>
+    </div>
+    <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="addFoodItems()">Add</button>
+      </div> -->
+  </div>
+</div>
+</div>
+
+
+
+
+<div id="confirmation-dialog-header">
+  <div class="modal fade confirmation-dialog" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{confirmationDialogConfig.title}}</h4>
+        </div>
+        <div class="modal-body">
+          <div class="span5">{{confirmationDialogConfig.message}}</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" ng-repeat="button in confirmationDialogConfig.buttons" ng-click="executeDialogAction(button.action)" class="btn btn-primary">{{button.label}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_m2m">
+    <sys_m2m action="INSERT_OR_UPDATE">
+        <from_table>x_942661_fitness_tracking</from_table>
+        <m2m_from_field>x_942661_fitness_tracking</m2m_from_field>
+        <m2m_from_label>Foods</m2m_from_label>
+        <m2m_table>x_942661_fitness_m2m_x_942661_fit_x_942661_fit</m2m_table>
+        <m2m_to_field>x_942661_fitness_food</m2m_to_field>
+        <m2m_to_label>Trackings</m2m_to_label>
+        <sys_class_name>sys_m2m</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-27 17:49:27</sys_created_on>
+        <sys_id>abd471914708a510d5ff7868f36d432a</sys_id>
+        <sys_name>x_942661_fitness_m2m_x_942661_fit_x_942661_fit</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sys_m2m_abd471914708a510d5ff7868f36d432a</sys_update_name>
+        <to_table>x_942661_fitness_food</to_table>
+    </sys_m2m>
+</record_update>

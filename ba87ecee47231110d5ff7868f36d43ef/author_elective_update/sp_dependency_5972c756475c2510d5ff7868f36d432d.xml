@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_dependency">
+    <sp_dependency action="DELETE">
+        <module/>
+        <name>Directive</name>
+        <page_load>true</page_load>
+        <sp_portals/>
+        <sys_class_name>sp_dependency</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-12 12:17:22</sys_created_on>
+        <sys_id>5972c756475c2510d5ff7868f36d432d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Directive</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sp_dependency_5972c756475c2510d5ff7868f36d432d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-01-12 12:17:22</sys_updated_on>
+    </sp_dependency>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</application>
+        <file_path/>
+        <instance_id>e57b120adb9b08180b9d21c405961901</instance_id>
+        <instance_name>dev102074</instance_name>
+        <name>sp_dependency_5972c756475c2510d5ff7868f36d432d</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_dependency"><sp_dependency action="INSERT_OR_UPDATE"><module/><name>Directive</name><page_load>true</page_load><sp_portals/><sys_class_name>sp_dependency</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2023-01-12 12:17:22</sys_created_on><sys_id>5972c756475c2510d5ff7868f36d432d</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Directive</sys_name><sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package><sys_policy/><sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope><sys_update_name>sp_dependency_5972c756475c2510d5ff7868f36d432d</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2023-01-12 12:17:22</sys_updated_on></sp_dependency></record_update>]]></payload>
+        <payload_hash>-129974104</payload_hash>
+        <record_name>Directive</record_name>
+        <reverted_from/>
+        <source>76be268b47a31110d5ff7868f36d43e6</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-12 12:17:22</sys_created_on>
+        <sys_id>3a8287d2475c2510d5ff7868f36d4364</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>185a5e9d4090000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-01-12 12:17:22</sys_updated_on>
+        <type>Widget Dependency</type>
+        <update_guid>728287d24f5c25105b53b8fc058ef164</update_guid>
+        <update_guid_history>728287d24f5c25105b53b8fc058ef164:-129974104</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Directive">daa28b56475c2510d5ff7868f36d43a3</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-12 12:17:54</sys_created_on>
+        <sys_db_object display_value="" name="sp_dependency">sp_dependency</sys_db_object>
+        <sys_id>9463e2549d2c4802a64b865c288d3331</sys_id>
+        <sys_metadata>5972c756475c2510d5ff7868f36d432d</sys_metadata>
+        <sys_name>Directive</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_scope_delete display_value="">955332a1052e4fc4a24985372ab46c84</sys_scope_delete>
+        <sys_update_name>sp_dependency_5972c756475c2510d5ff7868f36d432d</sys_update_name>
+        <sys_update_version display_value="sp_dependency_5972c756475c2510d5ff7868f36d432d">3a8287d2475c2510d5ff7868f36d4364</sys_update_version>
+    </sys_metadata_delete>
+</record_update>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_js_include">
+    <sp_js_include action="DELETE">
+        <display_name>Toast</display_name>
+        <source>local</source>
+        <sys_class_name>sp_js_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-24 13:38:34</sys_created_on>
+        <sys_id>01ce111047c8a110d5ff7868f36d43cf</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Toast</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_ui_script display_value="x_942661_fitness.Toast">7c4f191047c8a110d5ff7868f36d43bf</sys_ui_script>
+        <sys_update_name>sp_js_include_01ce111047c8a110d5ff7868f36d43cf</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-12-24 13:40:45</sys_updated_on>
+        <url/>
+    </sp_js_include>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</application>
+        <file_path/>
+        <instance_id>e57b120adb9b08180b9d21c405961901</instance_id>
+        <instance_name>dev102074</instance_name>
+        <name>sp_js_include_01ce111047c8a110d5ff7868f36d43cf</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_js_include"><sp_js_include action="INSERT_OR_UPDATE"><display_name>Toast</display_name><source>local</source><sys_class_name>sp_js_include</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2022-12-24 13:38:34</sys_created_on><sys_id>01ce111047c8a110d5ff7868f36d43cf</sys_id><sys_mod_count>1</sys_mod_count><sys_name>Toast</sys_name><sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package><sys_policy/><sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope><sys_ui_script display_value="x_942661_fitness.Toast">7c4f191047c8a110d5ff7868f36d43bf</sys_ui_script><sys_update_name>sp_js_include_01ce111047c8a110d5ff7868f36d43cf</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2022-12-24 13:40:45</sys_updated_on><url/></sp_js_include></record_update>]]></payload>
+        <payload_hash>464629465</payload_hash>
+        <record_name>Toast</record_name>
+        <reverted_from/>
+        <source>76be268b47a31110d5ff7868f36d43e6</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-24 13:40:45</sys_created_on>
+        <sys_id>326f191047c8a110d5ff7868f36d433f</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>185445d54cb0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-12-24 13:40:45</sys_updated_on>
+        <type>JS Include</type>
+        <update_guid>3a6f191057c8a110a6672a60e3bdd73e</update_guid>
+        <update_guid_history>3a6f191057c8a110a6672a60e3bdd73e:464629465,b2ee11186188a110919f4f697c7b14ab:1046766917</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Toast">5718f71447dc6150d5ff7868f36d4334</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-06 11:03:35</sys_created_on>
+        <sys_db_object display_value="" name="sp_js_include">sp_js_include</sys_db_object>
+        <sys_id>14083dd3f31f44739f7b056f0ed772d1</sys_id>
+        <sys_metadata>01ce111047c8a110d5ff7868f36d43cf</sys_metadata>
+        <sys_name>Toast</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_scope_delete display_value="">955332a1052e4fc4a24985372ab46c84</sys_scope_delete>
+        <sys_update_name>sp_js_include_01ce111047c8a110d5ff7868f36d43cf</sys_update_name>
+        <sys_update_version display_value="sp_js_include_01ce111047c8a110d5ff7868f36d43cf">326f191047c8a110d5ff7868f36d433f</sys_update_version>
+    </sys_metadata_delete>
+</record_update>

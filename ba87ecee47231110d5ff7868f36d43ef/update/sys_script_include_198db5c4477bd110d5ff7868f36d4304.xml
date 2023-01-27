@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_942661_fitness.FoodItems</api_name>
+        <caller_access/>
+        <client_callable>true</client_callable>
+        <description/>
+        <name>FoodItems</name>
+        <script><![CDATA[var FoodItems = Class.create();
+FoodItems.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+    getFoodItemById: function(id) {
+        var item = new GlideRecord("x_942661_fitness_food");
+        item.addQuery("number", id);
+        item.query();
+        var foodItem = {};
+        if (item.next()) {
+            foodItem = {
+                calories: item.getValue("calories"),
+                name: item.getValue("name"),
+                description: item.getValue("description"),
+                sys_id: item.getValue("sys_id")	
+            }
+        }
+        return foodItem;
+    },
+    getAllFoodItem: function() {
+        var item = new GlideRecord("x_942661_fitness_food");
+        item.query();
+        var foodItems = [];
+        while (item.next()) {
+
+            var foodItem = {
+                calories: item.getValue("calories"),
+                name: item.getValue("name"),
+                description: item.getValue("description"),
+                sys_id: item.sys_id.toString(),
+				id:item.number.toString()
+            }
+            foodItems.push(foodItem);
+        }
+        return foodItems;
+    },
+    foodExistById: function(food_sys_id) {
+		return CrudUtil.recordExistById("x_942661_fitness_food",sys_id);
+    },
+	addFoodItem: function(name,calorie){
+		
+		if(CrudUtil.addRecord("x_942661_fitness_food",["name","calorie"],[name,calorie])!=null){
+			gs.addInfoMessage("Your food items have been added!!");
+		}else {
+			gs.addInfoMessage("Comething went wrong!!");
+		}
+	},
+    type: 'FoodItems'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-11 11:06:32</sys_created_on>
+        <sys_id>198db5c4477bd110d5ff7868f36d4304</sys_id>
+        <sys_name>FoodItems</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sys_script_include_198db5c4477bd110d5ff7868f36d4304</sys_update_name>
+    </sys_script_include>
+</record_update>

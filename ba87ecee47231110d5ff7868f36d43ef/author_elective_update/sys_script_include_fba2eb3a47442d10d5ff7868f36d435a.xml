@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="DELETE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_942661_fitness.Follower</api_name>
+        <caller_access/>
+        <client_callable>true</client_callable>
+        <description/>
+        <name>Follower</name>
+        <script><![CDATA[var Follower = Class.create();
+Follower.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+	
+		getUserToFollow:function(){
+		
+		var follower = new GlideRecord("x_942661_fitness_follower");
+		follower.addQuery("follower",gs.getUserID());
+		follower.query();
+		var followers =[];
+		while(follower.next()){
+			followers.push(follower.user.sys_id.toString());
+		}
+		
+		
+		var gr = new GlideRecord("sys_user");
+		gr.setLimit(100);
+		gr.query();
+		var result=[];
+		while(gr.next()){
+			if(followers.indexOf(gr.sys_id.toString())<0){
+					
+				var obj = {};
+				obj.username= gr.name.toString();
+				obj.sys_id= gr.sys_id.toString();
+				result.push(obj);
+			}
+		}
+		return result;	
+	},
+	followUser:function(userId){
+		var record =this.insertFollower(userId);
+		
+		gs.addInfoMessage("You have started following "+ record.user.name);
+	},
+	insertFollower:function(userId){
+		var gr = new GlideRecord("x_942661_fitness_follower");
+		gr.initialize();
+		gr.setValue("user",userId);
+		gr.setValue("follower",gs.getUserID());
+		return gr.insert();
+	},
+    type: 'Follower'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-01 18:39:48</sys_created_on>
+        <sys_id>fba2eb3a47442d10d5ff7868f36d435a</sys_id>
+        <sys_mod_count>18</sys_mod_count>
+        <sys_name>Follower</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sys_script_include_fba2eb3a47442d10d5ff7868f36d435a</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-01-03 09:27:45</sys_updated_on>
+    </sys_script_include>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</application>
+        <file_path/>
+        <instance_id>e57b120adb9b08180b9d21c405961901</instance_id>
+        <instance_name>dev102074</instance_name>
+        <name>sys_script_include_fba2eb3a47442d10d5ff7868f36d435a</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_script_include"&gt;&lt;sys_script_include action="INSERT_OR_UPDATE"&gt;&lt;access&gt;package_private&lt;/access&gt;&lt;active&gt;true&lt;/active&gt;&lt;api_name&gt;x_942661_fitness.Follower&lt;/api_name&gt;&lt;caller_access/&gt;&lt;client_callable&gt;true&lt;/client_callable&gt;&lt;description/&gt;&lt;name&gt;Follower&lt;/name&gt;&lt;script&gt;&lt;![CDATA[var Follower = Class.create();
+Follower.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+	
+		getUserToFollow:function(){
+		
+		var follower = new GlideRecord("x_942661_fitness_follower");
+		follower.addQuery("follower",gs.getUserID());
+		follower.query();
+		var followers =[];
+		while(follower.next()){
+			followers.push(follower.user.sys_id.toString());
+		}
+		
+		
+		var gr = new GlideRecord("sys_user");
+		gr.setLimit(100);
+		gr.query();
+		var result=[];
+		while(gr.next()){
+			if(followers.indexOf(gr.sys_id.toString())&lt;0){
+					
+				var obj = {};
+				obj.username= gr.name.toString();
+				obj.sys_id= gr.sys_id.toString();
+				result.push(obj);
+			}
+		}
+		return result;	
+	},
+	followUser:function(userId){
+		var record =this.insertFollower(userId);
+		
+		gs.addInfoMessage("You have started following "+ record.user.name);
+	},
+	insertFollower:function(userId){
+		var gr = new GlideRecord("x_942661_fitness_follower");
+		gr.initialize();
+		gr.setValue("user",userId);
+		gr.setValue("follower",gs.getUserID());
+		return gr.insert();
+	},
+    type: 'Follower'
+});]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_include&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2023-01-01 18:39:48&lt;/sys_created_on&gt;&lt;sys_id&gt;fba2eb3a47442d10d5ff7868f36d435a&lt;/sys_id&gt;&lt;sys_mod_count&gt;18&lt;/sys_mod_count&gt;&lt;sys_name&gt;Follower&lt;/sys_name&gt;&lt;sys_package display_value="FitnessTracker" source="x_942661_fitness"&gt;ba87ecee47231110d5ff7868f36d43ef&lt;/sys_package&gt;&lt;sys_policy&gt;read&lt;/sys_policy&gt;&lt;sys_scope display_value="FitnessTracker"&gt;ba87ecee47231110d5ff7868f36d43ef&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_include_fba2eb3a47442d10d5ff7868f36d435a&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2023-01-03 09:27:45&lt;/sys_updated_on&gt;&lt;/sys_script_include&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-1007562307</payload_hash>
+        <record_name>Follower</record_name>
+        <reverted_from/>
+        <source>76be268b47a31110d5ff7868f36d43e6</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-03 09:27:45</sys_created_on>
+        <sys_id>966580a74744ad10d5ff7868f36d434e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18576f54c880000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-01-03 09:27:45</sys_updated_on>
+        <type>Script Include</type>
+        <update_guid>9e6580a7d244ad10795c0b2d82988f4d</update_guid>
+        <update_guid_history>9e6580a7d244ad10795c0b2d82988f4d:-1007562307,d5c204e3b844ad101b2321ba6b4015f4:356790264,f0a204e39a44ad10fbee42ad50558052:-1557122562,fd3280e3d644ad100ffb84a7a07d1f59:-743730553,93f18ca31644ad10e5e6ab7ff85ab016:1298176205,a5a0c863de44ad10b2da92bb96cb1b2b:-263931866,1c1ffb5fd204ad104eb23290f8a7be2e:1568490730,0cce33dfcc04ad102d9a8e3649612919:-263931866,b82eff9f6804ad10ee238c5f3a40d265:-246873400,9bddbb5f3204ad10fc1faf99d370e5ac:-158429703,41bcb35f8204ad1026cf1f45786d8f0a:148202726,8b1cbf1f2704ad10a2f5617f9196aae7:-158429703,de0cb31f2004ad103a359ff3cd28b50c:-32380455,0adb7f1fb804ad10bc4fcb920e309019:739100842,afd682cfe68c2d10d5f582fc86ad4c20:770723729,0c134e8ba98c2d108dbb1cb9c23c0726:-1521919359,09733b7a66842d10185eae9d5ce9f5b1:-871925541,5f82ff7a82842d10df8cafc2280d3eb5:595333030,e190333a93842d10e5fcaaa5bb075688:-1131531757</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-06 14:30:27</sys_created_on>
+        <sys_db_object display_value="" name="sys_script_include">sys_script_include</sys_db_object>
+        <sys_id>2b1589a7543148048d5334f42cc24390</sys_id>
+        <sys_metadata>fba2eb3a47442d10d5ff7868f36d435a</sys_metadata>
+        <sys_name>Follower</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_parent/>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_scope_delete display_value="">955332a1052e4fc4a24985372ab46c84</sys_scope_delete>
+        <sys_update_name>sys_script_include_fba2eb3a47442d10d5ff7868f36d435a</sys_update_name>
+        <sys_update_version display_value="sys_script_include_fba2eb3a47442d10d5ff7868f36d435a">966580a74744ad10d5ff7868f36d434e</sys_update_version>
+    </sys_metadata_delete>
+</record_update>

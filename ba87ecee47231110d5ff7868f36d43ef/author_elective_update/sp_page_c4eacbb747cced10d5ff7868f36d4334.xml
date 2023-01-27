@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_page">
+    <sp_page action="DELETE">
+        <category>custom</category>
+        <css/>
+        <draft>false</draft>
+        <dynamic_title_structure/>
+        <id>trends</id>
+        <internal>false</internal>
+        <omit_watcher>false</omit_watcher>
+        <public>false</public>
+        <roles/>
+        <seo_script/>
+        <short_description/>
+        <sys_class_name>sp_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-04 18:28:59</sys_created_on>
+        <sys_id>c4eacbb747cced10d5ff7868f36d4334</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>trends</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sp_page_c4eacbb747cced10d5ff7868f36d4334</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-01-04 18:28:59</sys_updated_on>
+        <title>trends</title>
+        <use_seo_script>false</use_seo_script>
+    </sp_page>
+    <sys_translated_text action="DELETE" query="documentkey=c4eacbb747cced10d5ff7868f36d4334"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</application>
+        <file_path/>
+        <instance_id>e57b120adb9b08180b9d21c405961901</instance_id>
+        <instance_name>dev102074</instance_name>
+        <name>sp_page_c4eacbb747cced10d5ff7868f36d4334</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_page"><sp_page action="INSERT_OR_UPDATE"><category>custom</category><css/><draft>false</draft><dynamic_title_structure/><id>trends</id><internal>false</internal><omit_watcher>false</omit_watcher><public>false</public><roles/><seo_script/><short_description/><sys_class_name>sp_page</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2023-01-04 18:28:59</sys_created_on><sys_id>c4eacbb747cced10d5ff7868f36d4334</sys_id><sys_mod_count>0</sys_mod_count><sys_name>trends</sys_name><sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package><sys_policy/><sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope><sys_update_name>sp_page_c4eacbb747cced10d5ff7868f36d4334</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2023-01-04 18:28:59</sys_updated_on><title>trends</title><use_seo_script>false</use_seo_script></sp_page><sys_translated_text action="delete_multiple" query="documentkey=c4eacbb747cced10d5ff7868f36d4334"/></record_update>]]></payload>
+        <payload_hash>-115098982</payload_hash>
+        <record_name>trends</record_name>
+        <reverted_from/>
+        <source>76be268b47a31110d5ff7868f36d43e6</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-04 18:28:59</sys_created_on>
+        <sys_id>10eacbb747cced10d5ff7868f36d4337</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1857e0b2c150000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-01-04 18:28:59</sys_updated_on>
+        <type>Page</type>
+        <update_guid>58eacbb7e3cced10e32d51809735bc36</update_guid>
+        <update_guid_history>58eacbb7e3cced10e32d51809735bc36:-115098982</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="trends">e5487f1447dc6150d5ff7868f36d4314</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-06 11:04:17</sys_created_on>
+        <sys_db_object display_value="" name="sp_page">sp_page</sys_db_object>
+        <sys_id>d86632847e0348cebc6ff3e70fc8a769</sys_id>
+        <sys_metadata>c4eacbb747cced10d5ff7868f36d4334</sys_metadata>
+        <sys_name>trends</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_scope_delete display_value="">955332a1052e4fc4a24985372ab46c84</sys_scope_delete>
+        <sys_update_name>sp_page_c4eacbb747cced10d5ff7868f36d4334</sys_update_name>
+        <sys_update_version display_value="sp_page_c4eacbb747cced10d5ff7868f36d4334">10eacbb747cced10d5ff7868f36d4337</sys_update_version>
+    </sys_metadata_delete>
+</record_update>

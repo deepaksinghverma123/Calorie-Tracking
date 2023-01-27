@@ -19,7 +19,7 @@
         <search_application/>
         <search_results_configuration/>
         <sp_chat_queue/>
-        <sp_rectangle_menu display_value="SP Header Menu">d150fd31cb10020000f8d856634c9ce6</sp_rectangle_menu>
+        <sp_rectangle_menu/>
         <sys_class_name>sp_portal</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2022-12-07 09:09:52</sys_created_on>
@@ -29,10 +29,10 @@
         <sys_policy/>
         <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
         <sys_update_name>sp_portal_9d3e707647e31110d5ff7868f36d4362</sys_update_name>
-        <theme display_value="La Jolla">a7a6e78277002300a6e592718a10617a</theme>
+        <theme/>
         <title>Fitness Tracker</title>
         <ts_index_group/>
-        <url_suffix>ft</url_suffix>
+        <url_suffix>fitness_tracker</url_suffix>
     </sp_portal>
     <sys_translated_text action="delete_multiple" query="documentkey=9d3e707647e31110d5ff7868f36d4362"/>
     <sys_attachment action="INSERT_OR_UPDATE">

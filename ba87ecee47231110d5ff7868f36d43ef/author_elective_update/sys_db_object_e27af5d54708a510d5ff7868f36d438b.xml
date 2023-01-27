@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_db_object">
+    <sys_db_object action="DELETE">
+        <access>public</access>
+        <actions_access>true</actions_access>
+        <alter_access>true</alter_access>
+        <caller_access/>
+        <client_scripts_access>true</client_scripts_access>
+        <configuration_access>false</configuration_access>
+        <create_access>true</create_access>
+        <create_access_controls>false</create_access_controls>
+        <delete_access>false</delete_access>
+        <is_extendable>false</is_extendable>
+        <label>Trackings Foods</label>
+        <live_feed_enabled>false</live_feed_enabled>
+        <name>x_942661_fitness_m2m_x_942661_tracking_food</name>
+        <number_ref/>
+        <provider_class/>
+        <read_access>true</read_access>
+        <scriptable_table>false</scriptable_table>
+        <super_class/>
+        <sys_class_name>sys_db_object</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-27 18:12:54</sys_created_on>
+        <sys_id>e27af5d54708a510d5ff7868f36d438b</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Trackings Foods</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sys_db_object_e27af5d54708a510d5ff7868f36d438b</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-01-11 01:32:32</sys_updated_on>
+        <update_access>true</update_access>
+        <user_role/>
+        <ws_access>true</ws_access>
+    </sys_db_object>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</application>
+        <file_path/>
+        <instance_id>e57b120adb9b08180b9d21c405961901</instance_id>
+        <instance_name>dev102074</instance_name>
+        <name>sys_db_object_e27af5d54708a510d5ff7868f36d438b</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_db_object"><sys_db_object action="INSERT_OR_UPDATE"><access>public</access><actions_access>true</actions_access><alter_access>true</alter_access><caller_access/><client_scripts_access>true</client_scripts_access><configuration_access>false</configuration_access><create_access>true</create_access><create_access_controls>false</create_access_controls><delete_access>false</delete_access><is_extendable>false</is_extendable><label>Trackings Foods</label><live_feed_enabled>false</live_feed_enabled><name>x_942661_fitness_m2m_x_942661_tracking_food</name><number_ref/><provider_class/><read_access>true</read_access><scriptable_table>false</scriptable_table><super_class/><sys_class_name>sys_db_object</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2022-12-27 18:12:54</sys_created_on><sys_id>e27af5d54708a510d5ff7868f36d438b</sys_id><sys_mod_count>2</sys_mod_count><sys_name>Trackings Foods</sys_name><sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package><sys_policy/><sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope><sys_update_name>sys_db_object_e27af5d54708a510d5ff7868f36d438b</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2023-01-11 01:32:32</sys_updated_on><update_access>true</update_access><user_role/><ws_access>true</ws_access></sys_db_object></record_update>]]></payload>
+        <payload_hash>247659564</payload_hash>
+        <record_name>Trackings Foods</record_name>
+        <reverted_from/>
+        <source>76be268b47a31110d5ff7868f36d43e6</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-11 01:32:32</sys_created_on>
+        <sys_id>8f55efbd4750e110d5ff7868f36d43ba</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1859e7519450000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-01-11 01:32:32</sys_updated_on>
+        <type>Table</type>
+        <update_guid>8755efbd7950e11024bf8caccf10efba</update_guid>
+        <update_guid_history>8755efbd7950e11024bf8caccf10efba:247659564,828a39d52408a5104932b45fba0137e7:-610160786,3e7af5d58608a5107986a57a6ae7329e:-1827207834</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-12 17:13:11</sys_created_on>
+        <sys_db_object display_value="" name="sys_db_object">sys_db_object</sys_db_object>
+        <sys_id>03bf21693e1c44888706950fd68bc1c4</sys_id>
+        <sys_metadata>e27af5d54708a510d5ff7868f36d438b</sys_metadata>
+        <sys_name>Trackings Foods</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_scope_delete display_value="">955332a1052e4fc4a24985372ab46c84</sys_scope_delete>
+        <sys_update_name>sys_db_object_e27af5d54708a510d5ff7868f36d438b</sys_update_name>
+        <sys_update_version display_value="sys_db_object_e27af5d54708a510d5ff7868f36d438b">8f55efbd4750e110d5ff7868f36d43ba</sys_update_version>
+    </sys_metadata_delete>
+</record_update>

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="DELETE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function($uibModal, $scope) {
+    /* widget controller */
+    var c = this;
+
+    $scope.confirmationDialogConfig = {};
+  
+  $scope.confirmationDialog = function() {
+    $scope.confirmationDialogConfig = {
+      title: "Caution!!!",
+      message: "Are you sure you want to delete?",
+      buttons: [{
+        label: "Delete",
+        action: "delete"
+      }]
+    };
+    $scope.showDialog(true);
+  };
+
+  $scope.multiConfirmationDialog = function() {
+    $scope.confirmationDialogConfig = {
+      title: "Select Operation...",
+      message: "Please select which operation you would like to perform.",
+      buttons: [{
+        label: "Reset",
+        action: "reset"
+      }, {
+        label: "Delete",
+        action: "delete"
+      }, {
+        label: "Save",
+        action: "save"
+      }]
+    };
+    $scope.showDialog(true);
+  };
+
+  $scope.executeDialogAction = function(action) {
+    if(typeof $scope[action] === "function") {
+    		  $scope[action]();
+    	}
+  };
+
+  $scope.reset = function() {
+    console.log("Resetting...");
+    $scope.showDialog();
+  };
+  
+  $scope.delete = function() {
+    console.log("Deleting...");
+    $scope.showDialog();
+  };
+  
+  $scope.save = function() {
+    console.log("Saving...");
+    $scope.showDialog();
+  };
+  
+  $scope.showDialog = function(flag) {
+    jQuery("#confirmation-dialog .modal").modal(flag ? 'show' : 'hide');
+  };
+};
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>h1 {
+color: #428bca;
+}
+
+
+.open-dialog{
+  border-radius: 3px;
+  margin: 10px
+}
+.confirmation-dialog{
+  display: none;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data>{
+	"data": {
+		"sometext": "world"
+	}
+}</demo_data>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>toastmodal</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>ToastModal</name>
+        <option_schema/>
+        <public>true</public>
+        <roles/>
+        <script><![CDATA[(function() {  /* populate the 'data' object */  /* e.g., data.table = $sp.getValue('table'); */})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-07 13:28:03</sys_created_on>
+        <sys_id>91c2293847d0e150d5ff7868f36d4397</sys_id>
+        <sys_mod_count>9</sys_mod_count>
+        <sys_name>ToastModal</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sp_widget_91c2293847d0e150d5ff7868f36d4397</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-01-07 17:06:17</sys_updated_on>
+        <template><![CDATA[<div ng-app="confirmationContainer">
+ 
+    <button class="open-dialog" type="button" ng-click="confirmationDialog()">Single Button</button>
+     <div>
+      {{confirmationDialogConfig}}
+    </div>
+    <div id="confirmation-dialog">
+      <div class="modal fade confirmation-dialog" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">{{confirmationDialogConfig.title}}</h4>
+            </div>
+            <div class="modal-body">
+              <div class="span5">{{confirmationDialogConfig.message}}</div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <button type="button" ng-repeat="button in confirmationDialogConfig.buttons" ng-click="executeDialogAction(button.action)" class="btn btn-primary">{{button.label}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>]]></template>
+    </sp_widget>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</application>
+        <file_path/>
+        <instance_id>e57b120adb9b08180b9d21c405961901</instance_id>
+        <instance_name>dev102074</instance_name>
+        <name>sp_widget_91c2293847d0e150d5ff7868f36d4397</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;&lt;sp_widget action="INSERT_OR_UPDATE"&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[api.controller = function($uibModal, $scope) {
+    /* widget controller */
+    var c = this;
+
+    $scope.confirmationDialogConfig = {};
+  
+  $scope.confirmationDialog = function() {
+    $scope.confirmationDialogConfig = {
+      title: "Caution!!!",
+      message: "Are you sure you want to delete?",
+      buttons: [{
+        label: "Delete",
+        action: "delete"
+      }]
+    };
+    $scope.showDialog(true);
+  };
+
+  $scope.multiConfirmationDialog = function() {
+    $scope.confirmationDialogConfig = {
+      title: "Select Operation...",
+      message: "Please select which operation you would like to perform.",
+      buttons: [{
+        label: "Reset",
+        action: "reset"
+      }, {
+        label: "Delete",
+        action: "delete"
+      }, {
+        label: "Save",
+        action: "save"
+      }]
+    };
+    $scope.showDialog(true);
+  };
+
+  $scope.executeDialogAction = function(action) {
+    if(typeof $scope[action] === "function") {
+    		  $scope[action]();
+    	}
+  };
+
+  $scope.reset = function() {
+    console.log("Resetting...");
+    $scope.showDialog();
+  };
+  
+  $scope.delete = function() {
+    console.log("Deleting...");
+    $scope.showDialog();
+  };
+  
+  $scope.save = function() {
+    console.log("Saving...");
+    $scope.showDialog();
+  };
+  
+  $scope.showDialog = function(flag) {
+    jQuery("#confirmation-dialog .modal").modal(flag ? 'show' : 'hide');
+  };
+};
+]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;h1 {
+color: #428bca;
+}
+
+
+.open-dialog{
+  border-radius: 3px;
+  margin: 10px
+}
+.confirmation-dialog{
+  display: none;
+}&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data&gt;{
+	"data": {
+		"sometext": "world"
+	}
+}&lt;/demo_data&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;true&lt;/has_preview&gt;&lt;id&gt;toastmodal&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;&lt;name&gt;ToastModal&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;true&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {  /* populate the 'data' object */  /* e.g., data.table = $sp.getValue('table'); */})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2023-01-07 13:28:03&lt;/sys_created_on&gt;&lt;sys_id&gt;91c2293847d0e150d5ff7868f36d4397&lt;/sys_id&gt;&lt;sys_mod_count&gt;9&lt;/sys_mod_count&gt;&lt;sys_name&gt;ToastModal&lt;/sys_name&gt;&lt;sys_package display_value="FitnessTracker" source="x_942661_fitness"&gt;ba87ecee47231110d5ff7868f36d43ef&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="FitnessTracker"&gt;ba87ecee47231110d5ff7868f36d43ef&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_91c2293847d0e150d5ff7868f36d4397&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2023-01-07 17:06:17&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div ng-app="confirmationContainer"&gt;
+ 
+    &lt;button class="open-dialog" type="button" ng-click="confirmationDialog()"&gt;Single Button&lt;/button&gt;
+     &lt;div&gt;
+      {{confirmationDialogConfig}}
+    &lt;/div&gt;
+    &lt;div id="confirmation-dialog"&gt;
+      &lt;div class="modal fade confirmation-dialog" role="dialog"&gt;
+        &lt;div class="modal-dialog"&gt;
+          &lt;div class="modal-content"&gt;
+            &lt;div class="modal-header"&gt;
+              &lt;h4 class="modal-title"&gt;{{confirmationDialogConfig.title}}&lt;/h4&gt;
+            &lt;/div&gt;
+            &lt;div class="modal-body"&gt;
+              &lt;div class="span5"&gt;{{confirmationDialogConfig.message}}&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="modal-footer"&gt;
+              &lt;button type="button" class="btn btn-default" data-dismiss="modal"&gt;Cancel&lt;/button&gt;
+              &lt;button type="button" ng-repeat="button in confirmationDialogConfig.buttons" ng-click="executeDialogAction(button.action)" class="btn btn-primary"&gt;{{button.label}}&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>920354391</payload_hash>
+        <record_name>ToastModal</record_name>
+        <reverted_from/>
+        <source>76be268b47a31110d5ff7868f36d43e6</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-07 17:06:17</sys_created_on>
+        <sys_id>86b452344714e150d5ff7868f36d432a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1858d3289060000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-01-07 17:06:17</sys_updated_on>
+        <type>Widget</type>
+        <update_guid>8eb452345714e15014758c257d102429</update_guid>
+        <update_guid_history>8eb452345714e15014758c257d102429:920354391,26249a345314e1503d4118375812f39e:540456436,44c72d7870d0e150f363ba4f15a30ffd:1762139215,c297ad78e5d0e1506c5514183aded6d9:-1718953923,eb87a5bc58d0e150cfdd504d7cc325f8:-713369539,7d4725bc30d0e150cf4dfebcbfa03c91:-1187456519,cc37e93ccfd0e1504136c0ea0461515d:1334549520,510721bca2d0e150ebdaf543852707b0:1536498668,4de26d7842d0e150b131e531de321dab:844186661,d9c2293876d0e1507b6169321a5abd98:932516599</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="ToastModal">c3e761794798a110d5ff7868f36d43cb</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-10 16:24:29</sys_created_on>
+        <sys_db_object display_value="" name="sp_widget">sp_widget</sys_db_object>
+        <sys_id>306559f6f16645dc9cc761e5047af264</sys_id>
+        <sys_metadata>91c2293847d0e150d5ff7868f36d4397</sys_metadata>
+        <sys_name>ToastModal</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_scope_delete display_value="">955332a1052e4fc4a24985372ab46c84</sys_scope_delete>
+        <sys_update_name>sp_widget_91c2293847d0e150d5ff7868f36d4397</sys_update_name>
+        <sys_update_version display_value="sp_widget_91c2293847d0e150d5ff7868f36d4397">86b452344714e150d5ff7868f36d432a</sys_update_version>
+    </sys_metadata_delete>
+</record_update>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_number">
+    <sys_number action="INSERT_OR_UPDATE">
+        <category display_value="" name="x_942661_fitness_fitnessuser">x_942661_fitness_fitnessuser</category>
+        <maximum_digits>7</maximum_digits>
+        <number>1000</number>
+        <prefix>FU</prefix>
+        <sys_class_name>sys_number</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-19 04:26:41</sys_created_on>
+        <sys_id>cea0392e47f7d110d5ff7868f36d43ad</sys_id>
+        <sys_name>FU</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sys_number_cea0392e47f7d110d5ff7868f36d43ad</sys_update_name>
+    </sys_number>
+</record_update>

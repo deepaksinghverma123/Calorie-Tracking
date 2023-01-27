@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="38fb34f147d4a110d5ff7868f36d436a" label="User Meal Mapping" max_length="40" name="x_942661_fitness_fitness_mapping" type="collection">
+        <element label="Fitness User" max_length="32" name="fitness_user" reference="x_942661_fitness_fitnessuser" type="reference"/>
+        <element label="Meal" max_length="32" name="meal" reference="x_942661_fitness_meal" type="reference"/>
+        <element label="Target Calorie" mandatory="true" max_length="20" name="target_calorie" type="decimal"/>
+        <index name="index">
+            <element name="fitness_user"/>
+        </index>
+        <index name="index2">
+            <element name="meal"/>
+        </index>
+    </element>
+</database>

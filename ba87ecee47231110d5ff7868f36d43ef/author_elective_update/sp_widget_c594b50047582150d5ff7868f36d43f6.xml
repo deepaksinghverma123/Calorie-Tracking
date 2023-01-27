@@ -1,0 +1,2396 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="DELETE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function ($scope, $document, $log, $interval,$parse) {
+	/* widget controller */
+	var c = this;
+	var input = {};
+	c.progressValue = 0;
+    c.data.viewDates = new Date();
+	c.hideWidget=false;
+	c.circular = {
+		background: '#ededed'
+	};
+	c.currentPercentage=0;
+	c.foodItemToAddIds=[];
+	c.foodItemToAdd=[];
+	$scope.foodItemToAdd=[];
+	c.data.listToAdd=[];
+	// console.log("test");
+	// console.log(c.data);
+	c.totalCalories=0;
+	console.log(c.data);
+	c.hideWidget=false;
+	$scope.$on("SendDown", function (evt, data) {
+        $scope.Message = "Inside track client : " + data;
+		console.log($scope.Message);
+		c.hideWidget=true;
+    });
+	$scope.$on("SendCommunity", function (evt, data) {
+        $scope.Message = "Inside track client : " + data;
+		console.log($scope.Message);
+		c.hideWidget=false;
+    });
+
+
+	c.selectedDropdown="";
+	c.selectedValue="";
+	c.previousSelected="";
+	c.storeIndeForOnLOAD=0;
+	$scope.onLoad=function(){
+		// console.log(c.data.meals);
+		for(var i=0;i<c.data.meals.length;i++){
+		//   console.log("tessttse" + i);
+		console.log("dsfdsf");
+		
+           
+			console.log(c.data.meals[i]);
+		if(c.previousSelected==c.data.meals[i].meal){
+			
+			for( var key in c.data.trackingByMeals ) {
+				var value = c.data.trackingByMeals[key];
+				
+				// console.log(c.data.trackingByMeals);
+				// console.log(key+ " "+c.selectedValue);
+				if(key== c.selectedValue.toLowerCase()){
+						c.selectedMealData= value;
+				}
+				// console.log("select emeal data" + c.selectedMealData);
+				// console.log(c.selectedMealData);
+	
+			  }
+		}
+		  if(i=='0' && c.previousSelected==""){
+		   
+			c.selectedValue= c.data.meals[i].meal;
+			c.data.meals[i].hideSelectedMeal=true;
+			c.previousSelected=c.data.meals[i].meal;
+			// console.log("fdsf" +c.previousSelected);
+			c.data.meals[i].selected="selected";
+			c.storeIndeForOnLOAD=i;
+			// setTimeout(function(){
+			// 	console.log("idsadadda" + c.storeIndeForOnLOAD);
+			// 	//$scope.selectFromDropdown(c.data.meals[i]);
+			// },300);
+			
+			for( var key in c.data.trackingByMeals ) {
+				var value = c.data.trackingByMeals[key];
+				
+				// console.log(c.data.trackingByMeals);
+				// console.log(key+ " "+c.selectedValue);
+				if(key== c.selectedValue.toLowerCase()){
+						c.selectedMealData= value;
+				}
+				// console.log("select emeal data" + c.selectedMealData);
+				// console.log(c.selectedMealData);
+	
+			  }
+		// 	console.log("selected meal");
+		// 	console.log(c.selectedMeal);
+        //    console.log(c.data.trackingByMeals);
+			
+		  }else{
+			c.data.meals[i].selected=false;
+		  }
+		}
+
+	}
+	$scope.onLoad();
+	$scope.selectFromDropdown=function(meal){
+		  c.selectedValue=meal.meal;
+		  c.previousSelected.hideSelectedMeal=false;
+		  c.data.meals.forEach(function(e){
+			// console.log(c.previousSelected+ " "+e.meal);
+			 if(c.previousSelected==e.meal){
+				e.hideSelectedMeal=false;
+			 }
+		  });
+		  c.previousSelected=meal.meal;
+		  c.selectedMeal= meal;
+		//   console.log("selectedmEAL");
+		//   console.log(c.selectedMeal);
+		//   console.log(c.data.trackingByMeals);
+		  for( var key in c.data.trackingByMeals ) {
+			var value = c.data.trackingByMeals[key];
+			
+			// console.log(c.data.trackingByMeals);
+			if(key== c.selectedMeal.meal.toLowerCase()){
+					c.selectedMealData= value;
+			}
+			// console.log("select emeal data" + c.selectedMeal.meal);
+			// console.log(c.selectedMealData);
+
+		  }
+		  meal.hideSelectedMeal=true;
+	}
+	
+  
+// 	c.data.countryList = [{ "value": "AF", "group": "A", "text": "Afghanistan"}, { "value": "AL", "group": "A", "text": "Albania"}, { "value": "DZ", "group": "A", "text": "Algeria"}, { "value": "AD", "group": "A", "text": "Andorra"}, { "value": "AO", "group": "A", "text": "Angola"}, { "value": "AR", "group": "A", "text": "Argentina"}, { "value": "AM", "group": "A", "text": "Armenia"}, { "value": "AW", "group": "A", "text": "Aruba"}, { "value": "AU", "group": "A", "text": "Australia"}, { "value": "AT", "group": "A", "text": "Austria"}, { "value": "AZ", "group": "A", "text": "Azerbaijan"}];
+   
+   
+//    for (var j = 0; j < c.data.countryList.length; j++) {
+// 		//debugger
+// 		if (c.data.countryList[j].text == "Australia") {
+// 			console.log(c.countryList[j].text); 
+// 			c.data.countryList[j].isSelected = 'selected';
+// 		}
+// 		}
+  
+
+
+	var calculateCalorieByMeal = function (){
+		
+		setTimeout(function () {
+		console.log("inside c by meal");
+		console.log(c.data.trackingByMeals);
+		c.totalCalories=0;
+		for(var i=0;i<c.data.meals.length;i++){
+			var m = c.data.meals[i].meal.toString().toLocaleLowerCase();
+			 c.data[m]=0;
+			
+			for(var j =0;j<c.data.trackingByMeals[m].length;j++){
+					c.data[m]+= c.data.trackingByMeals[m][j].calories;
+					c.totalCalories+= parseFloat(c.data.trackingByMeals[m][j].calories);				
+			}
+		} 
+
+
+		for(var j=0;j<c.data.meals.length;j++)
+		setCircularInMeals(j);
+		c.targetDegree = Number((parseFloat(360 * parseFloat(c.totalCalories)) / parseFloat(c.data.fitnessUserData.targetCalories)).toFixed(1));
+		c.currentPercentage=Number(c.targetDegree/306*100).toFixed(1);
+		var progressEndValue = 90,
+		speed = 50;
+	var progressStartValue = 0;
+		var progress = $interval(function () {
+			// console.log("cf" + c.targetDegree + " " + progressStartValue * (parseFloat(c.data.fitnessUserData.targetCalories))/500 );
+			// console.log(c.targetDegree);
+	    
+			progressStartValue++;
+			c.circular.background = 'conic-gradient(#7d2ae8 ' +  progressStartValue * (parseFloat(c.data.fitnessUserData.targetCalories)/500) + 'deg, #ededed 0deg)';
+			//c.circular.transition = 'background 1s' ;
+			//console.log(progressStartValue + " "+ progressStartValue*3.6);
+			if (progressStartValue * (parseFloat(c.data.fitnessUserData.targetCalories)/500) >= c.targetDegree) {
+				$interval.cancel(progress);
+			}
+		}, speed);
+		$interval.cancel(calculateCalorieByMeal);
+		return;
+	},500);
+
+
+};
+
+ function setCircularInMeals(i){
+	//console.log("hiii" +c.data.fitnessUserData.mealsCalories[0].target_calorie + " "+c.data[c.data.meals[0].meal.toLocaleLowerCase()]);
+	c.data.meals[i].mealCircular={};
+	if(c.data.fitnessUserData.mealsCalories[i].target_calorie<=c.data[c.data.meals[i].meal.toLocaleLowerCase()]){
+		c.data.meals[i].mealCircular.background =
+		'conic-gradient(#7d2ae8 360deg, #ededed 0deg)';
+		c.data.meals[i].currentPercentage=100;
+	  return;
+	}
+	var speed = 50;
+
+	var progressStartValue = 0;
+		var progress = $interval(function () {
+			
+
+				console.log(c.data[c.data.meals[i].meal.toLocaleLowerCase()]);
+				var degree = Number((parseFloat(360 * parseFloat(c.data[c.data.meals[i].meal.toLocaleLowerCase()])) / parseFloat(c.data.fitnessUserData.mealsCalories[i].target_calorie)).toFixed(1));
+				console.log("dee" + degree);
+					c.data.meals[i].currentPercentage=Number(degree/360*100).toFixed(1);
+					var progressEndValue = 90;
+					
+				
+			//c.data.meals[i].mealCircular={};
+			// console.log("f");
+			// console.log( c.data.fitnessUserData.mealsCalories[i].target_calorie);
+			// console.log( c.data.meals[0]);
+			progressStartValue++;
+			// console.log(c.data.meals[i].mealCircular.background);
+			c.data.meals[i].mealCircular.background =
+				'conic-gradient(#7d2ae8 ' +  progressStartValue * (parseFloat(c.data.fitnessUserData.mealsCalories[i].target_calorie)/500) + 'deg, #ededed 0deg)'
+			;
+			//c.circular.transition = 'background 1s' ;
+			console.log(progressStartValue * (parseFloat(c.data.fitnessUserData.mealsCalories[i].target_calorie))/500 + " " + degree);
+			if (progressStartValue * (parseFloat(c.data.fitnessUserData.mealsCalories[i].target_calorie)/500) >= degree) {
+				$interval.cancel(progress);
+			}
+		
+		}, speed);
+		$interval.cancel(calculateCalorieByMeal);
+	}
+
+
+
+calculateCalorieByMeal();
+
+	$scope.deleteTracking = function (food_id,tracking_id) {
+		console.log("hi" +food_id," "+tracking_id);
+		c.data.action = 'deleteTracking';
+		c.data.food_id = food_id;
+		c.data.tracking_id=tracking_id;
+		c.server.update();
+		setTimeout(function(){
+			calculateCalorieByMeal();
+			$scope.onLoad();
+	},500);
+		
+	};
+
+	$scope.prevDate=function(){
+		console.log("fsdfds");
+		 c.data.viewDates.setDate(c.data.viewDates.getDate()-1);
+	     c.data.action='updateDashboard';
+		 c.data.viewDate = c.data.viewDates;
+	     c.server.update();
+		 calculateCalorieByMeal();
+		 setTimeout(function(){
+			//calculateCalorieByMeal();
+			$scope.onLoad();
+	},500);
+		 console.log("Testing");
+	};
+	$scope.nextDate=function(){
+		 
+		 c.data.viewDates.setDate(c.data.viewDates.getDate()+1);
+		 c.data.action='updateDashboard';
+		 c.data.viewDate = c.data.viewDates;
+		 c.server.update();
+		 calculateCalorieByMeal();
+		 setTimeout(function(){
+			//calculateCalorieByMeal();
+			$scope.onLoad();
+	},500);
+	};
+	
+	// $scope.$watch('data', function(){
+	// 	calculateCalorieByMeal();
+	//   });
+
+	$scope.complete = function (string) {
+		$scope.hidethis = false;
+		$scope.hideTick = true;
+		var output = [];
+		angular.forEach(c.data.foodItems, function (food) {
+			if (food.name.toLowerCase().indexOf(string.toLowerCase()) >= 0) {
+				output.push(food);
+			}
+		});
+		$scope.foodList = output;
+	}
+	$scope.fillTextbox = function (string) {
+		$scope.country = string;
+	};
+	$scope.hideOkIcon = false;
+
+	$scope.hideOk = function (c) {
+		console.log("dfd");
+		
+
+		// Get the model
+		var model = $parse('hideOkIcon_' + c);
+
+		// Assigns a value to it
+		model.assign($scope, true);
+
+		// $scope.('hideOkIcon_'+c)=true;
+	};
+
+	$scope.manageCount = function(index,food){
+
+	
+		$scope.foodList[index].hide =false;
+		if($scope.foodList[index].count==undefined){
+			$scope.foodList[index].count=0;
+		}
+		$scope.foodList[index].count = $scope.foodList[index].count +1;
+  
+		$scope.hide=false;
+		
+		console.log("test" + c.foodItemToAddIds.indexOf($scope.foodList[index].id));
+
+		console.log($scope.foodList);
+		console.log(index);
+		console.log($scope.foodList[index]	);
+		if(c.foodItemToAddIds.indexOf($scope.foodList[index].id)!=-1){
+			var i= c.foodItemToAddIds.indexOf($scope.foodList[index].id);
+			$scope.foodItemToAdd[i].count=$scope.foodList[index].count;
+		}else{
+			var obj ={};
+			obj.id= $scope.foodList[index].id;
+			obj.count=$scope.foodList[index].count;
+			obj.calories=$scope.foodList[index].calories;
+			obj.name=$scope.foodList[index].name;
+			obj.mealId=c.currentMeal;
+			obj.sys_id=$scope.foodList[index].sys_id;
+			$scope.foodItemToAdd.push(obj);
+
+			c.foodItemToAddIds.push($scope.foodList[index].id);
+		}
+		console.log("test");
+		console.log($scope.foodItemToAdd);
+		
+	};
+
+	c.data.foodItems.forEach(function(e){
+		var model = $parse(e.id);
+		model.assign($scope, false);
+		var ok = $parse('ok_'+e.id);
+		ok.assign($scope, true);
+
+	});
+
+
+	$scope.addFoodItems=function(){
+		console.log("in addfooditems function");
+		c.data.action = 'addFoodItems';
+		console.log("current meal " + c.data.currentMeal);
+		c.data.viewDate= c.data.viewDates;
+		c.data.listToAdd=$scope.foodItemToAdd;
+		c.server.update();
+		calculateCalorieByMeal();
+		setTimeout(function(){
+			$scope.onLoad();
+	},500);
+	};
+
+	c.data.currentMeal="";
+	$scope.setMeal=function(id){
+
+		c.addMeal=id;
+		// console.log(id);
+		$scope.foodList=[];
+		$scope.listToAdd=[];
+		c.foodItemToAddIds=[];
+		$scope.foodItemToAdd=[];
+		c.data.meals.forEach(function(e){
+			// console.log("dfdf" + e.meal + " "+id.toLocaleLowerCase());
+			if(e.meal.toLocaleLowerCase()==id.toLocaleLowerCase()){
+				c.data.currentMeal=e.sys_id;
+			}
+		});
+		// if(id=="breakfast"){
+		// 	c.data.currentMeal=mealId;
+		// }else if(id=="Lunch"){
+		// 	c.data.currentMeal=mealId;
+		// }else if(id=="Snacks"){
+		// 	c.data.currentMeal=mealId;
+		// }else{
+		// 	c.data.currentMeal=mealId;
+		// }
+		
+	};
+
+
+	c.capitalize=function(s){
+		return s[0].toUpperCase() + s.slice(1);
+	};
+
+
+
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>
+
+
+.circular-progress{
+    position: relative;
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+    background: conic-gradient(#7d2ae8 0deg, #ededed 0deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  	margin:auto;
+   //transition: background 2s;
+   //transition-timing-function: ease; 
+   //border: 1px solid red;
+}
+.circular-progress::before{
+    content: "";
+    position: absolute;
+    height: 210px;
+    width: 210px;
+    border-radius: 50%;
+    background-color: #fff;
+  //border: 1px solid red;
+}
+.progress-value{
+    position: relative;
+    font-size: 40px;
+    font-weight: 600;
+    color: #7d2ae8;
+    text-align: center;
+}
+
+ .breakfast{
+     
+     
+ }
+
+ .margin-zero{
+    margin: 0px;
+ }
+
+ .shadow{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 4%;
+ }
+
+.breakfast-card{
+  margin-top:10px
+    
+}   
+
+.action{
+  text-align:center
+}
+   
+
+.action-right{
+  text-align:right
+}
+
+.meal-panel{
+  display: flex;
+  justify-content: space-between;
+}
+    
+
+#food-list li{
+  list-style:none;
+  padding:10px;
+  margin:5px 0;
+  border: 1px solid #e4e4e4;
+}
+.margin-right{
+  margin-right: 5px;
+}
+.center{
+   display: flex;
+   justify-content: center;
+   margin-top: -150px;
+}
+
+.date-change{
+    margin-top: 2px;
+    display: flex;
+    //justify-content: space-around;
+}
+
+
+
+.calendar-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-top:2rem;
+ }
+ 
+ .calendar-wrapper__calendar {
+  flex: 1 0 auto;
+  align-self: center;
+  font-size:1.8rem;
+ }
+ 
+ .calendar-wrapper__button_left {
+  border: 0;
+  outline: 0;
+  margin-left: 50%;
+  //margin-right: 1rem;
+  font-size: 2rem;
+  background-color: transparent;
+ }
+ .calendar-wrapper__button_right {
+  border: 0;
+  outline: 0;
+  // margin-left: 20rem;
+ // margin-right: ;
+  font-size: 2rem;
+  background-color: transparent;
+ }
+ 
+ 
+ .dropdown-button{
+   width: 100px;
+   padding: 6px;
+   margin-left: 15px;
+ }
+ 
+
+
+
+
+ .meal-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 30px;
+}
+
+.meal-circular-progress{
+ position: relative;
+ height: 100px;
+ width: 100px;
+ border-radius: 50%;
+ background: conic-gradient(#7d2ae8 0deg, #ededed 0deg);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ margin:auto;
+//transition: background 2s;
+//transition-timing-function: ease;
+//border: 1px solid red;
+}
+.meal-circular-progress::before{
+ content: "";
+ position: absolute;
+ height: 80px;
+ width: 80px;
+ border-radius: 50%;
+ background-color: #fff;
+//border: 1px solid red;
+}
+
+
+.circular-text{
+   align-items: center;
+   display: inline;
+}
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id/>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Track Data</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function () {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+  data.meals = [];
+  //data.meals2=[];
+  // var meals = new GlideRecord("x_942661_fitness_meal");
+  // meals.query();
+  // var mealsData = [];
+  // while (meals.next()) {
+
+  //   var obj = {
+  //     mealId: meals.getValue('number'),
+  //     meal: meals.getValue("meal")
+  //   };
+  //   mealsData.push(obj);
+  // }
+  // data.meals = mealsData;
+
+
+  // console.log(input);
+  // console.log("above is input");
+
+  // data.viewDate= new Date();
+
+
+
+var currentTime = new Date();
+
+var currentOffset = currentTime.getTimezoneOffset();
+
+var ISTOffset = 330;   // IST offset UTC +5:30 
+
+data.viewDate = new Date(currentTime.getTime() + (ISTOffset + currentOffset)*60000);
+
+// ISTTime now represents the time in IST coordinates
+
+
+  var listOfMeals=new Meals().getMeals();
+  data.meals=listOfMeals;
+
+	
+	var listOfFoodItems = new FoodItems().getAllFoodItem();
+	data.foodItems=listOfFoodItems;
+	
+	
+	// var listOfFoodItem = new FoodItems().getFoodItemById("FOOD0001005");
+	// data.foodItem=listOfFoodItem;
+	
+	
+	// var addTracking = new Tracking().addFoodItems("FD0001014","MEAL0001001",1);
+	
+	// data.add=addTracking;
+	
+	// var getTodaysCaloriesInfo = new TrackingData().getTodaysCaloriesInfo(gs.getUserID());
+	
+	// data.today= getTodaysCaloriesInfo;
+	
+  // data.databyMeals = new TrackingData().getTodaysTrackingByMeals();
+	
+	// data.trackingDelete= new Tracking().deleteTrackingById("bd36203447339510d5ff7868f36d43b9");
+	
+	data.fitnessUserData = new UserData().getFitnessUserData();
+
+
+ console.log("inside server script"); 
+ console.log(input);
+
+  if(input && input.action =='deleteTracking'){
+    var deleteTracking =  new Tracking().deleteTrackingById(input.food_id,input.tracking_id);
+    data.deleteTracking=deleteTracking;
+    //data.databyMeals = new TrackingData().getTrackingByMeal(input.viewDate);
+    data.trackingByMeals = new TrackingData().getTrackingByMeal(data.viewDate.getFullYear() +"-"+ (data.viewDate.getMonth()+1)  + "-" + (data.viewDate.getDate()));
+  }else if(input && input.action=="addFoodItems"){
+      console.log(input);
+      console.log("inside addfooditems");
+      console.log(input);
+
+      new Tracking().addFoodItems(input.listToAdd,input.currentMeal,input.viewDate);
+      data.trackingByMeals = new TrackingData().getTrackingByMeal(input.viewDate);
+      console.log("inside add foritem after insertion");
+      console.log(data.trackingByMeals);
+  }else if(input && input.action=="updateDashboard"){
+    console.log("pddd" +input.viewDate);
+    data.trackingByMeals="";
+    data.trackingByMeals = new TrackingData().getTrackingByMeal(input.viewDate);
+    console.log(data.trackingByMeals);
+  }else{
+     data.trackingByMeals = new TrackingData().getTrackingByMeal(data.viewDate.getFullYear() +"-"+ (data.viewDate.getMonth()+1)  + "-" + (data.viewDate.getDate()));
+     console.log(data.viewDate.getFullYear() +"-"+ (data.viewDate.getMonth()+1)  + "-" + (data.viewDate.getDate()));
+     console.log(new Date().getDate())
+     console.log(data.trackingByMeals);
+  }
+
+  //data.trackingByMeals = new TrackingData().getTrackingByMeal(data.viewDate.getFullYear() +"-"+ (data.viewDate.getMonth()+1)  + "-" + (data.viewDate.getDate()));
+
+
+   
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-05 06:50:25</sys_created_on>
+        <sys_id>c594b50047582150d5ff7868f36d43f6</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Track Data</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sp_widget_c594b50047582150d5ff7868f36d43f6</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-01-05 07:05:20</sys_updated_on>
+        <template><![CDATA[<div ng-hide="c.hideWidget">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-6 text-center " ng-repeat="ml in c.data.meals">
+      <div class="row mt-auto">
+        <div class="col text-primary">
+          <h2>{{ml.meal}}</h2>
+        </div>
+        <div>
+          {{c.data[ml.meal.toLowerCase()]}} Calories
+        </div>
+      </div>
+
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6  center">
+      <div class="circular-progress" ng-style="c.circular">
+        <span class="progress-value">{{c.currentPercentage}}%</span>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<!-- <div class="date-change container-fluid">
+  <div class="row">
+    <div class="col-sm-4">
+
+    </div>
+    <div class="col-sm-1">
+      <i class="glyphicon glyphicon-menu-left" aria-hidden="true"></i>
+    </div>
+    <div class="col-sm-4">
+      <i class="glyphicon glyphicon-calendar"></i>
+    </div> 
+    <div class="col-sm-1">
+      <i class="glyphicon glyphicon-menu-right" aria-hidden="true"></i>
+    </div>
+    <div class="col-sm-3">
+
+    </div>
+  </div>
+  
+</div>-->
+
+
+<div class="row row-center">
+  <div class="col-xl-8 col-lg-8 col-sm-10-col-12">
+    <div class="w-100 calendar-wrapper">
+      <button type="button" class="calendar-wrapper__button_left" ng-click="prevDate()">
+        <i class="glyphicon glyphicon-menu-left"></i>
+
+      </button>
+      <div class="calendar-wrapper__calendar text-center">
+        <i class="glyphicon glyphicon-calendar"></i>
+        <span>{{ c.data.viewDates | date : "dd MMMM yyyy" }}</span>
+      </div>
+      <button type="button" class="calendar-wrapper__button_right" ng-click="nextDate()">
+        <i class="glyphicon glyphicon-menu-right"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- <div class="container center">
+  <div class="col-sm-6 text-center">
+    <div class="circular-progress" ng-style="c.circular">
+      <span class="progress-value">{{c.progressValue}}%</span>
+    </div> 
+  </div>
+</div> -->
+<!-- 
+  <div class="container-fluid mt-2 breakfast-card">
+    <div class="row mt-2">
+      <div class="col-sm-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="meal-panel">
+              <div class="ml-0">Breakfast</div>
+              <div class="mr-0">
+                <Button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" ng-click="setMeal('Breakfast')"
+                  data-whatever="@mdo">Add</Button>
+              
+              </div>
+
+              
+            </div>
+            <div class="panel-body">
+
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th class="action">Calories(in Cal)</th>
+                    <th class="action-right">Actions</th>
+                  </tr>
+                </thead>
+                <tr ng-repeat="b in c.data.databyMeals|filter:{ meal:'Breakfast'}"">
+                  <th> {{b.food}}</th>
+                  <th class=" action">{{b.calorie}}</th>
+                  <th>
+                    <ul class="list-inline m-0 action-right">
+                      <li class="list-inline-item">
+                        <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip"
+                          data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
+                      </li>
+                      <li class="list-inline-item">
+                        <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip"
+                          data-placement="top" ng-click="deleteTracking(b.id)" title="Delete"><i
+                            class="fa fa-trash"></i></button>
+                      </li>
+                    </ul>
+                  </th>
+                </tr>
+              </table>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div class="container-fluid mt-2 breakfast-card">
+      <div class="row mt-2">
+        <div class="col-sm-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <div class="meal-panel">
+                <div class="ml-0">Lunch</div>
+                <div class="mr-0"><Button class="btn btn-primary">Add</Button></div>
+              </div>
+
+            
+            </div>
+            <div class="panel-body">
+
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th class="action">Calories(in Cal)</th>
+                    <th class="action-right">Actions</th>
+                  </tr>
+                </thead>
+                <tr ng-repeat="b in c.data.databyMeals|filter:{ meal:'Lunch'}"">
+                  <th> {{b.food}}</th>
+                  <th class=" action">{{b.calorie}}</th>
+                  <th>
+                    <ul class="list-inline m-0 action-right">
+                      <li class="list-inline-item">
+                        <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip"
+                          data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
+                      </li>
+                      <li class="list-inline-item">
+                        <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip"
+                          data-placement="top" ng-click="deleteTracking(b.id)" title="Delete"><i
+                            class="fa fa-trash"></i></button>
+                      </li>
+                    </ul>
+                  </th>
+                </tr>
+              </table>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div class="container-fluid mt-2 breakfast-card">
+      <div class="row mt-2">
+        <div class="col-sm-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <div class="meal-panel">
+                <div class="ml-0">Snacks</div>
+                <div class="mr-0"><Button class="btn btn-primary">Add</Button></div>
+              </div>
+
+              
+            </div>
+            <div class="panel-body">
+
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th class="action">Calories(in Cal)</th>
+                    <th class="action-right">Actions</th>
+                  </tr>
+                </thead>
+              
+                <tr ng-repeat="b in c.data.databyMeals|filter:{ meal:'Snacks'}"">
+                  <th> {{b.food}}</th>
+                  <th class=" action">{{b.calorie}}</th>
+                  <th>
+                    <ul class="list-inline m-0 action-right">
+                      <li class="list-inline-item">
+                        <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip"
+                          data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
+                      </li>
+                      <li class="list-inline-item">
+                        <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip"
+                          data-placement="top" ng-click="deleteTracking(b.id)" title="Delete"><i
+                            class="fa fa-trash"></i></button>
+                      </li>
+                    </ul>
+                  </th>
+                </tr>
+              </table>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+
+<div class="container">
+
+  <div class="row">
+    <!-- <div class="col-3 center" ng-repeat="c in c.data.meals">
+      <div class="meal-circular-progress " ng-style="c.circular">
+        <span class="meal-progress-value">{{c.currentPercentage}}%</span>
+      </div>
+    </div> -->
+
+    <div class="meal-center">
+     
+      <div class="meal-circular-progress" ng-repeat="co in c.data.meals" ng-style="co.mealCircular">
+        <div class="circular-text">
+          <span class="progress-value" style="font-size: 10px;">
+            <div>
+              {{co.currentPercentage}}%
+            </div>
+            <div>{{co.meal}}</div>
+          </span>
+        </div>
+        
+      </div>
+    
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle dropdown-button" type="button" id="about-us" data-toggle="dropdown"
+    aria-haspopup="true" aria-expanded="false" ng-model="c.selectedValue">
+      {{c.selectedValue}}
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="about-us">
+    <li ng-repeat="(k,v) in c.data.meals">
+      <a href="#" ng-click="selectFromDropdown(v)" ng-hide="v.hideSelectedMeal">{{v.meal}}</a></li>
+  </ul>
+</div>
+
+
+
+
+<!-- <select class="custom-select col-12" id="Country" name="Country"   >
+
+  <li ng-repeat="country in c.data.countryList">
+    <a href="#" selected="{{country.isSelected}}"   >{{country.text}}</a></li>
+  
+  </select> -->
+
+<div class="container-fluid mt-2 breakfast-card" ng-model="c.selectedValue" >
+  <div class="row mt-2">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="meal-panel">
+            <!-- <div class="ml-0">{{c.selectedMeal.meal}}</div> -->
+            <div class="mr-0"> <Button type="button" class="btn btn-primary" data-toggle="modal"
+                data-target="#exampleModal" ng-click="setMeal(c.selectedValue)" data-whatever="@mdo">Add</Button></div>
+          </div>
+        </div>
+        <div class="panel-body">
+
+          <table class="table table-striped">
+            <thead>
+              <!-- <tr>
+                  <th>Name</th>
+                  <th class="action">Calories(in Cal)</th>
+                  <th class="action-right">Actions</th>
+                </tr> -->
+              <div class="row">
+                <div class="col-sm-4">
+                  <b>Name</b>
+                </div>
+                <div class="col-sm-4 action">
+                  <b>Calories</b>
+                </div>
+                <div class="col-sm-4 action-right">
+                  <b>Actions</b>
+                </div>
+              </div>
+            </thead>
+            <!-- <tr ng-if="c.dinner==0">
+                <th>No data available</th>
+              </tr> -->
+            <!-- filter:{ meal:'Dinner'} -->
+
+            <hr>
+            <div ng-repeat="b in c.selectedMealData">
+
+
+              <div class="row">
+                <div class="col-sm-4">
+                  {{b.food}}
+                </div>
+                <div class="col-sm-4 action">
+                  {{b.calories}}
+                </div>
+                <div class="col-sm-4 action-right">
+                  <ul class="list-inline action-right">
+                    <!-- <li class="list-inline-item">
+                        <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip"
+                          data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
+                      </li> -->
+                    <li class="list-inline-item">
+                      <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip"
+                        data-placement="top" ng-click="deleteTracking(b.food_id,b.tracking_id)" title="Delete"><i
+                          class="fa fa-trash"></i></button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+
+              <!-- <th> {{b.food}}</th>
+                <th class="">{{b.calories}}</th>
+                <th>
+                  <ul class="list-inline action-right">
+                    <li class="list-inline-item">
+                      <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip"
+                        data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
+                    </li> 
+                    <li class="list-inline-item">
+                      <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip"
+                        data-placement="top" ng-click="deleteTracking(b.food_id,b.tracking_id)" title="Delete"><i
+                          class="fa fa-trash"></i></button>
+                    </li>
+                  </ul>
+                </th> -->
+            </div>
+          </table>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+    data-whatever="@mdo">Open
+    modal for @mdo</button>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+    data-whatever="@fat">Open
+    modal for @fat</button>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+    data-whatever="@getbootstrap">Open modal for @getbootstrap</button>
+  ...more buttons...
+
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    Launch demo modal
+  </button> -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">Add {{c.addMeal}}:</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">Search in food database:</label>
+
+            <input type="text" name="food" id="food" ng-model="food" ng-keyup="complete(food)" class="form-control" />
+            <!-- <input type="text" name="food" id="food" ng-model="food" ng-keyup="complete(food)" class="form-control" />  
+              <input type="text" name="food" id="food" ng-model="food" ng-keyup="complete(food)" class="form-control" /> -->
+            <br>
+            <ul class="list-group" ng-model="hidethis" ng-hide="hidethis">
+              <ul class="list-group" ng-model="hidethis" ng-hide="hidethis">
+                <ul class="list-group" ng-model="hidethis" ng-hide="hidethis">
+                  <ul class="list-group" ng-model="hidethis" ng-hide="hidethis">
+                    <ul class="list-group" ng-model="hidethis" ng-hide="hidethis">
+                      <li class="list-group-item meal-panel" ng-repeat="food in foodList track by $index"
+                        ng-click="fillTextbox(countrydata)">
+                        {{food.name}}
+                        <div>
+                          <span class="margin-right" ng-hide="foodList[$index].hide"
+                            ng-model="foodList[$index].count">{{foodList[$index].count}}</span>
+
+                          <span ng-click="manageCount($index,food)" ng-hide="{{food.id}}"
+                            class="glyphicon glyphicon-plus"></span></div>
+                      </li>
+
+
+
+                    </ul>
+                  </ul>
+                </ul>
+              </ul>
+            </ul>
+
+
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="addFoodItems()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">Search foods:</label>
+
+            <input type="text" name="food" id="food" ng-model="food" ng-keyup="complete(food)" class="form-control" />
+            <br>
+            <ul class="list-group" ng-model="hidethis" ng-hide="hidethis">
+              <ul class="list-group" ng-model="hidethis" ng-hide="hidethis">
+                <ul class="list-group" ng-model="hidethis" ng-hide="hidethis">
+                  <li class="list-group-item meal-panel" ng-repeat="food in foodList track by $index"
+                    ng-click="fillTextbox(countrydata)">
+                    {{food.name}} | {{food.description}}
+
+
+
+                    <span ng-hide="foodList[$index].hide"
+                      ng-model="foodList[$index].count">{{foodList[$index].count}}</span>
+                    <span ng-click="manageCount($index,food)" ng-hide="{{food.id}}"
+                      class="glyphicon glyphicon-plus"></span>
+                  </li>
+
+
+
+                </ul>
+              </ul>
+            </ul>
+            </ul>
+            </ul>
+
+
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>]]></template>
+    </sp_widget>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</application>
+        <file_path/>
+        <instance_id>e57b120adb9b08180b9d21c405961901</instance_id>
+        <instance_name>dev102074</instance_name>
+        <name>sp_widget_c594b50047582150d5ff7868f36d43f6</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;&lt;sp_widget action="INSERT_OR_UPDATE"&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[api.controller = function ($scope, $document, $log, $interval,$parse) {
+	/* widget controller */
+	var c = this;
+	var input = {};
+	c.progressValue = 0;
+    c.data.viewDates = new Date();
+	c.hideWidget=false;
+	c.circular = {
+		background: '#ededed'
+	};
+	c.currentPercentage=0;
+	c.foodItemToAddIds=[];
+	c.foodItemToAdd=[];
+	$scope.foodItemToAdd=[];
+	c.data.listToAdd=[];
+	// console.log("test");
+	// console.log(c.data);
+	c.totalCalories=0;
+	console.log(c.data);
+	c.hideWidget=false;
+	$scope.$on("SendDown", function (evt, data) {
+        $scope.Message = "Inside track client : " + data;
+		console.log($scope.Message);
+		c.hideWidget=true;
+    });
+	$scope.$on("SendCommunity", function (evt, data) {
+        $scope.Message = "Inside track client : " + data;
+		console.log($scope.Message);
+		c.hideWidget=false;
+    });
+
+
+	c.selectedDropdown="";
+	c.selectedValue="";
+	c.previousSelected="";
+	c.storeIndeForOnLOAD=0;
+	$scope.onLoad=function(){
+		// console.log(c.data.meals);
+		for(var i=0;i&lt;c.data.meals.length;i++){
+		//   console.log("tessttse" + i);
+		console.log("dsfdsf");
+		
+           
+			console.log(c.data.meals[i]);
+		if(c.previousSelected==c.data.meals[i].meal){
+			
+			for( var key in c.data.trackingByMeals ) {
+				var value = c.data.trackingByMeals[key];
+				
+				// console.log(c.data.trackingByMeals);
+				// console.log(key+ " "+c.selectedValue);
+				if(key== c.selectedValue.toLowerCase()){
+						c.selectedMealData= value;
+				}
+				// console.log("select emeal data" + c.selectedMealData);
+				// console.log(c.selectedMealData);
+	
+			  }
+		}
+		  if(i=='0' &amp;&amp; c.previousSelected==""){
+		   
+			c.selectedValue= c.data.meals[i].meal;
+			c.data.meals[i].hideSelectedMeal=true;
+			c.previousSelected=c.data.meals[i].meal;
+			// console.log("fdsf" +c.previousSelected);
+			c.data.meals[i].selected="selected";
+			c.storeIndeForOnLOAD=i;
+			// setTimeout(function(){
+			// 	console.log("idsadadda" + c.storeIndeForOnLOAD);
+			// 	//$scope.selectFromDropdown(c.data.meals[i]);
+			// },300);
+			
+			for( var key in c.data.trackingByMeals ) {
+				var value = c.data.trackingByMeals[key];
+				
+				// console.log(c.data.trackingByMeals);
+				// console.log(key+ " "+c.selectedValue);
+				if(key== c.selectedValue.toLowerCase()){
+						c.selectedMealData= value;
+				}
+				// console.log("select emeal data" + c.selectedMealData);
+				// console.log(c.selectedMealData);
+	
+			  }
+		// 	console.log("selected meal");
+		// 	console.log(c.selectedMeal);
+        //    console.log(c.data.trackingByMeals);
+			
+		  }else{
+			c.data.meals[i].selected=false;
+		  }
+		}
+
+	}
+	$scope.onLoad();
+	$scope.selectFromDropdown=function(meal){
+		  c.selectedValue=meal.meal;
+		  c.previousSelected.hideSelectedMeal=false;
+		  c.data.meals.forEach(function(e){
+			// console.log(c.previousSelected+ " "+e.meal);
+			 if(c.previousSelected==e.meal){
+				e.hideSelectedMeal=false;
+			 }
+		  });
+		  c.previousSelected=meal.meal;
+		  c.selectedMeal= meal;
+		//   console.log("selectedmEAL");
+		//   console.log(c.selectedMeal);
+		//   console.log(c.data.trackingByMeals);
+		  for( var key in c.data.trackingByMeals ) {
+			var value = c.data.trackingByMeals[key];
+			
+			// console.log(c.data.trackingByMeals);
+			if(key== c.selectedMeal.meal.toLowerCase()){
+					c.selectedMealData= value;
+			}
+			// console.log("select emeal data" + c.selectedMeal.meal);
+			// console.log(c.selectedMealData);
+
+		  }
+		  meal.hideSelectedMeal=true;
+	}
+	
+  
+// 	c.data.countryList = [{ "value": "AF", "group": "A", "text": "Afghanistan"}, { "value": "AL", "group": "A", "text": "Albania"}, { "value": "DZ", "group": "A", "text": "Algeria"}, { "value": "AD", "group": "A", "text": "Andorra"}, { "value": "AO", "group": "A", "text": "Angola"}, { "value": "AR", "group": "A", "text": "Argentina"}, { "value": "AM", "group": "A", "text": "Armenia"}, { "value": "AW", "group": "A", "text": "Aruba"}, { "value": "AU", "group": "A", "text": "Australia"}, { "value": "AT", "group": "A", "text": "Austria"}, { "value": "AZ", "group": "A", "text": "Azerbaijan"}];
+   
+   
+//    for (var j = 0; j &lt; c.data.countryList.length; j++) {
+// 		//debugger
+// 		if (c.data.countryList[j].text == "Australia") {
+// 			console.log(c.countryList[j].text); 
+// 			c.data.countryList[j].isSelected = 'selected';
+// 		}
+// 		}
+  
+
+
+	var calculateCalorieByMeal = function (){
+		
+		setTimeout(function () {
+		console.log("inside c by meal");
+		console.log(c.data.trackingByMeals);
+		c.totalCalories=0;
+		for(var i=0;i&lt;c.data.meals.length;i++){
+			var m = c.data.meals[i].meal.toString().toLocaleLowerCase();
+			 c.data[m]=0;
+			
+			for(var j =0;j&lt;c.data.trackingByMeals[m].length;j++){
+					c.data[m]+= c.data.trackingByMeals[m][j].calories;
+					c.totalCalories+= parseFloat(c.data.trackingByMeals[m][j].calories);				
+			}
+		} 
+
+
+		for(var j=0;j&lt;c.data.meals.length;j++)
+		setCircularInMeals(j);
+		c.targetDegree = Number((parseFloat(360 * parseFloat(c.totalCalories)) / parseFloat(c.data.fitnessUserData.targetCalories)).toFixed(1));
+		c.currentPercentage=Number(c.targetDegree/306*100).toFixed(1);
+		var progressEndValue = 90,
+		speed = 50;
+	var progressStartValue = 0;
+		var progress = $interval(function () {
+			// console.log("cf" + c.targetDegree + " " + progressStartValue * (parseFloat(c.data.fitnessUserData.targetCalories))/500 );
+			// console.log(c.targetDegree);
+	    
+			progressStartValue++;
+			c.circular.background = 'conic-gradient(#7d2ae8 ' +  progressStartValue * (parseFloat(c.data.fitnessUserData.targetCalories)/500) + 'deg, #ededed 0deg)';
+			//c.circular.transition = 'background 1s' ;
+			//console.log(progressStartValue + " "+ progressStartValue*3.6);
+			if (progressStartValue * (parseFloat(c.data.fitnessUserData.targetCalories)/500) &gt;= c.targetDegree) {
+				$interval.cancel(progress);
+			}
+		}, speed);
+		$interval.cancel(calculateCalorieByMeal);
+		return;
+	},500);
+
+
+};
+
+ function setCircularInMeals(i){
+	//console.log("hiii" +c.data.fitnessUserData.mealsCalories[0].target_calorie + " "+c.data[c.data.meals[0].meal.toLocaleLowerCase()]);
+	c.data.meals[i].mealCircular={};
+	if(c.data.fitnessUserData.mealsCalories[i].target_calorie&lt;=c.data[c.data.meals[i].meal.toLocaleLowerCase()]){
+		c.data.meals[i].mealCircular.background =
+		'conic-gradient(#7d2ae8 360deg, #ededed 0deg)';
+		c.data.meals[i].currentPercentage=100;
+	  return;
+	}
+	var speed = 50;
+
+	var progressStartValue = 0;
+		var progress = $interval(function () {
+			
+
+				console.log(c.data[c.data.meals[i].meal.toLocaleLowerCase()]);
+				var degree = Number((parseFloat(360 * parseFloat(c.data[c.data.meals[i].meal.toLocaleLowerCase()])) / parseFloat(c.data.fitnessUserData.mealsCalories[i].target_calorie)).toFixed(1));
+				console.log("dee" + degree);
+					c.data.meals[i].currentPercentage=Number(degree/360*100).toFixed(1);
+					var progressEndValue = 90;
+					
+				
+			//c.data.meals[i].mealCircular={};
+			// console.log("f");
+			// console.log( c.data.fitnessUserData.mealsCalories[i].target_calorie);
+			// console.log( c.data.meals[0]);
+			progressStartValue++;
+			// console.log(c.data.meals[i].mealCircular.background);
+			c.data.meals[i].mealCircular.background =
+				'conic-gradient(#7d2ae8 ' +  progressStartValue * (parseFloat(c.data.fitnessUserData.mealsCalories[i].target_calorie)/500) + 'deg, #ededed 0deg)'
+			;
+			//c.circular.transition = 'background 1s' ;
+			console.log(progressStartValue * (parseFloat(c.data.fitnessUserData.mealsCalories[i].target_calorie))/500 + " " + degree);
+			if (progressStartValue * (parseFloat(c.data.fitnessUserData.mealsCalories[i].target_calorie)/500) &gt;= degree) {
+				$interval.cancel(progress);
+			}
+		
+		}, speed);
+		$interval.cancel(calculateCalorieByMeal);
+	}
+
+
+
+calculateCalorieByMeal();
+
+	$scope.deleteTracking = function (food_id,tracking_id) {
+		console.log("hi" +food_id," "+tracking_id);
+		c.data.action = 'deleteTracking';
+		c.data.food_id = food_id;
+		c.data.tracking_id=tracking_id;
+		c.server.update();
+		setTimeout(function(){
+			calculateCalorieByMeal();
+			$scope.onLoad();
+	},500);
+		
+	};
+
+	$scope.prevDate=function(){
+		console.log("fsdfds");
+		 c.data.viewDates.setDate(c.data.viewDates.getDate()-1);
+	     c.data.action='updateDashboard';
+		 c.data.viewDate = c.data.viewDates;
+	     c.server.update();
+		 calculateCalorieByMeal();
+		 setTimeout(function(){
+			//calculateCalorieByMeal();
+			$scope.onLoad();
+	},500);
+		 console.log("Testing");
+	};
+	$scope.nextDate=function(){
+		 
+		 c.data.viewDates.setDate(c.data.viewDates.getDate()+1);
+		 c.data.action='updateDashboard';
+		 c.data.viewDate = c.data.viewDates;
+		 c.server.update();
+		 calculateCalorieByMeal();
+		 setTimeout(function(){
+			//calculateCalorieByMeal();
+			$scope.onLoad();
+	},500);
+	};
+	
+	// $scope.$watch('data', function(){
+	// 	calculateCalorieByMeal();
+	//   });
+
+	$scope.complete = function (string) {
+		$scope.hidethis = false;
+		$scope.hideTick = true;
+		var output = [];
+		angular.forEach(c.data.foodItems, function (food) {
+			if (food.name.toLowerCase().indexOf(string.toLowerCase()) &gt;= 0) {
+				output.push(food);
+			}
+		});
+		$scope.foodList = output;
+	}
+	$scope.fillTextbox = function (string) {
+		$scope.country = string;
+	};
+	$scope.hideOkIcon = false;
+
+	$scope.hideOk = function (c) {
+		console.log("dfd");
+		
+
+		// Get the model
+		var model = $parse('hideOkIcon_' + c);
+
+		// Assigns a value to it
+		model.assign($scope, true);
+
+		// $scope.('hideOkIcon_'+c)=true;
+	};
+
+	$scope.manageCount = function(index,food){
+
+	
+		$scope.foodList[index].hide =false;
+		if($scope.foodList[index].count==undefined){
+			$scope.foodList[index].count=0;
+		}
+		$scope.foodList[index].count = $scope.foodList[index].count +1;
+  
+		$scope.hide=false;
+		
+		console.log("test" + c.foodItemToAddIds.indexOf($scope.foodList[index].id));
+
+		console.log($scope.foodList);
+		console.log(index);
+		console.log($scope.foodList[index]	);
+		if(c.foodItemToAddIds.indexOf($scope.foodList[index].id)!=-1){
+			var i= c.foodItemToAddIds.indexOf($scope.foodList[index].id);
+			$scope.foodItemToAdd[i].count=$scope.foodList[index].count;
+		}else{
+			var obj ={};
+			obj.id= $scope.foodList[index].id;
+			obj.count=$scope.foodList[index].count;
+			obj.calories=$scope.foodList[index].calories;
+			obj.name=$scope.foodList[index].name;
+			obj.mealId=c.currentMeal;
+			obj.sys_id=$scope.foodList[index].sys_id;
+			$scope.foodItemToAdd.push(obj);
+
+			c.foodItemToAddIds.push($scope.foodList[index].id);
+		}
+		console.log("test");
+		console.log($scope.foodItemToAdd);
+		
+	};
+
+	c.data.foodItems.forEach(function(e){
+		var model = $parse(e.id);
+		model.assign($scope, false);
+		var ok = $parse('ok_'+e.id);
+		ok.assign($scope, true);
+
+	});
+
+
+	$scope.addFoodItems=function(){
+		console.log("in addfooditems function");
+		c.data.action = 'addFoodItems';
+		console.log("current meal " + c.data.currentMeal);
+		c.data.viewDate= c.data.viewDates;
+		c.data.listToAdd=$scope.foodItemToAdd;
+		c.server.update();
+		calculateCalorieByMeal();
+		setTimeout(function(){
+			$scope.onLoad();
+	},500);
+	};
+
+	c.data.currentMeal="";
+	$scope.setMeal=function(id){
+
+		c.addMeal=id;
+		// console.log(id);
+		$scope.foodList=[];
+		$scope.listToAdd=[];
+		c.foodItemToAddIds=[];
+		$scope.foodItemToAdd=[];
+		c.data.meals.forEach(function(e){
+			// console.log("dfdf" + e.meal + " "+id.toLocaleLowerCase());
+			if(e.meal.toLocaleLowerCase()==id.toLocaleLowerCase()){
+				c.data.currentMeal=e.sys_id;
+			}
+		});
+		// if(id=="breakfast"){
+		// 	c.data.currentMeal=mealId;
+		// }else if(id=="Lunch"){
+		// 	c.data.currentMeal=mealId;
+		// }else if(id=="Snacks"){
+		// 	c.data.currentMeal=mealId;
+		// }else{
+		// 	c.data.currentMeal=mealId;
+		// }
+		
+	};
+
+
+	c.capitalize=function(s){
+		return s[0].toUpperCase() + s.slice(1);
+	};
+
+
+
+};]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;
+
+
+.circular-progress{
+    position: relative;
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+    background: conic-gradient(#7d2ae8 0deg, #ededed 0deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  	margin:auto;
+   //transition: background 2s;
+   //transition-timing-function: ease; 
+   //border: 1px solid red;
+}
+.circular-progress::before{
+    content: "";
+    position: absolute;
+    height: 210px;
+    width: 210px;
+    border-radius: 50%;
+    background-color: #fff;
+  //border: 1px solid red;
+}
+.progress-value{
+    position: relative;
+    font-size: 40px;
+    font-weight: 600;
+    color: #7d2ae8;
+    text-align: center;
+}
+
+ .breakfast{
+     
+     
+ }
+
+ .margin-zero{
+    margin: 0px;
+ }
+
+ .shadow{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 4%;
+ }
+
+.breakfast-card{
+  margin-top:10px
+    
+}   
+
+.action{
+  text-align:center
+}
+   
+
+.action-right{
+  text-align:right
+}
+
+.meal-panel{
+  display: flex;
+  justify-content: space-between;
+}
+    
+
+#food-list li{
+  list-style:none;
+  padding:10px;
+  margin:5px 0;
+  border: 1px solid #e4e4e4;
+}
+.margin-right{
+  margin-right: 5px;
+}
+.center{
+   display: flex;
+   justify-content: center;
+   margin-top: -150px;
+}
+
+.date-change{
+    margin-top: 2px;
+    display: flex;
+    //justify-content: space-around;
+}
+
+
+
+.calendar-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-top:2rem;
+ }
+ 
+ .calendar-wrapper__calendar {
+  flex: 1 0 auto;
+  align-self: center;
+  font-size:1.8rem;
+ }
+ 
+ .calendar-wrapper__button_left {
+  border: 0;
+  outline: 0;
+  margin-left: 50%;
+  //margin-right: 1rem;
+  font-size: 2rem;
+  background-color: transparent;
+ }
+ .calendar-wrapper__button_right {
+  border: 0;
+  outline: 0;
+  // margin-left: 20rem;
+ // margin-right: ;
+  font-size: 2rem;
+  background-color: transparent;
+ }
+ 
+ 
+ .dropdown-button{
+   width: 100px;
+   padding: 6px;
+   margin-left: 15px;
+ }
+ 
+
+
+
+
+ .meal-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 30px;
+}
+
+.meal-circular-progress{
+ position: relative;
+ height: 100px;
+ width: 100px;
+ border-radius: 50%;
+ background: conic-gradient(#7d2ae8 0deg, #ededed 0deg);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ margin:auto;
+//transition: background 2s;
+//transition-timing-function: ease;
+//border: 1px solid red;
+}
+.meal-circular-progress::before{
+ content: "";
+ position: absolute;
+ height: 80px;
+ width: 80px;
+ border-radius: 50%;
+ background-color: #fff;
+//border: 1px solid red;
+}
+
+
+.circular-text{
+   align-items: center;
+   display: inline;
+}
+&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;false&lt;/has_preview&gt;&lt;id/&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;&lt;name&gt;Track Data&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function () {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+  data.meals = [];
+  //data.meals2=[];
+  // var meals = new GlideRecord("x_942661_fitness_meal");
+  // meals.query();
+  // var mealsData = [];
+  // while (meals.next()) {
+
+  //   var obj = {
+  //     mealId: meals.getValue('number'),
+  //     meal: meals.getValue("meal")
+  //   };
+  //   mealsData.push(obj);
+  // }
+  // data.meals = mealsData;
+
+
+  // console.log(input);
+  // console.log("above is input");
+
+  // data.viewDate= new Date();
+
+
+
+var currentTime = new Date();
+
+var currentOffset = currentTime.getTimezoneOffset();
+
+var ISTOffset = 330;   // IST offset UTC +5:30 
+
+data.viewDate = new Date(currentTime.getTime() + (ISTOffset + currentOffset)*60000);
+
+// ISTTime now represents the time in IST coordinates
+
+
+  var listOfMeals=new Meals().getMeals();
+  data.meals=listOfMeals;
+
+	
+	var listOfFoodItems = new FoodItems().getAllFoodItem();
+	data.foodItems=listOfFoodItems;
+	
+	
+	// var listOfFoodItem = new FoodItems().getFoodItemById("FOOD0001005");
+	// data.foodItem=listOfFoodItem;
+	
+	
+	// var addTracking = new Tracking().addFoodItems("FD0001014","MEAL0001001",1);
+	
+	// data.add=addTracking;
+	
+	// var getTodaysCaloriesInfo = new TrackingData().getTodaysCaloriesInfo(gs.getUserID());
+	
+	// data.today= getTodaysCaloriesInfo;
+	
+  // data.databyMeals = new TrackingData().getTodaysTrackingByMeals();
+	
+	// data.trackingDelete= new Tracking().deleteTrackingById("bd36203447339510d5ff7868f36d43b9");
+	
+	data.fitnessUserData = new UserData().getFitnessUserData();
+
+
+ console.log("inside server script"); 
+ console.log(input);
+
+  if(input &amp;&amp; input.action =='deleteTracking'){
+    var deleteTracking =  new Tracking().deleteTrackingById(input.food_id,input.tracking_id);
+    data.deleteTracking=deleteTracking;
+    //data.databyMeals = new TrackingData().getTrackingByMeal(input.viewDate);
+    data.trackingByMeals = new TrackingData().getTrackingByMeal(data.viewDate.getFullYear() +"-"+ (data.viewDate.getMonth()+1)  + "-" + (data.viewDate.getDate()));
+  }else if(input &amp;&amp; input.action=="addFoodItems"){
+      console.log(input);
+      console.log("inside addfooditems");
+      console.log(input);
+
+      new Tracking().addFoodItems(input.listToAdd,input.currentMeal,input.viewDate);
+      data.trackingByMeals = new TrackingData().getTrackingByMeal(input.viewDate);
+      console.log("inside add foritem after insertion");
+      console.log(data.trackingByMeals);
+  }else if(input &amp;&amp; input.action=="updateDashboard"){
+    console.log("pddd" +input.viewDate);
+    data.trackingByMeals="";
+    data.trackingByMeals = new TrackingData().getTrackingByMeal(input.viewDate);
+    console.log(data.trackingByMeals);
+  }else{
+     data.trackingByMeals = new TrackingData().getTrackingByMeal(data.viewDate.getFullYear() +"-"+ (data.viewDate.getMonth()+1)  + "-" + (data.viewDate.getDate()));
+     console.log(data.viewDate.getFullYear() +"-"+ (data.viewDate.getMonth()+1)  + "-" + (data.viewDate.getDate()));
+     console.log(new Date().getDate())
+     console.log(data.trackingByMeals);
+  }
+
+  //data.trackingByMeals = new TrackingData().getTrackingByMeal(data.viewDate.getFullYear() +"-"+ (data.viewDate.getMonth()+1)  + "-" + (data.viewDate.getDate()));
+
+
+   
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2023-01-05 06:50:25&lt;/sys_created_on&gt;&lt;sys_id&gt;c594b50047582150d5ff7868f36d43f6&lt;/sys_id&gt;&lt;sys_mod_count&gt;2&lt;/sys_mod_count&gt;&lt;sys_name&gt;Track Data&lt;/sys_name&gt;&lt;sys_package display_value="FitnessTracker" source="x_942661_fitness"&gt;ba87ecee47231110d5ff7868f36d43ef&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="FitnessTracker"&gt;ba87ecee47231110d5ff7868f36d43ef&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_c594b50047582150d5ff7868f36d43f6&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2023-01-05 07:05:20&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div ng-hide="c.hideWidget"&gt;
+&lt;div class="container-fluid"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col-sm-6 text-center " ng-repeat="ml in c.data.meals"&gt;
+      &lt;div class="row mt-auto"&gt;
+        &lt;div class="col text-primary"&gt;
+          &lt;h2&gt;{{ml.meal}}&lt;/h2&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+          {{c.data[ml.meal.toLowerCase()]}} Calories
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+    &lt;/div&gt;
+    &lt;div class="col-sm-3"&gt;&lt;/div&gt;
+    &lt;div class="col-sm-6  center"&gt;
+      &lt;div class="circular-progress" ng-style="c.circular"&gt;
+        &lt;span class="progress-value"&gt;{{c.currentPercentage}}%&lt;/span&gt;
+      &lt;/div&gt;
+
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- &lt;div class="date-change container-fluid"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col-sm-4"&gt;
+
+    &lt;/div&gt;
+    &lt;div class="col-sm-1"&gt;
+      &lt;i class="glyphicon glyphicon-menu-left" aria-hidden="true"&gt;&lt;/i&gt;
+    &lt;/div&gt;
+    &lt;div class="col-sm-4"&gt;
+      &lt;i class="glyphicon glyphicon-calendar"&gt;&lt;/i&gt;
+    &lt;/div&gt; 
+    &lt;div class="col-sm-1"&gt;
+      &lt;i class="glyphicon glyphicon-menu-right" aria-hidden="true"&gt;&lt;/i&gt;
+    &lt;/div&gt;
+    &lt;div class="col-sm-3"&gt;
+
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+&lt;/div&gt;--&gt;
+
+
+&lt;div class="row row-center"&gt;
+  &lt;div class="col-xl-8 col-lg-8 col-sm-10-col-12"&gt;
+    &lt;div class="w-100 calendar-wrapper"&gt;
+      &lt;button type="button" class="calendar-wrapper__button_left" ng-click="prevDate()"&gt;
+        &lt;i class="glyphicon glyphicon-menu-left"&gt;&lt;/i&gt;
+
+      &lt;/button&gt;
+      &lt;div class="calendar-wrapper__calendar text-center"&gt;
+        &lt;i class="glyphicon glyphicon-calendar"&gt;&lt;/i&gt;
+        &lt;span&gt;{{ c.data.viewDates | date : "dd MMMM yyyy" }}&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;button type="button" class="calendar-wrapper__button_right" ng-click="nextDate()"&gt;
+        &lt;i class="glyphicon glyphicon-menu-right"&gt;&lt;/i&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+
+&lt;!-- &lt;div class="container center"&gt;
+  &lt;div class="col-sm-6 text-center"&gt;
+    &lt;div class="circular-progress" ng-style="c.circular"&gt;
+      &lt;span class="progress-value"&gt;{{c.progressValue}}%&lt;/span&gt;
+    &lt;/div&gt; 
+  &lt;/div&gt;
+&lt;/div&gt; --&gt;
+&lt;!-- 
+  &lt;div class="container-fluid mt-2 breakfast-card"&gt;
+    &lt;div class="row mt-2"&gt;
+      &lt;div class="col-sm-12"&gt;
+        &lt;div class="panel panel-default"&gt;
+          &lt;div class="panel-heading"&gt;
+            &lt;div class="meal-panel"&gt;
+              &lt;div class="ml-0"&gt;Breakfast&lt;/div&gt;
+              &lt;div class="mr-0"&gt;
+                &lt;Button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" ng-click="setMeal('Breakfast')"
+                  data-whatever="@mdo"&gt;Add&lt;/Button&gt;
+              
+              &lt;/div&gt;
+
+              
+            &lt;/div&gt;
+            &lt;div class="panel-body"&gt;
+
+              &lt;table class="table table-striped"&gt;
+                &lt;thead&gt;
+                  &lt;tr&gt;
+                    &lt;th&gt;Name&lt;/th&gt;
+                    &lt;th class="action"&gt;Calories(in Cal)&lt;/th&gt;
+                    &lt;th class="action-right"&gt;Actions&lt;/th&gt;
+                  &lt;/tr&gt;
+                &lt;/thead&gt;
+                &lt;tr ng-repeat="b in c.data.databyMeals|filter:{ meal:'Breakfast'}""&gt;
+                  &lt;th&gt; {{b.food}}&lt;/th&gt;
+                  &lt;th class=" action"&gt;{{b.calorie}}&lt;/th&gt;
+                  &lt;th&gt;
+                    &lt;ul class="list-inline m-0 action-right"&gt;
+                      &lt;li class="list-inline-item"&gt;
+                        &lt;button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip"
+                          data-placement="top" title="Edit"&gt;&lt;i class="fa fa-edit"&gt;&lt;/i&gt;&lt;/button&gt;
+                      &lt;/li&gt;
+                      &lt;li class="list-inline-item"&gt;
+                        &lt;button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip"
+                          data-placement="top" ng-click="deleteTracking(b.id)" title="Delete"&gt;&lt;i
+                            class="fa fa-trash"&gt;&lt;/i&gt;&lt;/button&gt;
+                      &lt;/li&gt;
+                    &lt;/ul&gt;
+                  &lt;/th&gt;
+                &lt;/tr&gt;
+              &lt;/table&gt;
+
+
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+
+
+
+    &lt;div class="container-fluid mt-2 breakfast-card"&gt;
+      &lt;div class="row mt-2"&gt;
+        &lt;div class="col-sm-12"&gt;
+          &lt;div class="panel panel-default"&gt;
+            &lt;div class="panel-heading"&gt;
+              &lt;div class="meal-panel"&gt;
+                &lt;div class="ml-0"&gt;Lunch&lt;/div&gt;
+                &lt;div class="mr-0"&gt;&lt;Button class="btn btn-primary"&gt;Add&lt;/Button&gt;&lt;/div&gt;
+              &lt;/div&gt;
+
+            
+            &lt;/div&gt;
+            &lt;div class="panel-body"&gt;
+
+              &lt;table class="table table-striped"&gt;
+                &lt;thead&gt;
+                  &lt;tr&gt;
+                    &lt;th&gt;Name&lt;/th&gt;
+                    &lt;th class="action"&gt;Calories(in Cal)&lt;/th&gt;
+                    &lt;th class="action-right"&gt;Actions&lt;/th&gt;
+                  &lt;/tr&gt;
+                &lt;/thead&gt;
+                &lt;tr ng-repeat="b in c.data.databyMeals|filter:{ meal:'Lunch'}""&gt;
+                  &lt;th&gt; {{b.food}}&lt;/th&gt;
+                  &lt;th class=" action"&gt;{{b.calorie}}&lt;/th&gt;
+                  &lt;th&gt;
+                    &lt;ul class="list-inline m-0 action-right"&gt;
+                      &lt;li class="list-inline-item"&gt;
+                        &lt;button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip"
+                          data-placement="top" title="Edit"&gt;&lt;i class="fa fa-edit"&gt;&lt;/i&gt;&lt;/button&gt;
+                      &lt;/li&gt;
+                      &lt;li class="list-inline-item"&gt;
+                        &lt;button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip"
+                          data-placement="top" ng-click="deleteTracking(b.id)" title="Delete"&gt;&lt;i
+                            class="fa fa-trash"&gt;&lt;/i&gt;&lt;/button&gt;
+                      &lt;/li&gt;
+                    &lt;/ul&gt;
+                  &lt;/th&gt;
+                &lt;/tr&gt;
+              &lt;/table&gt;
+
+
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+
+
+
+    &lt;div class="container-fluid mt-2 breakfast-card"&gt;
+      &lt;div class="row mt-2"&gt;
+        &lt;div class="col-sm-12"&gt;
+          &lt;div class="panel panel-default"&gt;
+            &lt;div class="panel-heading"&gt;
+              &lt;div class="meal-panel"&gt;
+                &lt;div class="ml-0"&gt;Snacks&lt;/div&gt;
+                &lt;div class="mr-0"&gt;&lt;Button class="btn btn-primary"&gt;Add&lt;/Button&gt;&lt;/div&gt;
+              &lt;/div&gt;
+
+              
+            &lt;/div&gt;
+            &lt;div class="panel-body"&gt;
+
+              &lt;table class="table table-striped"&gt;
+                &lt;thead&gt;
+                  &lt;tr&gt;
+                    &lt;th&gt;Name&lt;/th&gt;
+                    &lt;th class="action"&gt;Calories(in Cal)&lt;/th&gt;
+                    &lt;th class="action-right"&gt;Actions&lt;/th&gt;
+                  &lt;/tr&gt;
+                &lt;/thead&gt;
+              
+                &lt;tr ng-repeat="b in c.data.databyMeals|filter:{ meal:'Snacks'}""&gt;
+                  &lt;th&gt; {{b.food}}&lt;/th&gt;
+                  &lt;th class=" action"&gt;{{b.calorie}}&lt;/th&gt;
+                  &lt;th&gt;
+                    &lt;ul class="list-inline m-0 action-right"&gt;
+                      &lt;li class="list-inline-item"&gt;
+                        &lt;button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip"
+                          data-placement="top" title="Edit"&gt;&lt;i class="fa fa-edit"&gt;&lt;/i&gt;&lt;/button&gt;
+                      &lt;/li&gt;
+                      &lt;li class="list-inline-item"&gt;
+                        &lt;button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip"
+                          data-placement="top" ng-click="deleteTracking(b.id)" title="Delete"&gt;&lt;i
+                            class="fa fa-trash"&gt;&lt;/i&gt;&lt;/button&gt;
+                      &lt;/li&gt;
+                    &lt;/ul&gt;
+                  &lt;/th&gt;
+                &lt;/tr&gt;
+              &lt;/table&gt;
+
+
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt; --&gt;
+
+
+&lt;div class="container"&gt;
+
+  &lt;div class="row"&gt;
+    &lt;!-- &lt;div class="col-3 center" ng-repeat="c in c.data.meals"&gt;
+      &lt;div class="meal-circular-progress " ng-style="c.circular"&gt;
+        &lt;span class="meal-progress-value"&gt;{{c.currentPercentage}}%&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt; --&gt;
+
+    &lt;div class="meal-center"&gt;
+     
+      &lt;div class="meal-circular-progress" ng-repeat="co in c.data.meals" ng-style="co.mealCircular"&gt;
+        &lt;div class="circular-text"&gt;
+          &lt;span class="progress-value" style="font-size: 10px;"&gt;
+            &lt;div&gt;
+              {{co.currentPercentage}}%
+            &lt;/div&gt;
+            &lt;div&gt;{{co.meal}}&lt;/div&gt;
+          &lt;/span&gt;
+        &lt;/div&gt;
+        
+      &lt;/div&gt;
+    
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+
+
+
+
+
+
+
+
+&lt;div class="dropdown"&gt;
+  &lt;button class="btn btn-primary dropdown-toggle dropdown-button" type="button" id="about-us" data-toggle="dropdown"
+    aria-haspopup="true" aria-expanded="false" ng-model="c.selectedValue"&gt;
+      {{c.selectedValue}}
+    &lt;span class="caret"&gt;&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;ul class="dropdown-menu" aria-labelledby="about-us"&gt;
+    &lt;li ng-repeat="(k,v) in c.data.meals"&gt;
+      &lt;a href="#" ng-click="selectFromDropdown(v)" ng-hide="v.hideSelectedMeal"&gt;{{v.meal}}&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+
+
+
+
+&lt;!-- &lt;select class="custom-select col-12" id="Country" name="Country"   &gt;
+
+  &lt;li ng-repeat="country in c.data.countryList"&gt;
+    &lt;a href="#" selected="{{country.isSelected}}"   &gt;{{country.text}}&lt;/a&gt;&lt;/li&gt;
+  
+  &lt;/select&gt; --&gt;
+
+&lt;div class="container-fluid mt-2 breakfast-card" ng-model="c.selectedValue" &gt;
+  &lt;div class="row mt-2"&gt;
+    &lt;div class="col-sm-12"&gt;
+      &lt;div class="panel panel-default"&gt;
+        &lt;div class="panel-heading"&gt;
+          &lt;div class="meal-panel"&gt;
+            &lt;!-- &lt;div class="ml-0"&gt;{{c.selectedMeal.meal}}&lt;/div&gt; --&gt;
+            &lt;div class="mr-0"&gt; &lt;Button type="button" class="btn btn-primary" data-toggle="modal"
+                data-target="#exampleModal" ng-click="setMeal(c.selectedValue)" data-whatever="@mdo"&gt;Add&lt;/Button&gt;&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="panel-body"&gt;
+
+          &lt;table class="table table-striped"&gt;
+            &lt;thead&gt;
+              &lt;!-- &lt;tr&gt;
+                  &lt;th&gt;Name&lt;/th&gt;
+                  &lt;th class="action"&gt;Calories(in Cal)&lt;/th&gt;
+                  &lt;th class="action-right"&gt;Actions&lt;/th&gt;
+                &lt;/tr&gt; --&gt;
+              &lt;div class="row"&gt;
+                &lt;div class="col-sm-4"&gt;
+                  &lt;b&gt;Name&lt;/b&gt;
+                &lt;/div&gt;
+                &lt;div class="col-sm-4 action"&gt;
+                  &lt;b&gt;Calories&lt;/b&gt;
+                &lt;/div&gt;
+                &lt;div class="col-sm-4 action-right"&gt;
+                  &lt;b&gt;Actions&lt;/b&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/thead&gt;
+            &lt;!-- &lt;tr ng-if="c.dinner==0"&gt;
+                &lt;th&gt;No data available&lt;/th&gt;
+              &lt;/tr&gt; --&gt;
+            &lt;!-- filter:{ meal:'Dinner'} --&gt;
+
+            &lt;hr&gt;
+            &lt;div ng-repeat="b in c.selectedMealData"&gt;
+
+
+              &lt;div class="row"&gt;
+                &lt;div class="col-sm-4"&gt;
+                  {{b.food}}
+                &lt;/div&gt;
+                &lt;div class="col-sm-4 action"&gt;
+                  {{b.calories}}
+                &lt;/div&gt;
+                &lt;div class="col-sm-4 action-right"&gt;
+                  &lt;ul class="list-inline action-right"&gt;
+                    &lt;!-- &lt;li class="list-inline-item"&gt;
+                        &lt;button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip"
+                          data-placement="top" title="Edit"&gt;&lt;i class="fa fa-edit"&gt;&lt;/i&gt;&lt;/button&gt;
+                      &lt;/li&gt; --&gt;
+                    &lt;li class="list-inline-item"&gt;
+                      &lt;button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip"
+                        data-placement="top" ng-click="deleteTracking(b.food_id,b.tracking_id)" title="Delete"&gt;&lt;i
+                          class="fa fa-trash"&gt;&lt;/i&gt;&lt;/button&gt;
+                    &lt;/li&gt;
+                  &lt;/ul&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+
+              &lt;!-- &lt;th&gt; {{b.food}}&lt;/th&gt;
+                &lt;th class=""&gt;{{b.calories}}&lt;/th&gt;
+                &lt;th&gt;
+                  &lt;ul class="list-inline action-right"&gt;
+                    &lt;li class="list-inline-item"&gt;
+                      &lt;button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip"
+                        data-placement="top" title="Edit"&gt;&lt;i class="fa fa-edit"&gt;&lt;/i&gt;&lt;/button&gt;
+                    &lt;/li&gt; 
+                    &lt;li class="list-inline-item"&gt;
+                      &lt;button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip"
+                        data-placement="top" ng-click="deleteTracking(b.food_id,b.tracking_id)" title="Delete"&gt;&lt;i
+                          class="fa fa-trash"&gt;&lt;/i&gt;&lt;/button&gt;
+                    &lt;/li&gt;
+                  &lt;/ul&gt;
+                &lt;/th&gt; --&gt;
+            &lt;/div&gt;
+          &lt;/table&gt;
+
+
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+
+
+
+
+&lt;!-- &lt;button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+    data-whatever="@mdo"&gt;Open
+    modal for @mdo&lt;/button&gt;
+  &lt;button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+    data-whatever="@fat"&gt;Open
+    modal for @fat&lt;/button&gt;
+  &lt;button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+    data-whatever="@getbootstrap"&gt;Open modal for @getbootstrap&lt;/button&gt;
+  ...more buttons...
+
+  &lt;button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"&gt;
+    Launch demo modal
+  &lt;/button&gt; --&gt;
+
+&lt;div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"&gt;
+  &lt;div class="modal-dialog" role="document"&gt;
+    &lt;div class="modal-content"&gt;
+      &lt;div class="modal-header"&gt;
+        &lt;button type="button" class="close" data-dismiss="modal" aria-label="Close"&gt;&lt;span
+            aria-hidden="true"&gt;&amp;times;&lt;/span&gt;&lt;/button&gt;
+        &lt;h4 class="modal-title" id="exampleModalLabel"&gt;Add {{c.addMeal}}:&lt;/h4&gt;
+      &lt;/div&gt;
+      &lt;div class="modal-body"&gt;
+        &lt;form&gt;
+          &lt;div class="form-group"&gt;
+            &lt;label for="recipient-name" class="control-label"&gt;Search in food database:&lt;/label&gt;
+
+            &lt;input type="text" name="food" id="food" ng-model="food" ng-keyup="complete(food)" class="form-control" /&gt;
+            &lt;!-- &lt;input type="text" name="food" id="food" ng-model="food" ng-keyup="complete(food)" class="form-control" /&gt;  
+              &lt;input type="text" name="food" id="food" ng-model="food" ng-keyup="complete(food)" class="form-control" /&gt; --&gt;
+            &lt;br&gt;
+            &lt;ul class="list-group" ng-model="hidethis" ng-hide="hidethis"&gt;
+              &lt;ul class="list-group" ng-model="hidethis" ng-hide="hidethis"&gt;
+                &lt;ul class="list-group" ng-model="hidethis" ng-hide="hidethis"&gt;
+                  &lt;ul class="list-group" ng-model="hidethis" ng-hide="hidethis"&gt;
+                    &lt;ul class="list-group" ng-model="hidethis" ng-hide="hidethis"&gt;
+                      &lt;li class="list-group-item meal-panel" ng-repeat="food in foodList track by $index"
+                        ng-click="fillTextbox(countrydata)"&gt;
+                        {{food.name}}
+                        &lt;div&gt;
+                          &lt;span class="margin-right" ng-hide="foodList[$index].hide"
+                            ng-model="foodList[$index].count"&gt;{{foodList[$index].count}}&lt;/span&gt;
+
+                          &lt;span ng-click="manageCount($index,food)" ng-hide="{{food.id}}"
+                            class="glyphicon glyphicon-plus"&gt;&lt;/span&gt;&lt;/div&gt;
+                      &lt;/li&gt;
+
+
+
+                    &lt;/ul&gt;
+                  &lt;/ul&gt;
+                &lt;/ul&gt;
+              &lt;/ul&gt;
+            &lt;/ul&gt;
+
+
+          &lt;/div&gt;
+
+        &lt;/form&gt;
+      &lt;/div&gt;
+      &lt;div class="modal-footer"&gt;
+        &lt;button type="button" class="btn btn-default" data-dismiss="modal"&gt;Close&lt;/button&gt;
+        &lt;button type="button" class="btn btn-primary" ng-click="addFoodItems()"&gt;Add&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"&gt;
+  &lt;div class="modal-dialog" role="document"&gt;
+    &lt;div class="modal-content"&gt;
+      &lt;div class="modal-header"&gt;
+        &lt;button type="button" class="close" data-dismiss="modal" aria-label="Close"&gt;&lt;span
+            aria-hidden="true"&gt;&amp;times;&lt;/span&gt;&lt;/button&gt;
+        &lt;h4 class="modal-title" id="myModalLabel"&gt;Modal title&lt;/h4&gt;
+      &lt;/div&gt;
+      &lt;div class="modal-body"&gt;
+        &lt;form&gt;
+          &lt;div class="form-group"&gt;
+            &lt;label for="recipient-name" class="control-label"&gt;Search foods:&lt;/label&gt;
+
+            &lt;input type="text" name="food" id="food" ng-model="food" ng-keyup="complete(food)" class="form-control" /&gt;
+            &lt;br&gt;
+            &lt;ul class="list-group" ng-model="hidethis" ng-hide="hidethis"&gt;
+              &lt;ul class="list-group" ng-model="hidethis" ng-hide="hidethis"&gt;
+                &lt;ul class="list-group" ng-model="hidethis" ng-hide="hidethis"&gt;
+                  &lt;li class="list-group-item meal-panel" ng-repeat="food in foodList track by $index"
+                    ng-click="fillTextbox(countrydata)"&gt;
+                    {{food.name}} | {{food.description}}
+
+
+
+                    &lt;span ng-hide="foodList[$index].hide"
+                      ng-model="foodList[$index].count"&gt;{{foodList[$index].count}}&lt;/span&gt;
+                    &lt;span ng-click="manageCount($index,food)" ng-hide="{{food.id}}"
+                      class="glyphicon glyphicon-plus"&gt;&lt;/span&gt;
+                  &lt;/li&gt;
+
+
+
+                &lt;/ul&gt;
+              &lt;/ul&gt;
+            &lt;/ul&gt;
+            &lt;/ul&gt;
+            &lt;/ul&gt;
+
+
+          &lt;/div&gt;
+
+        &lt;/form&gt;
+      &lt;/div&gt;
+      &lt;div class="modal-footer"&gt;
+        &lt;button type="button" class="btn btn-default" data-dismiss="modal"&gt;Close&lt;/button&gt;
+        &lt;button type="button" class="btn btn-primary"&gt;Save changes&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>1966335208</payload_hash>
+        <record_name>Track Data</record_name>
+        <reverted_from/>
+        <source>76be268b47a31110d5ff7868f36d43e6</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-05 07:05:20</sys_created_on>
+        <sys_id>e7f7f9c047582150d5ff7868f36d4340</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18580bfa0650000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-01-05 07:05:20</sys_updated_on>
+        <type>Widget</type>
+        <update_guid>23f7f9c045582150edd20aa08f401640</update_guid>
+        <update_guid_history>23f7f9c045582150edd20aa08f401640:1966335208,bd37fd80b5582150d598f5534b8a8f7d:657353928,8d94b50041582150dc1c9f39bd76a2f7:669645788</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Track Data">d299354447582150d5ff7868f36d4304</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-05 07:12:21</sys_created_on>
+        <sys_db_object display_value="" name="sp_widget">sp_widget</sys_db_object>
+        <sys_id>6de0f50cc20347809dc87f96a30a2400</sys_id>
+        <sys_metadata>c594b50047582150d5ff7868f36d43f6</sys_metadata>
+        <sys_name>Track Data</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_scope_delete display_value="">955332a1052e4fc4a24985372ab46c84</sys_scope_delete>
+        <sys_update_name>sp_widget_c594b50047582150d5ff7868f36d43f6</sys_update_name>
+        <sys_update_version display_value="sp_widget_c594b50047582150d5ff7868f36d43f6">e7f7f9c047582150d5ff7868f36d4340</sys_update_version>
+    </sys_metadata_delete>
+</record_update>

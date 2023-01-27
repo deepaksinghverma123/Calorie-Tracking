@@ -2,12 +2,12 @@
     <sys_security_acl action="INSERT_OR_UPDATE">
         <active>true</active>
         <admin_overrides>true</admin_overrides>
-        <advanced>false</advanced>
+        <advanced>true</advanced>
         <condition/>
         <description>Default access control on x_942661_fitness_food</description>
         <name>x_942661_fitness_food</name>
         <operation display_value="delete">delete</operation>
-        <script/>
+        <script><![CDATA[answer= gs.getUserName()=="admin" ? true : false;]]></script>
         <sys_class_name>sys_security_acl</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2022-12-07 10:39:13</sys_created_on>

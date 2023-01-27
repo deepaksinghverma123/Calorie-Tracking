@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_app_module">
+    <sys_app_module action="DELETE">
+        <active>true</active>
+        <application display_value="UserData">6f40668b47006d10d5ff7868f36d4349</application>
+        <assessment/>
+        <device_type/>
+        <filter/>
+        <hint/>
+        <homepage/>
+        <image/>
+        <link_type>LIST</link_type>
+        <map_page/>
+        <mobile_title>UserData</mobile_title>
+        <mobile_view_name>Mobile</mobile_view_name>
+        <name>x_942661_fitness_userdata</name>
+        <order/>
+        <override_menu_roles>false</override_menu_roles>
+        <query/>
+        <report/>
+        <roles>x_942661_fitness.userdata_user</roles>
+        <sys_class_name>sys_app_module</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-02 07:27:32</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>a740668b47006d10d5ff7868f36d434d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>UserData</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sys_app_module_a740668b47006d10d5ff7868f36d434d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-01-02 07:27:32</sys_updated_on>
+        <timeline_page/>
+        <title>UserData</title>
+        <uncancelable>false</uncancelable>
+        <view_name/>
+        <window_name/>
+    </sys_app_module>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</application>
+        <file_path/>
+        <instance_id>e57b120adb9b08180b9d21c405961901</instance_id>
+        <instance_name>dev102074</instance_name>
+        <name>sys_app_module_a740668b47006d10d5ff7868f36d434d</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_app_module"><sys_app_module action="INSERT_OR_UPDATE"><active>true</active><application display_value="UserData">6f40668b47006d10d5ff7868f36d4349</application><assessment/><device_type/><filter/><hint/><homepage/><image/><link_type>LIST</link_type><map_page/><mobile_title>UserData</mobile_title><mobile_view_name>Mobile</mobile_view_name><name>x_942661_fitness_userdata</name><order/><override_menu_roles>false</override_menu_roles><query/><report/><roles>x_942661_fitness.userdata_user</roles><sys_class_name>sys_app_module</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2023-01-02 07:27:32</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>a740668b47006d10d5ff7868f36d434d</sys_id><sys_mod_count>0</sys_mod_count><sys_name>UserData</sys_name><sys_overrides/><sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package><sys_policy/><sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope><sys_update_name>sys_app_module_a740668b47006d10d5ff7868f36d434d</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2023-01-02 07:27:32</sys_updated_on><timeline_page/><title>UserData</title><uncancelable>false</uncancelable><view_name/><window_name/></sys_app_module></record_update>]]></payload>
+        <payload_hash>-385135710</payload_hash>
+        <record_name>UserData</record_name>
+        <reverted_from/>
+        <source>76be268b47a31110d5ff7868f36d43e6</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-02 07:27:32</sys_created_on>
+        <sys_id>a740668b47006d10d5ff7868f36d4350</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1857160e1750000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-01-02 07:27:32</sys_updated_on>
+        <type>Module</type>
+        <update_guid>ef40668b24006d10ab093daed6a2554f</update_guid>
+        <update_guid_history>ef40668b24006d10ab093daed6a2554f:-385135710</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="UserData">0c0e741347886d10d5ff7868f36d43d3</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-02 18:56:31</sys_created_on>
+        <sys_db_object display_value="" name="sys_app_module">sys_app_module</sys_db_object>
+        <sys_id>4738d2f748bb4fdeb1ad71ea38a76ae4</sys_id>
+        <sys_metadata>a740668b47006d10d5ff7868f36d434d</sys_metadata>
+        <sys_name>UserData</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_scope_delete display_value="">955332a1052e4fc4a24985372ab46c84</sys_scope_delete>
+        <sys_update_name>sys_app_module_a740668b47006d10d5ff7868f36d434d</sys_update_name>
+        <sys_update_version display_value="sys_app_module_a740668b47006d10d5ff7868f36d434d">a740668b47006d10d5ff7868f36d4350</sys_update_version>
+    </sys_metadata_delete>
+</record_update>

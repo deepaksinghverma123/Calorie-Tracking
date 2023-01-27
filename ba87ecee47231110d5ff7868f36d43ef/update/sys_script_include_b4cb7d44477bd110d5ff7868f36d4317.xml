@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_942661_fitness.Tracking</api_name>
+        <caller_access/>
+        <client_callable>true</client_callable>
+        <description/>
+        <name>Tracking</name>
+        <script><![CDATA[var Tracking = Class.create();
+Tracking.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+    addFoodItems: function(foods, mealId, date) {
+
+        //         var foodExist = new FoodItems().foodExistById(food);
+        //         if (!foodExist) {
+        //             return "Something went wrong! Food item not found."
+        //         }
+        var mealExist = new Meals().mealExistById(mealId);
+        if (!mealExist) {
+            gs.addErrorMessage("Something went wrong! Meal item not found.");
+        }
+        var track = this.addTracking(mealId, date);
+        this.addTrackingFoodItems(foods, track);
+        gs.addInfoMessage("Your foods have been added!");
+    },
+    addTracking: function(mealId, date) {
+
+        var tracking = new GlideRecord("x_942661_fitness_tracking");
+        tracking.addQuery("meal", mealId);
+        tracking.addQuery("user", gs.getUserID());
+        tracking.addQuery("date", date.substring(0, 10));
+        tracking.query();
+        if (tracking.next()) {
+            return tracking.sys_id;
+        }
+//         var tracking = new GlideRecord("x_942661_fitness_tracking");
+//         tracking.initialize();
+//         tracking.meal = mealId;
+//         tracking.user = gs.getUserID();
+//         tracking.date = date.toString();
+//         return tracking.insert();
+		return CrudUtil.addRecord("x_942661_fitness_tracking",["meal","user","date"],[mealId,gs.getUserID(),date.toString()]);
+    },
+    addTrackingFoodItems: function(foods, trackId) {
+        for (var i = 0; i < foods.length; i++) {
+            var tracking_food = new GlideRecord("x_942661_fitness_meal_food_mapping");
+            tracking_food.trackings = trackId.toString();
+            tracking_food.foods = foods[i].sys_id.toString();
+            tracking_food.quantity = foods[i].count.toString();
+            tracking_food.insert();
+// 			CrudUtil.addRecord("x_942661_fitness_m2m_x_942661_tracking_food",["x_942661_fitness_tracking","x_942661_fitness_food","quantity"]),[trackId.toString(),foods[i].sys_id.toString(),foods[i].count.toString()];
+        }
+    },
+    deleteTrackingById: function(foodId, trackingId) {
+        this.deleteTrackingFood(foodId, trackingId);
+        var count = new GlideRecord("x_942661_fitness_meal_food_mapping");
+        count.addQuery("trackings", trackingId);
+        count.query();
+        if (!count.next()) {
+            var gr = new GlideRecord('x_942661_fitness_tracking');
+            gr.addQuery('sys_id', trackingId);
+            gr.query();
+            if (gr.next()) {
+                gr.deleteRecord();
+            }
+        }
+    },
+    deleteTrackingFood: function(foodId, trackingId) {
+		if(CrudUtil.deleteRecordByConditions("x_942661_fitness_meal_food_mapping",["foods","trackings"],[foodId,trackingId])!=null){
+			return gs.addInfoMessage("Food tracking has been deleted!")
+		}else{
+			return gs.addErrorMessage("Something went wrong!!");
+		}
+    },
+    updateTracking: function(trackingId, foodId, mealId, quantity) {
+            var tracking = new GlideRecord("x_942661_fitness_tracking");
+            tracking.addQuery("sys_id", trackingId);
+            tracking.query();
+            if (tracking.next()) {
+                tracking.food = foodId;
+                tracking.meal = mealId;
+                tracking.quantity = quantity;
+                tracking.user = gs.getUserID();
+                gr.update();
+            }
+        }
+
+        ,
+    type: 'Tracking'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-11 11:14:45</sys_created_on>
+        <sys_id>b4cb7d44477bd110d5ff7868f36d4317</sys_id>
+        <sys_name>Tracking</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sys_script_include_b4cb7d44477bd110d5ff7868f36d4317</sys_update_name>
+    </sys_script_include>
+</record_update>

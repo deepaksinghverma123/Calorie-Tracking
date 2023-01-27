@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_db_object">
+    <sys_db_object action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <actions_access>false</actions_access>
+        <alter_access>false</alter_access>
+        <caller_access/>
+        <client_scripts_access>false</client_scripts_access>
+        <configuration_access>false</configuration_access>
+        <create_access>false</create_access>
+        <create_access_controls>true</create_access_controls>
+        <delete_access>false</delete_access>
+        <is_extendable>false</is_extendable>
+        <label>Tracking Food Mapping</label>
+        <live_feed_enabled>false</live_feed_enabled>
+        <name>x_942661_fitness_meal_food_mapping</name>
+        <number_ref display_value="MFM">ae8663314790e110d5ff7868f36d430d</number_ref>
+        <provider_class/>
+        <read_access>true</read_access>
+        <scriptable_table>false</scriptable_table>
+        <super_class/>
+        <sys_class_name>sys_db_object</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-11 01:37:40</sys_created_on>
+        <sys_id>ae3567bd4750e110d5ff7868f36d4351</sys_id>
+        <sys_name>Tracking Food Mapping</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sys_db_object_ae3567bd4750e110d5ff7868f36d4351</sys_update_name>
+        <update_access>false</update_access>
+        <user_role display_value="x_942661_fitness.user" name="x_942661_fitness.user">0bb1f4ae47631110d5ff7868f36d43d5</user_role>
+        <ws_access>true</ws_access>
+    </sys_db_object>
+</record_update>

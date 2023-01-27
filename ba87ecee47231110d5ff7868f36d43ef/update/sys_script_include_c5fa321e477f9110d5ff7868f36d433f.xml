@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_942661_fitness.Post</api_name>
+        <caller_access/>
+        <client_callable>true</client_callable>
+        <description/>
+        <name>Post</name>
+        <script><![CDATA[var Post = Class.create();
+Post.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+    getPostByUserId: function() {
+        var gr = new GlideRecord("x_942661_fitness_post");
+        gr.addQuery("user", gs.getUserID());
+        gr.query();
+		var posts=[];
+        while(gr.next()) {
+			posts.push({
+               image: gr.sys_id.image,
+                caption: gr.caption.toString(),
+               comments: gr.getValue("comments"),
+                like: gr.likes.toString(),
+               user: gr.user.name.toString()
+            });
+        }
+        return posts;
+    },
+
+    getPostOfFollow: function() {
+        var follow = new GlideRecord("x_942661_fitness_follower");
+        follow.addQuery("user", gs.getUserID());
+        follow
+
+        var following = [];
+        while (follow.next()) {
+            following.push(grr.getValue("user"));
+        }
+        var posts = [];
+
+    },
+    createPost: function(caption,image,user){
+// 		var gr = new GlideRecord("x_942661_fitness_post");
+//         gr.setValue("caption", caption);
+//         gr.setValue("image", image);
+// 		gr.setValue("user",gs.getUserID());
+		if(CrudUtil.addRecord("x_942661_fitness_post",["caption","user"],[caption,gs.getUserID()])){	
+		    gs.addInfoMessage("Your post is created!!");
+		}else {
+			gs.addInfoMessage("Something went wrong!!");
+		}
+	},
+	/*
+	 * Delete post by Id
+	 */
+	deletePost:function(postId){
+		var gr = new GlideRecord("x_942661_fitness_post");
+        gr.addQuery("sys_id", postId);
+		gr.query();
+        if(gr.next()){
+			if(gs.getUserName()!="admin"){
+			  if(gr.user!=gs.getUserID()){
+				gs.addErrorMessage("You are not authorize to delete this post!!");
+				}
+			}
+			gr.deleteRecord();
+			gs.addInfoMessage("Post has been deleted!!");
+		}else{
+			gs.addInfoMessage("Post not found!!");
+		}
+	},
+	getLatestPost:function(){
+		var follow = new GlideRecord("x_942661_fitness_follower");
+		if(gs.getUserName()!="admin")
+       follow.addQuery("follower", gs.getUserID()); 
+// 		follower=62826bf03710200044e0bfc8bcbe5df1^ORuserDYNAMIC90d1921e5f510100a9ad2572f2b477fe
+// 		follow.addEncodedQuery("follower=" + gs.getUserID()+ "^ORuserDYNAMICa5e4b5e94784e510d5ff7868f36d4310")
+        follow.query();
+		var following=[];
+		//var pushed=[];
+		
+		var stopSettingCurrentUserInfo=false;
+		var currentUserSysId= "";
+		while(follow.next()){
+			var obj=[];
+			if(stopSettingCurrentUserInfo==false){
+				stopSettingCurrentUserInfo=true;
+// 				var current={};
+// 				current.sys_id=follow.follower.sys_id;
+// 				current.username =follow.follower.name;
+// 				current.avatar=follow.follower.avatar;
+				following.push({sys_id:follow.follower.sys_id ,username:follow.follower.name,avatar :follow.follower.avatar});
+			}
+// 			obj.sys_id=follow.user.sys_id;
+// 			obj.username =follow.user.name;
+// 			obj.avatar=follow.user.avatar;
+			
+		   following.push({sys_id:follow.user.sys_id ,username:follow.user.name,avatar :follow.user.avatar});
+		}
+		
+		
+		//following.push({sys_id:gs.getUserID(),username:gs.getUserDisplayName(),avatar: gs.getUserID().avatar});
+		var posts=[];
+		var pushedPost=[];
+		var n =following.length;
+		for(var i=0;i<n;i++){
+			var post = new GlideRecord("x_942661_fitness_post");
+			if(gs.getUserName()!="admin")
+			post.addQuery("user", following[i].sys_id);
+			post.orderByDesc("sys_created_on");
+			post.query();
+			while(post.next()){
+// 				var obj={};
+// 				obj.caption=post.caption.toString();
+// 				obj.likes=post.likes.toString();
+// 				obj.comment=post.comments.toString();
+// 				obj.created_date=post.sys_created_on.toString();
+// 				obj.username=following[i].username.toString();
+// 				obj.userId=following[i].sys_id.toString();
+// 				obj.avatar=following[i].avatar ? following[i].avatar.toString() : null;
+// 				obj.id= post.sys_id.toString();
+// 				if(gs.getUserID()==following[i].sys_id)
+// 				      obj.canDelete=true;
+// 				else  obj.canDelete=false;
+				var likeByUser = new GlideRecord("x_942661_fitness_like");
+				likeByUser.addQuery("parentid",post.sys_id.toString());
+				likeByUser.addQuery("user",gs.getUserID());
+				likeByUser.query();
+// 				obj.liked = likeByUser.next()? true:false;
+				var gr = new GlideRecord("x_942661_fitness_comment");
+				gr.addQuery("post", post.sys_id);
+				gr.query();
+				var comments=[];
+				while(gr.next()){
+					 var comment ={};
+// 					 comment.comment= gr.getValue("comment");
+// 					 comment.id= gr.sys_id.toString();
+// 					 comment.user=gr.user.name.toString();
+// 					 comment.like=gr.getValue("likes");
+// 					 comment.avatar=gr.user.avatar.toString();
+					var commentLikeByUser = new GlideRecord("x_942661_fitness_like");
+					commentLikeByUser.addQuery("parentid", gr.sys_id.toString());
+					commentLikeByUser.addQuery("user",gs.getUserID());
+					commentLikeByUser.query();
+					var isLiked=false;
+					if(commentLikeByUser.next()){
+// 					  comment.liked=true;
+						isLiked=true;
+					}
+// 					else{
+// 					  comment.liked=false;
+// 					}
+				//comments.push(comment);
+					comments.push({
+						comment: gr.getValue("comment"),
+						id: gr.sys_id.toString(),
+						user:gr.user.name.toString(),
+						like:gr.getValue("likes"),
+						avatar:gr.user.avatar.toString(),
+						liked : isLiked
+					})
+				}
+				obj.comments=comments;
+				if(pushedPost.indexOf(post.sys_id.toString())<0)
+				posts.push({
+					caption:post.getValue("caption"),
+					likes:post.getValue("likes"),
+					comment:post.getValue("comments"),
+					created_date: post.getValue("sys_created_on"),
+					username: post.user.name.toString(),
+					userId: post.user.toString(),
+					avatar:post.user.avatar ? post.user.avatar.toString() : null,
+// 					username: following[i].username.toString(),
+// 					userId: following[i].sys_id.toString(),
+// 					avatar:following[i].avatar ? following[i].avatar.toString() : null,
+					id: post.getValue("sys_id"),
+					canDelete: (gs.getUserID()==post.user || gs.getUserName()=="admin"),
+					liked :likeByUser.next()? true:false,
+					comments: comments
+				});
+				pushedPost.push(post.sys_id.toString());
+			}
+		}
+		return posts;
+		
+	},
+    
+    type: 'Post'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-19 05:46:10</sys_created_on>
+        <sys_id>c5fa321e477f9110d5ff7868f36d433f</sys_id>
+        <sys_name>Post</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sys_script_include_c5fa321e477f9110d5ff7868f36d433f</sys_update_name>
+    </sys_script_include>
+</record_update>

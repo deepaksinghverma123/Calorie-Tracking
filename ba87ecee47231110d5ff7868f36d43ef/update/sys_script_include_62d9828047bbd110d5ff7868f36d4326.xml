@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_942661_fitness.Dashboard</api_name>
+        <caller_access/>
+        <client_callable>true</client_callable>
+        <description/>
+        <name>Dashboard</name>
+        <script><![CDATA[var Dashboard = Class.create();
+Dashboard.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+    getTodaysCaloriesInfo: function(userId) {
+
+        var mealResult = new GlideRecord("x_942661_fitness_meal");
+        mealResult.query();
+        var meals = [];
+
+
+        while (mealResult.next()) {
+            var obj = {};
+            obj.sys_id = mealResult.sys_id.toString();
+            obj.name = mealResult.name.toString();
+            meals.push(obj);
+        }
+
+        var mealMap = meals.reduce(function(map, obj) {
+            map[obj.sys_id] = obj.name;
+            return map;
+        }, {});
+
+        var foodResult = new GlideRecord("x_942661_fitness_food");
+        foodResult.query();
+        var foods = [];
+
+
+        while (foodResult.next()) {
+            var obj = {};
+            obj.sys_id = foodResult.sys_id.toString();
+            obj.name = foodResult.name.toString();
+            obj.calorie = foodResult.calories.toString();
+            foods.push(obj);
+        }
+        var foodMap = foods.reduce(function(map, obj) {
+            map[obj.sys_id] = obj.calorie;
+            return map;
+        }, {});
+
+        var agg1 = new GlideAggregate("x_942661_fitness_tracking");
+        agg1.addAggregate('SUM', 'quantity');
+        agg1.addEncodedQuery("sys_created_onONThis week@javascript:gs.beginningOfThisWeek()@javascript:gs.endOfThisWeek()");
+        agg1.groupBy("meal");
+        agg1.groupBy("food");
+        agg1.addQuery("user", gs.getUserID());
+        agg1.query();
+
+
+        var caloriesByMeal = [];
+        while (agg1.next()) {
+            var obj = {};
+            obj.sys_id = agg1.meal.toString();
+
+            obj.calorie = parseFloat(agg1.getAggregate('SUM', 'quantity')) * parseFloat(foodMap[agg1.food]);
+            caloriesByMeal.push(obj);
+        }
+
+        var result = [];
+        meals.forEach(function(a) {
+            var sumOfCalorie = 0;
+            caloriesByMeal.forEach(function(b) {
+                if (a.sys_id == b.sys_id) {
+                    sumOfCalorie += parseInt(b.calorie);
+                }
+            });
+            var obj = {};
+            obj.sys_id = a.sys_id.toString();
+            obj.meal = a.name.toString();
+            obj.calories = sumOfCalorie.toString();
+            result.push(obj);
+        });
+
+        result.sort(function(a, b) {
+            if (a.meal < b.meal) {
+                return -1;
+            }
+            if (a.meal > b.meal) {
+                return 1;
+            }
+            return 0;
+        })
+        return result;
+    },
+    getCalorieTrackingByDateAndUser: function(date, user) {
+
+        var agg1 = new GlideAggregate("x_942661_fitness_tracking");
+        agg1.addAggregate('SUM', 'quantity');
+        agg1.addEncodedQuery("sys_created_onONThis week@javascript:gs.beginningOfThisWeek()@javascript:gs.endOfThisWeek()");
+        agg1.groupBy("meal");
+        agg1.groupBy("food");
+        agg1.addQuery("user", gs.getUserID());
+        agg1.query();
+
+    },
+
+
+    getTodaysTrackingByMeals: function() {
+        var track = new GlideRecord("x_942661_fitness_tracking");
+        track.addEncodedQuery("sys_created_onONThis week@javascript:gs.beginningOfThisWeek()@javascript:gs.endOfThisWeek()");
+        track.addJoinQuery("x_942661_fitness_food", "foods", "sys_id");
+        track.addQuery("user", gs.getUserID());
+        track.query();
+
+        var result = [];
+        while (track.next()) {
+            var obj = {};
+            obj.meal = track.meal.name.toString();
+            obj.food = track.food.name.toString();
+            obj.quantity = track.quantity.toString();
+            obj.calorie = parseInt(track.food.calories.toString()) * parseInt(obj.quantity);
+            obj.id = track.sys_id.toString();
+            result.push(obj);
+        }
+        return result;
+    },
+    getTrackingByMeal: function(date) {
+        var track = new GlideRecord("x_942661_fitness_tracking");
+        //         track.addEncodedQuery("sys_created_onONThis week@javascript:gs.beginningOfThisWeek()@javascript:gs.endOfThisWeek()");
+        //         track.addJoinQuery("x_942661_fitness_food","foods","sys_id");
+		if(date.length>11)
+		 date= date.substring(0,10);
+		var encoded = "dateON"+'"+date+"'+"@javascript:gs.dateGenerate('"+date+"','00:00:00')@javascript:gs.dateGenerate('"+date+"','23:59:59')";
+		 track.addEncodedQuery(encoded);
+        track.addQuery("user", gs.getUserID());
+        track.query();
+
+
+        var meal = new GlideRecord("x_942661_fitness_meal");
+        meal.query();
+		var res = {};
+		while(meal.next()){
+			res[meal.name.toLowerCase()]=[];
+		}
+        var b = [],
+            s = [],
+            l = [],
+            d = [];
+
+        while (track.next()) {
+            var foods = [];
+            var trackingId = track.sys_id.toString();
+            var tracking_food = new GlideRecord("x_942661_fitness_meal_food_mapping");
+            tracking_food.addQuery("trackings", trackingId);
+            tracking_food.query();
+
+			
+			while (tracking_food.next()) {
+                    var obj = {};
+                    obj.food = tracking_food.foods.name.toString();
+                    obj.calories = parseInt(tracking_food.foods.calories) * parseInt(tracking_food.quantity);
+					obj.tracking_id = track.sys_id.toString();
+					obj.food_id = tracking_food.foods.sys_id.toString();
+                   // b.push(obj);
+					res[track.meal.name.toLowerCase()].push(obj);
+             }
+		}
+        return res;
+    },
+
+
+    type: 'Dashboard'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-11 12:13:05</sys_created_on>
+        <sys_id>62d9828047bbd110d5ff7868f36d4326</sys_id>
+        <sys_name>Dashboard</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sys_script_include_62d9828047bbd110d5ff7868f36d4326</sys_update_name>
+    </sys_script_include>
+</record_update>

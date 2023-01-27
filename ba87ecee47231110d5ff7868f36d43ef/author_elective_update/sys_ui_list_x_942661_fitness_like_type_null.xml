@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_list action="DELETE" parent="" relationship="" sys_domain="global" table="x_942661_fitness_like_type" version="2" view="">
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>number</element>
+            <list_id display_value="x_942661_fitness_like_type" element="NULL" name="x_942661_fitness_like_type" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">a29d266a47fbd110d5ff7868f36d4320</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>0</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2022-12-19 08:52:58</sys_created_on>
+            <sys_id>a29d266a47fbd110d5ff7868f36d4321</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2022-12-19 08:52:58</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>name</element>
+            <list_id display_value="x_942661_fitness_like_type" element="NULL" name="x_942661_fitness_like_type" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">a29d266a47fbd110d5ff7868f36d4320</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>1</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2022-12-19 08:52:58</sys_created_on>
+            <sys_id>2a9d266a47fbd110d5ff7868f36d4321</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2022-12-19 08:52:58</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element/>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <name>x_942661_fitness_like_type</name>
+            <parent/>
+            <position/>
+            <relationship/>
+            <sum>false</sum>
+            <sys_class_name>sys_ui_list</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2022-12-19 08:52:58</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>a29d266a47fbd110d5ff7868f36d4320</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>x_942661_fitness_like_type</sys_name>
+            <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+            <sys_update_name>sys_ui_list_x_942661_fitness_like_type_null</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2022-12-19 08:52:58</sys_updated_on>
+            <sys_user/>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_list>
+    </sys_ui_list>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</application>
+        <file_path/>
+        <instance_id>e57b120adb9b08180b9d21c405961901</instance_id>
+        <instance_name>dev102074</instance_name>
+        <name>sys_ui_list_x_942661_fitness_like_type_null</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update><sys_ui_list parent="" relationship="" sys_domain="global" table="x_942661_fitness_like_type" version="2" view=""><sys_ui_list_element action="INSERT_OR_UPDATE"><average_value>false</average_value><element>number</element><list_id display_value="x_942661_fitness_like_type" element="NULL" name="x_942661_fitness_like_type" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">a29d266a47fbd110d5ff7868f36d4320</list_id><max_value>false</max_value><min_value>false</min_value><position>0</position><sum>false</sum><sys_created_by>admin</sys_created_by><sys_created_on>2022-12-19 08:52:58</sys_created_on><sys_id>a29d266a47fbd110d5ff7868f36d4321</sys_id><sys_mod_count>0</sys_mod_count><sys_updated_by>admin</sys_updated_by><sys_updated_on>2022-12-19 08:52:58</sys_updated_on></sys_ui_list_element><sys_ui_list_element action="INSERT_OR_UPDATE"><average_value>false</average_value><element>name</element><list_id display_value="x_942661_fitness_like_type" element="NULL" name="x_942661_fitness_like_type" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">a29d266a47fbd110d5ff7868f36d4320</list_id><max_value>false</max_value><min_value>false</min_value><position>1</position><sum>false</sum><sys_created_by>admin</sys_created_by><sys_created_on>2022-12-19 08:52:58</sys_created_on><sys_id>2a9d266a47fbd110d5ff7868f36d4321</sys_id><sys_mod_count>0</sys_mod_count><sys_updated_by>admin</sys_updated_by><sys_updated_on>2022-12-19 08:52:58</sys_updated_on></sys_ui_list_element><sys_ui_list action="INSERT_OR_UPDATE"><average_value>false</average_value><element/><max_value>false</max_value><min_value>false</min_value><name>x_942661_fitness_like_type</name><parent/><position/><relationship/><sum>false</sum><sys_class_name>sys_ui_list</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2022-12-19 08:52:58</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>a29d266a47fbd110d5ff7868f36d4320</sys_id><sys_mod_count>0</sys_mod_count><sys_name>x_942661_fitness_like_type</sys_name><sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package><sys_policy/><sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope><sys_update_name>sys_ui_list_x_942661_fitness_like_type_null</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2022-12-19 08:52:58</sys_updated_on><sys_user/><view display_value="Default view" name="NULL">Default view</view><view_name/></sys_ui_list></sys_ui_list></record_update>]]></payload>
+        <payload_hash>-1312195013</payload_hash>
+        <record_name>Like Type</record_name>
+        <reverted_from/>
+        <source>76be268b47a31110d5ff7868f36d43e6</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-19 08:52:58</sys_created_on>
+        <sys_id>e29d266a47fbd110d5ff7868f36d4323</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>185299610590000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-12-19 08:52:58</sys_updated_on>
+        <type>List Layout</type>
+        <update_guid>a29d266aaefbd1108f57680aeb37e923</update_guid>
+        <update_guid_history>a29d266aaefbd1108f57680aeb37e923:-1312195013</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-19 09:00:57</sys_created_on>
+        <sys_db_object display_value="" name="sys_ui_list">sys_ui_list</sys_db_object>
+        <sys_id>8efb3256b75a4a3eaaa5a634a2328f51</sys_id>
+        <sys_metadata>a29d266a47fbd110d5ff7868f36d4320</sys_metadata>
+        <sys_name>x_942661_fitness_like_type</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_parent display_value="">d33d6e2a47fbd110d5ff7868f36d4389</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_scope_delete display_value="">955332a1052e4fc4a24985372ab46c84</sys_scope_delete>
+        <sys_update_name>sys_ui_list_x_942661_fitness_like_type_null</sys_update_name>
+        <sys_update_version display_value="sys_ui_list_x_942661_fitness_like_type_null">e29d266a47fbd110d5ff7868f36d4323</sys_update_version>
+    </sys_metadata_delete>
+</record_update>

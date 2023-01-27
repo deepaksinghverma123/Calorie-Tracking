@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script">
+    <sys_script action="DELETE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>false</action_insert>
+        <action_query>true</action_query>
+        <action_update>false</action_update>
+        <active>false</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>x_942661_fitness_comment</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition/>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>CommentOnLoad</name>
+        <order>100</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/ ) {
+
+    // Add your code here
+    var gr = new GlideRecord("x_942661_fitness_follower");
+    gr.addQuery("follower", gs.getUserID());
+    gr.query();
+    var following = [];
+    while (gr.query()) {
+        following.push(gr.getValue("user"));
+    }
+    var or = current.addJoinQuery("x_942661_fitness_post", "post", "sys_id");
+    for (var i = 1; i < following.length; i++) {
+        or.addCondition(following[i]);
+    }
+	current.query();
+
+})(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-17 17:35:56</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>b211960a473f5110d5ff7868f36d4375</sys_id>
+        <sys_mod_count>10</sys_mod_count>
+        <sys_name>CommentOnLoad</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sys_script_b211960a473f5110d5ff7868f36d4375</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-12-17 19:33:18</sys_updated_on>
+        <template/>
+        <when>before</when>
+    </sys_script>
+    <sys_translated_text action="DELETE" query="documentkey=b211960a473f5110d5ff7868f36d4375"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</application>
+        <file_path/>
+        <instance_id>e57b120adb9b08180b9d21c405961901</instance_id>
+        <instance_name>dev102074</instance_name>
+        <name>sys_script_b211960a473f5110d5ff7868f36d4375</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update sys_domain="global" table="sys_script"&gt;&lt;sys_script action="INSERT_OR_UPDATE"&gt;&lt;abort_action&gt;false&lt;/abort_action&gt;&lt;access&gt;package_private&lt;/access&gt;&lt;action_delete&gt;false&lt;/action_delete&gt;&lt;action_insert&gt;false&lt;/action_insert&gt;&lt;action_query&gt;true&lt;/action_query&gt;&lt;action_update&gt;false&lt;/action_update&gt;&lt;active&gt;false&lt;/active&gt;&lt;add_message&gt;false&lt;/add_message&gt;&lt;advanced&gt;true&lt;/advanced&gt;&lt;change_fields&gt;false&lt;/change_fields&gt;&lt;client_callable&gt;false&lt;/client_callable&gt;&lt;collection&gt;x_942661_fitness_comment&lt;/collection&gt;&lt;condition/&gt;&lt;description/&gt;&lt;execute_function&gt;false&lt;/execute_function&gt;&lt;filter_condition/&gt;&lt;is_rest&gt;false&lt;/is_rest&gt;&lt;message/&gt;&lt;name&gt;CommentOnLoad&lt;/name&gt;&lt;order&gt;100&lt;/order&gt;&lt;priority&gt;100&lt;/priority&gt;&lt;rest_method/&gt;&lt;rest_method_text/&gt;&lt;rest_service/&gt;&lt;rest_service_text/&gt;&lt;rest_variables/&gt;&lt;role_conditions/&gt;&lt;script&gt;&lt;![CDATA[(function executeRule(current, previous /*null when async*/ ) {
+
+    // Add your code here
+    var gr = new GlideRecord("x_942661_fitness_follower");
+    gr.addQuery("follower", gs.getUserID());
+    gr.query();
+    var following = [];
+    while (gr.query()) {
+        following.push(gr.getValue("user"));
+    }
+    var or = current.addJoinQuery("x_942661_fitness_post", "post", "sys_id");
+    for (var i = 1; i &lt; following.length; i++) {
+        or.addCondition(following[i]);
+    }
+	current.query();
+
+})(current, previous);]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2022-12-17 17:35:56&lt;/sys_created_on&gt;&lt;sys_domain&gt;global&lt;/sys_domain&gt;&lt;sys_domain_path&gt;/&lt;/sys_domain_path&gt;&lt;sys_id&gt;b211960a473f5110d5ff7868f36d4375&lt;/sys_id&gt;&lt;sys_mod_count&gt;10&lt;/sys_mod_count&gt;&lt;sys_name&gt;CommentOnLoad&lt;/sys_name&gt;&lt;sys_overrides/&gt;&lt;sys_package display_value="FitnessTracker" source="x_942661_fitness"&gt;ba87ecee47231110d5ff7868f36d43ef&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="FitnessTracker"&gt;ba87ecee47231110d5ff7868f36d43ef&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_b211960a473f5110d5ff7868f36d4375&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2022-12-17 19:33:18&lt;/sys_updated_on&gt;&lt;template/&gt;&lt;when&gt;before&lt;/when&gt;&lt;/sys_script&gt;&lt;sys_translated_text action="delete_multiple" query="documentkey=b211960a473f5110d5ff7868f36d4375"/&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-588777152</payload_hash>
+        <record_name>CommentOnLoad</record_name>
+        <reverted_from/>
+        <source>76be268b47a31110d5ff7868f36d43e6</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-17 19:33:18</sys_created_on>
+        <sys_id>07fc620a47bf5110d5ff7868f36d431b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>185219397a90000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-12-17 19:33:18</sys_updated_on>
+        <type>Business Rule</type>
+        <update_guid>8bfc620a94bf5110868ca96a7125721a</update_guid>
+        <update_guid_history>8bfc620a94bf5110868ca96a7125721a:-588777152,1024ae8e8d7f5110ba297bf21f091f8d:-833656085,d8e22e8ef57f51103f33539c08e8de8d:-798483558,ffb2ea8e007f511027ac13bd52019ca9:-1897932297,f6c91a06187f511049e1e0a8aeb04770:-1899245921,e6e79e06507f511009be35c65b0729ff:1745212813,1bd79e06a27f51108a9eed6cea5ae935:485119378,b0d79a069c7f5110bf8ab997bbb9fd21:1875671529,09971a06ee7f51101bad14d5322aa8de:-853738423,0a871a06817f51103c806c4a10621239:-1487388597,f712da4e693f5110fe1afe97fa5db220:2006741464</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-08 19:10:16</sys_created_on>
+        <sys_db_object display_value="" name="sys_script">sys_script</sys_db_object>
+        <sys_id>0c168e1c51f04b4db1a5e19fb2f93099</sys_id>
+        <sys_metadata>b211960a473f5110d5ff7868f36d4375</sys_metadata>
+        <sys_name>CommentOnLoad</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_parent display_value="Comment">ed87965947f31910d5ff7868f36d43e5</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_scope_delete display_value="">955332a1052e4fc4a24985372ab46c84</sys_scope_delete>
+        <sys_update_name>sys_script_b211960a473f5110d5ff7868f36d4375</sys_update_name>
+        <sys_update_version display_value="sys_script_b211960a473f5110d5ff7868f36d4375">07fc620a47bf5110d5ff7868f36d431b</sys_update_version>
+    </sys_metadata_delete>
+</record_update>

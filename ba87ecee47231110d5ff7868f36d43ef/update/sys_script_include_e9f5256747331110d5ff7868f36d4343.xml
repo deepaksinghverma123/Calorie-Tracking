@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_942661_fitness.UserData</api_name>
+        <caller_access/>
+        <client_callable>true</client_callable>
+        <description/>
+        <name>UserData</name>
+        <script><![CDATA[var UserData = Class.create();
+UserData.prototype = {
+    initialize: function() {},
+    getFitnessUserData: function() {
+        var gr = new GlideRecord("x_942661_fitness_fitnessuser");
+        gr.addQuery("user", gs.getUserID());
+		gr.orderByDesc("updated_at");
+		gr.setLimit(1);
+        gr.query();
+        var data = {};
+		var sys_id="";
+		if(gr.next()){
+			sys_id =gr.sys_id.toString();
+			data.height = gr.height.toString();
+            data.weight = gr.weight.toString();
+		}
+		
+		var m= new GlideRecord("x_942661_fitness_meal");
+		m.query();
+		var meals=[];
+		while(m.next()){
+			meals.push(m.sys_id.toString());
+		}
+		
+		var mealsCalories=[];
+		var target=0;
+		for(var i=0;i<meals.length;i++){
+			var track = new GlideRecord("x_942661_fitness_fitness_mapping");
+			track.addQuery("fitness_user",sys_id);
+			track.addQuery("meal",meals[i]);
+			track.orderByDesc("sys_created_on");
+			track.setLimit(1);
+			track.query();
+			
+			while(track.next()){
+				var obj={};
+				obj.meal=track.meal.name.toString();
+				obj.target_calorie=track.target_calorie.toString();
+				target+= parseInt(track.target_calorie);
+				mealsCalories.push(obj);
+			}
+		}
+		
+		data.targetCalories =target;
+		data.mealsCalories=mealsCalories;
+        return data;
+    },
+    updateUserData: function(targetCalorie, weight, height) {
+        var gr = new GlideRecord("x_942661_fitness_fitnessuser");
+        gr.addQuery("user", gs.getUserID());
+        gr.query();
+        var data = {};
+        if (gr.next()) {
+            gr.target_calorie = targetCalorie;
+            gr.weight = weight;
+            gr.height = height;
+			gr.update();
+			data.flag=true;
+			data.message="User data has been updated!!";
+        } else {
+            data.flag = false;
+            data.message = "User does not exit!";
+        }
+        return data;
+    },
+	getTrendsForLastMonth:function(){
+		var gr = new GlideRecord("x_942661_fitness_fitnessuser");
+        gr.addQuery("user", gs.getUserID());
+		gr.orderByDesc("updated_at");
+		gr.setLimit(1);
+        gr.query();
+        var data = {};
+		var sys_id="";
+		if(gr.next()){
+			sys_id =gr.sys_id.toString();
+		}
+		
+		var m= new GlideRecord("x_942661_fitness_meal");
+		m.query();
+		var meals=[];
+		while(m.next()){
+			meals.push(m.sys_id.toString());
+		}
+		
+		var mealsCalories=[];
+		var gdt = new GlideDateTime();
+			var currentDate= gdt.getValue();
+			//10 days
+			gdt.subtract(864000000);
+		
+			
+			var encoded = "sys_created_onON"+'"+date+"'+"@javascript:gs.dateGenerate('"   +gdt.getValue()+"')@javascript:gs.dateGenerate('"+ currentDate + "')";
+
+
+		
+		for(var i=0;i<meals.length;i++){
+			var track = new GlideRecord("x_942661_fitness_fitness_mapping");
+			track.addQuery("x_942661_fitness_fitnessuser",sys_id);
+			track.addQuery("x_942661_fitness_meal",meals[i]);
+			track.addEncodedQuery(encoded);
+			track.orderByDesc("sys_created_on");
+			track.query();
+			var target=0;
+			while(track.next()){
+				var obj={};
+				obj.meal=track.x_942661_fitness_meal.name.toString();
+				obj.target_calorie=track.target_calorie.toString();
+				obj.date=track.sys_created_on.toString().substring(0,10);
+				target+= parseInt(track.target_calorie);
+				mealsCalories.push(obj);
+			}
+		}
+		
+		
+		var groupBy = function(array, key) {
+		  // Return the end result
+			  return array.reduce(function(result, currentValue){
+				// If an array already present for key, push it to the array. Else create an array and push the object
+    (result[currentValue[key]] = result[currentValue[key]] || []).push(
+      currentValue
+    );
+
+    return result;
+  }, {}); // empty object is the initial value for result object
+};
+
+// Group by color as key to the person array
+        var caloriesByDate = groupBy(mealsCalories, 'date');
+		
+		//data.targetCalories =target;
+		data.mealsCalories=caloriesByDate;
+        
+        return data;
+	},
+	savePreference:function(height,weight,targets){
+		
+		var gr= new GlideRecord("x_942661_fitness_fitnessuser");
+		gr.addQuery("user",gs.getUserID());
+		gr.query();
+		
+		if(gr.next()){
+			gr.setValue("weight",weight);
+			gr.setValue("height",height);
+			gr.update();
+		}
+		
+		var sys_id = gr.sys_id.toString();
+		
+		for(var i=0;i<targets.length;i++){
+// 		  var track= new GlideRecord("x_942661_fitness_m2m_x_942661_user_x_942661_meal");
+// 		  track.setValue("x_942661_fitness_fitnessuser",sys_id);
+// 		  track.setValue("x_942661_fitness_meal",targets[i].meal);
+// 		  track.setValue("target_calorie",targets[i].target);
+// 		  track.insert();
+		CrudUtil.addRecord("x_942661_fitness_fitness_mapping",["fitness_user","meal","target_calorie"],[sys_id,targets[i].meal,targets[i].target]);	
+		}
+		gs.addInfoMessage("User profile updated!!");
+	},
+	
+    type: 'UserData'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-22 06:50:33</sys_created_on>
+        <sys_id>e9f5256747331110d5ff7868f36d4343</sys_id>
+        <sys_name>UserData</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy>protected</sys_policy>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sys_script_include_e9f5256747331110d5ff7868f36d4343</sys_update_name>
+    </sys_script_include>
+</record_update>

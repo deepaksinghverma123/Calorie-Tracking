@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="3ee2b0ae47631110d5ff7868f36d4361" label="Food" max_length="40" name="x_942661_fitness_food" type="collection">
-        <element label="Calories" max_length="20" name="calories" type="decimal"/>
-        <element label="Description" max_length="40" name="description" type="string"/>
-        <element label="Food item" max_length="40" name="food_item" type="string"/>
-        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element label="Calories(in Cal)" mandatory="true" max_length="20" name="calories" type="decimal"/>
+        <element label="Name" mandatory="true" max_length="40" name="name" type="string"/>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" read_only="true" type="string"/>
     </element>
 </database>

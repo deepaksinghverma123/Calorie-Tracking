@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function($scope) {
+  /* widget controller */
+  var c = this;
+	c.data.height="";
+  c.data.weight="";
+  c.data.target=[];
+  c.maxDate = new Date();
+  c.maxDate=c.maxDate.toString().substring(0,10);
+
+console.log("in user setting");
+ console.log(c.data);
+
+  $scope.addPreferences=function(){
+
+    console.log("dfds");
+    for(var i=0;i<c.data.meals.length;i++){
+        c.data.target.push({
+           meal : c.data.meals[i].sys_id.toString(),
+           target: c.data.meals[i].target
+        });
+    }
+    console.log(c.data.target);
+    c.data.action="addPreference";
+    c.server.update().then(function(){
+      c.data.target=[];
+    });
+  };  
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.submit_btn{
+   margin: 10px;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>user_setting</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>User Setting</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+	
+	var listOfMeals=new Meals().getMeals();
+  data.meals=listOfMeals;
+	data.userData =new UserData().getFitnessUserData();
+
+  if(input && input.action=="addPreference"){
+     new UserData().savePreference(input.height,input.weight,input.target);  
+  }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-04 09:15:46</sys_created_on>
+        <sys_id>684ccd3f47c4ed10d5ff7868f36d43a2</sys_id>
+        <sys_name>User Setting</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sp_widget_684ccd3f47c4ed10d5ff7868f36d43a2</sys_update_name>
+        <template><![CDATA[<div class="container mt-5">
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-md-8">
+            <form id="regForm">
+                <h1 id="register">User Information</h1>
+            
+								<div>
+                  Please enter the below information:
+              </div>
+
+
+              <form>
+                <div class="form-group">
+                    <div class="row">
+                            <div class="col-sm-6">
+                                <label for="recipient-name" class="control-label" >Height:</label>
+      
+                                <input type="text" name="food" id="food" ng-model="c.data.height"  class="form-control" />
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="recipient-name" class="control-label" >Weight:</label>
+      
+                                <input type="text" name="food" id="food" ng-model="c.data.weight"  class="form-control" />
+                            </div>
+                    </div>
+                    <div class="row">
+                 <div  ng-repeat="ml in c.data.meals" >
+                  
+                            <div class="col-sm-6">
+                                <label for="recipient-name" class="control-label">Target Calorie for {{ml.meal}}:</label>
+                                <input type="text" name="food" id="food" ng-model="ml.target" required class="form-control" />
+                            </div>
+                   </div> 
+                 
+                 </div>
+                 <div class="row" style="margin-top: 20px;">
+                    <div class="col-sm-6">
+                  
+                        <label for="recipient-name" class="control-label">Pick a date:</label>
+                                <input type="text" name="food" id="food" ng-model="ml.target" required class="form-control" />
+
+                         <label> </label>
+                         <input type="date" id="exampleInput" name="input" ng-model="example.value"
+                         placeholder="dd-MM-yyyy"  max="{{c.maxDate}}" required />
+                    </div>
+                </div>
+                </div class="submit_btn">
+                    <button class="btn btn-primary" ng-click="addPreferences()" >Submit</button>
+                </div>
+              </form>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="mr-0"> <Button type="button" class="btn btn-primary" data-toggle="modal"
+    data-target="#exampleModal" ng-click="setMeal(c.selectedValue)" data-whatever="@mdo">Add</Button></div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="exampleModalLabel">Add {{c.addMeal}}:</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="recipient-name" class="control-label">Search in food database:</label>
+  
+              <input type="text" name="food" id="food" ng-model="food" ng-keyup="complete(food)" class="form-control" />
+              <!-- <input type="text" name="food" id="food" ng-model="food" ng-keyup="complete(food)" class="form-control" />  
+                <input type="text" name="food" id="food" ng-model="food" ng-keyup="complete(food)" class="form-control" /> -->
+              <br>
+              <ul class="list-group" ng-model="hidethis" ng-hide="hidethis">
+                <ul class="list-group" ng-model="hidethis" ng-hide="hidethis">
+                  <ul class="list-group" ng-model="hidethis" ng-hide="hidethis">
+                    <ul class="list-group" ng-model="hidethis" ng-hide="hidethis">
+                      <ul class="list-group" ng-model="hidethis" ng-hide="hidethis">
+                        <li class="list-group-item meal-panel" ng-repeat="food in foodList track by $index"
+                          ng-click="fillTextbox(countrydata)">
+                          {{food.name}}
+                          <div>
+                            <span class="margin-right" ng-hide="foodList[$index].hide"
+                              ng-model="foodList[$index].count">{{foodList[$index].count}}</span>
+  
+                            <span ng-click="manageCount($index,food)" ng-hide="{{food.id}}"
+                              class="glyphicon glyphicon-plus"></span></div>
+                        </li>
+  
+  
+  
+                      </ul>
+                    </ul>
+                  </ul>
+                </ul>
+              </ul>
+  
+  
+            </div>
+  
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" ng-click="addFoodItems()">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>]]></template>
+    </sp_widget>
+</record_update>

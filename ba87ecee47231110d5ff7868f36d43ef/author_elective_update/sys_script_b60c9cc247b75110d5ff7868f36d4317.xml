@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script">
+    <sys_script action="DELETE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>true</action_insert>
+        <action_query>false</action_query>
+        <action_update>true</action_update>
+        <active>true</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>x_942661_fitness_like</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition/>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>Like</name>
+        <order>100</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/ ) {
+
+    // Getting parentID and isPost
+    var parentId = current.parentid;
+    var isPost = current.choice;
+	//Checking if parentId exist in Post and comment table
+	if(parentId=='0'){
+		current.setAbortAction(true);
+		return  gs.addErrorMessage("Please enter valid Post!");
+	}
+    if (isPost=="Post") {
+        var gr = new GlideRecord("x_942661_fitness_post");
+        gr.addQuery("sys_id", parentID);
+        gr.query();
+        if (!gr.next()) {
+			current.setAbortAction(true);
+            return gs.addErrorMessage("Please enter valid Post!");
+        }
+    } else {
+        var gr = new GlideRecord("x_942661_fitness_comment");
+        gr.addQuery("sys_id", parentID);
+        gr.query();
+        if (!gr.next()) {
+			current.setAbortAction(true);
+            return gs.addErrorMessage("Please enter valid Comment!");
+        }
+    }
+})(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-17 09:14:32</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>b60c9cc247b75110d5ff7868f36d4317</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_name>Like</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sys_script_b60c9cc247b75110d5ff7868f36d4317</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-12-28 14:37:08</sys_updated_on>
+        <template/>
+        <when>before</when>
+    </sys_script>
+    <sys_translated_text action="DELETE" query="documentkey=b60c9cc247b75110d5ff7868f36d4317"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</application>
+        <file_path/>
+        <instance_id>e57b120adb9b08180b9d21c405961901</instance_id>
+        <instance_name>dev102074</instance_name>
+        <name>sys_script_b60c9cc247b75110d5ff7868f36d4317</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update sys_domain="global" table="sys_script"&gt;&lt;sys_script action="INSERT_OR_UPDATE"&gt;&lt;abort_action&gt;false&lt;/abort_action&gt;&lt;access&gt;package_private&lt;/access&gt;&lt;action_delete&gt;false&lt;/action_delete&gt;&lt;action_insert&gt;true&lt;/action_insert&gt;&lt;action_query&gt;false&lt;/action_query&gt;&lt;action_update&gt;true&lt;/action_update&gt;&lt;active&gt;true&lt;/active&gt;&lt;add_message&gt;false&lt;/add_message&gt;&lt;advanced&gt;true&lt;/advanced&gt;&lt;change_fields&gt;false&lt;/change_fields&gt;&lt;client_callable&gt;false&lt;/client_callable&gt;&lt;collection&gt;x_942661_fitness_like&lt;/collection&gt;&lt;condition/&gt;&lt;description/&gt;&lt;execute_function&gt;false&lt;/execute_function&gt;&lt;filter_condition/&gt;&lt;is_rest&gt;false&lt;/is_rest&gt;&lt;message/&gt;&lt;name&gt;Like&lt;/name&gt;&lt;order&gt;100&lt;/order&gt;&lt;priority&gt;100&lt;/priority&gt;&lt;rest_method/&gt;&lt;rest_method_text/&gt;&lt;rest_service/&gt;&lt;rest_service_text/&gt;&lt;rest_variables/&gt;&lt;role_conditions/&gt;&lt;script&gt;&lt;![CDATA[(function executeRule(current, previous /*null when async*/ ) {
+
+    // Getting parentID and isPost
+    var parentId = current.parentid;
+    var isPost = current.choice;
+	//Checking if parentId exist in Post and comment table
+	if(parentId=='0'){
+		current.setAbortAction(true);
+		return  gs.addErrorMessage("Please enter valid Post!");
+	}
+    if (isPost=="Post") {
+        var gr = new GlideRecord("x_942661_fitness_post");
+        gr.addQuery("sys_id", parentID);
+        gr.query();
+        if (!gr.next()) {
+			current.setAbortAction(true);
+            return gs.addErrorMessage("Please enter valid Post!");
+        }
+    } else {
+        var gr = new GlideRecord("x_942661_fitness_comment");
+        gr.addQuery("sys_id", parentID);
+        gr.query();
+        if (!gr.next()) {
+			current.setAbortAction(true);
+            return gs.addErrorMessage("Please enter valid Comment!");
+        }
+    }
+})(current, previous);]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2022-12-17 09:14:32&lt;/sys_created_on&gt;&lt;sys_domain&gt;global&lt;/sys_domain&gt;&lt;sys_domain_path&gt;/&lt;/sys_domain_path&gt;&lt;sys_id&gt;b60c9cc247b75110d5ff7868f36d4317&lt;/sys_id&gt;&lt;sys_mod_count&gt;7&lt;/sys_mod_count&gt;&lt;sys_name&gt;Like&lt;/sys_name&gt;&lt;sys_overrides/&gt;&lt;sys_package display_value="FitnessTracker" source="x_942661_fitness"&gt;ba87ecee47231110d5ff7868f36d43ef&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="FitnessTracker"&gt;ba87ecee47231110d5ff7868f36d43ef&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_b60c9cc247b75110d5ff7868f36d4317&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2022-12-28 14:37:08&lt;/sys_updated_on&gt;&lt;template/&gt;&lt;when&gt;before&lt;/when&gt;&lt;/sys_script&gt;&lt;sys_translated_text action="delete_multiple" query="documentkey=b60c9cc247b75110d5ff7868f36d4317"/&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-1885938151</payload_hash>
+        <record_name>Like</record_name>
+        <reverted_from/>
+        <source>76be268b47a31110d5ff7868f36d43e6</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-28 14:37:08</sys_created_on>
+        <sys_id>b7a256e54708e510d5ff7868f36d43e3</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>185592a659b0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-12-28 14:37:08</sys_updated_on>
+        <type>Business Rule</type>
+        <update_guid>3fa256e57208e510c015f58ee44f71e2</update_guid>
+        <update_guid_history>3fa256e57208e510c015f58ee44f71e2:-1885938151,773216e57308e510be69226328dd858d:-377771192,fb819aa5d008e5106ec321837bea5466:-389427914,803116a5e308e510f8cffce020b7cf49:409867158,5d5fc225a208e5100325f7166811f1a6:-389427914,41be8ee13e08e5106c994088ea83c23b:-2143200737,468f54866db751101e4023474fbdd19d:1842621695,4b5f54467fb751102afbef815f52753e:-437970914</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-02 18:39:04</sys_created_on>
+        <sys_db_object display_value="" name="sys_script">sys_script</sys_db_object>
+        <sys_id>5c0829ced7f04a6e9a07c2b96ad033a4</sys_id>
+        <sys_metadata>b60c9cc247b75110d5ff7868f36d4317</sys_metadata>
+        <sys_name>Like</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_parent display_value="Like">6b45161947f31910d5ff7868f36d438e</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_scope_delete display_value="">955332a1052e4fc4a24985372ab46c84</sys_scope_delete>
+        <sys_update_name>sys_script_b60c9cc247b75110d5ff7868f36d4317</sys_update_name>
+        <sys_update_version display_value="sys_script_b60c9cc247b75110d5ff7868f36d4317">b7a256e54708e510d5ff7868f36d43e3</sys_update_version>
+    </sys_metadata_delete>
+</record_update>

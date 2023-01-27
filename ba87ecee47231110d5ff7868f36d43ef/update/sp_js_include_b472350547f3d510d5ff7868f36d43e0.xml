@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_js_include">
+    <sp_js_include action="INSERT_OR_UPDATE">
+        <display_name>HighCharts js</display_name>
+        <source>local</source>
+        <sys_class_name>sp_js_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-14 12:45:37</sys_created_on>
+        <sys_id>b472350547f3d510d5ff7868f36d43e0</sys_id>
+        <sys_name>HighCharts js</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_ui_script display_value="x_942661_fitness.Highchart">f69175c147f3d510d5ff7868f36d4376</sys_ui_script>
+        <sys_update_name>sp_js_include_b472350547f3d510d5ff7868f36d43e0</sys_update_name>
+        <url/>
+    </sp_js_include>
+</record_update>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script_client">
+    <sys_script_client action="DELETE">
+        <active>false</active>
+        <applies_extended>false</applies_extended>
+        <condition/>
+        <description/>
+        <field/>
+        <global>true</global>
+        <isolate_script>true</isolate_script>
+        <messages/>
+        <name>Test</name>
+        <order/>
+        <script><![CDATA[function onLoad() {
+    //Type appropriate comment here, and begin script below
+
+    // var meals = new GlideAjax("Meals");
+    // meals.addParam("sysparm_name", "getMeals");
+    // meals.getXML(getRequiredMeals);
+
+    // function getRequiredMeals(response) {
+    //     var result = response.responseXML.documentElement.getAttribute("answer");
+    //     alert("resukst" + result);
+    // }
+
+
+
+
+
+    // var ga = new GlideAjax('Meals');
+    // ga.addParam('sysparm_name', 'helloWorld');
+    // ga.addParam('sysparm_user_name', "Bob");
+    // ga.getXML(HelloWorldParse);
+
+    // function HelloWorldParse(response) {
+    //     var answer = response.responseXML.documentElement.getAttribute("answer");
+    //     alert(answer);
+    // }
+}]]></script>
+        <sys_class_name>sys_script_client</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-09 09:05:42</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>69409f5347e35110d5ff7868f36d432e</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>Test</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sys_script_client_69409f5347e35110d5ff7868f36d432e</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-01-02 19:15:06</sys_updated_on>
+        <table>x_942661_fitness_meal</table>
+        <type>onLoad</type>
+        <ui_type>10</ui_type>
+        <view/>
+    </sys_script_client>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</application>
+        <file_path/>
+        <instance_id>e57b120adb9b08180b9d21c405961901</instance_id>
+        <instance_name>dev102074</instance_name>
+        <name>sys_script_client_69409f5347e35110d5ff7868f36d432e</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update sys_domain="global" table="sys_script_client"&gt;&lt;sys_script_client action="INSERT_OR_UPDATE"&gt;&lt;active&gt;false&lt;/active&gt;&lt;applies_extended&gt;false&lt;/applies_extended&gt;&lt;condition/&gt;&lt;description/&gt;&lt;field/&gt;&lt;global&gt;true&lt;/global&gt;&lt;isolate_script&gt;true&lt;/isolate_script&gt;&lt;messages/&gt;&lt;name&gt;Test&lt;/name&gt;&lt;order/&gt;&lt;script&gt;&lt;![CDATA[function onLoad() {
+    //Type appropriate comment here, and begin script below
+
+    // var meals = new GlideAjax("Meals");
+    // meals.addParam("sysparm_name", "getMeals");
+    // meals.getXML(getRequiredMeals);
+
+    // function getRequiredMeals(response) {
+    //     var result = response.responseXML.documentElement.getAttribute("answer");
+    //     alert("resukst" + result);
+    // }
+
+
+
+
+
+    // var ga = new GlideAjax('Meals');
+    // ga.addParam('sysparm_name', 'helloWorld');
+    // ga.addParam('sysparm_user_name', "Bob");
+    // ga.getXML(HelloWorldParse);
+
+    // function HelloWorldParse(response) {
+    //     var answer = response.responseXML.documentElement.getAttribute("answer");
+    //     alert(answer);
+    // }
+}]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_client&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2022-12-09 09:05:42&lt;/sys_created_on&gt;&lt;sys_domain&gt;global&lt;/sys_domain&gt;&lt;sys_domain_path&gt;/&lt;/sys_domain_path&gt;&lt;sys_id&gt;69409f5347e35110d5ff7868f36d432e&lt;/sys_id&gt;&lt;sys_mod_count&gt;6&lt;/sys_mod_count&gt;&lt;sys_name&gt;Test&lt;/sys_name&gt;&lt;sys_overrides/&gt;&lt;sys_package display_value="FitnessTracker" source="x_942661_fitness"&gt;ba87ecee47231110d5ff7868f36d43ef&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="FitnessTracker"&gt;ba87ecee47231110d5ff7868f36d43ef&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_client_69409f5347e35110d5ff7868f36d432e&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2023-01-02 19:15:06&lt;/sys_updated_on&gt;&lt;table&gt;x_942661_fitness_meal&lt;/table&gt;&lt;type&gt;onLoad&lt;/type&gt;&lt;ui_type&gt;10&lt;/ui_type&gt;&lt;view/&gt;&lt;/sys_script_client&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>1568294610</payload_hash>
+        <record_name>Test</record_name>
+        <reverted_from/>
+        <source>76be268b47a31110d5ff7868f36d43e6</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-02 19:15:06</sys_created_on>
+        <sys_id>1442811747886d10d5ff7868f36d4352</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18573e8ad220000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-01-02 19:15:06</sys_updated_on>
+        <type>Client Script</type>
+        <update_guid>1c4281175c886d10edd7196d82bf2951</update_guid>
+        <update_guid_history>1c4281175c886d10edd7196d82bf2951:1568294610,6cab5d0807f7d110731b47b886a63a2d:-1519264001,2c2e380cd577d110198be7425b81b643:-386141673,37c1735345675110cbbc13eab8ec2af8:-1915742036,09139b1785e351102385dccc8bfc897b:1873239135,b8a1579334e35110ad45a495571cba4a:588731584,ab909bd745a3511013a0c7f9a0696f06:1049886590</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-06 11:02:14</sys_created_on>
+        <sys_db_object display_value="" name="sys_script_client">sys_script_client</sys_db_object>
+        <sys_id>5c36c901ae2946d581ab5ca55a33eb41</sys_id>
+        <sys_metadata>69409f5347e35110d5ff7868f36d432e</sys_metadata>
+        <sys_name>Test</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_parent display_value="Meal">f618382647a31110d5ff7868f36d43b7</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_scope_delete display_value="">955332a1052e4fc4a24985372ab46c84</sys_scope_delete>
+        <sys_update_name>sys_script_client_69409f5347e35110d5ff7868f36d432e</sys_update_name>
+        <sys_update_version display_value="sys_script_client_69409f5347e35110d5ff7868f36d432e">1442811747886d10d5ff7868f36d4352</sys_update_version>
+    </sys_metadata_delete>
+</record_update>

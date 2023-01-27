@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_ng_pro_sp_widget">
+    <m2m_sp_ng_pro_sp_widget action="INSERT_OR_UPDATE">
+        <sp_angular_provider display_value="focusMe">0a3087d2475c2510d5ff7868f36d4377</sp_angular_provider>
+        <sp_widget display_value="Post">6579d0614740e510d5ff7868f36d43d7</sp_widget>
+        <sys_class_name>m2m_sp_ng_pro_sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-12 12:21:16</sys_created_on>
+        <sys_id>e7638b56475c2510d5ff7868f36d4383</sys_id>
+        <sys_name>focusMe.Post</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>m2m_sp_ng_pro_sp_widget_e7638b56475c2510d5ff7868f36d4383</sys_update_name>
+    </m2m_sp_ng_pro_sp_widget>
+</record_update>

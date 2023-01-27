@@ -1,0 +1,1020 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function($scope,$http,$window, $rootScope) {
+  {
+  /* widget controller */
+  var c = this;
+  c.hidePostArea=true;
+	c.showPlusSign=true;
+  c.data.postText="";
+  c.data.commentText="";
+  console.log(c);
+  c.maxPostLength=300;
+  c.posthideWidget=true;
+  c.avatarPicture={
+      background: "red"
+
+  };
+  $scope.posts=c.data.posts;
+  $scope.$on("SendCommunity", function (evt, data) {
+    $scope.Message = "Inside post controller : " + data;
+    c.posthideWidget=false;
+  });
+  $scope.$on("SendTrends", function (evt, data) {
+    $scope.Message = "Inside post controller : " + data;
+    c.posthideWidget=true;
+  });
+  $scope.$on("SendHome", function (evt, data) {
+    $scope.Message = "Inside post controller : " + data;
+    c.posthideWidget=true;
+  });
+
+//   $scope.$on("SendHome", function (evt, data) {
+//     $scope.Message = "Inside MyController3 : " + data;
+//     console.log($scope.Message);
+//     c.hideWidget=true;
+// });
+// $scope.$on("SendTrends", function (evt, data) {
+//   $scope.Message = "Inside MyController POST : " + data;
+//   console.log($scope.Message);
+//   c.hideWidget=true;
+// });
+
+
+//   $scope.$on("SendCommunity", function (evt, data) {
+//   $scope.Message = "Inside MyController1 : " + data;
+//   c.hideWidget=false;
+//  });
+
+
+
+  $scope.showMore = function(post) {
+    post.complete=true;
+    if(post.showFullCaption==undefined)post.showFullCaption=true;
+    else
+    post.showFullCaption = !post.showFullCaption;
+  };
+  
+  $scope.showLess = function(post) {
+    post.complete=false;
+    if(post.showFullCaption==undefined)post.showFullCaption=flase;
+    else
+    post.showFullCaption = !post.showFullCaption;
+  };
+  $scope.captionLimit = function(post) {
+    
+    if (post.showFullCaption) {
+      return post.caption.length;
+    } else {
+      return c.maxPostLength;
+    }
+  };
+  c.captionLimit=50;
+  $scope.addPost=function(){
+    if(c.data.postText==""){
+       alert("Caption can't be empty. Please enter valid caption!");
+       return;
+    }
+    c.showPlusSign=true ;
+    c.hidePostArea=true;
+    c.data.action="addPost";
+    c.server.update().then(function(){
+      $scope.posts=c.data.posts;
+     });
+
+  };
+  $scope.hidePostArea=function(){
+    c.focusInput=true;
+    c.showPlusSign = c.showPlusSign==true?false:true;
+     if(c.hidePostArea==false)c.hidePostArea=true;
+     else
+     c.hidePostArea=false;
+  }
+  $scope.likePost= function(post){
+    if(post.liked==true){
+     post.liked=false;
+     post.likes= parseInt(post.likes)-1;
+      c.data.action="unlikePost";
+    }else{
+      post.liked=true;
+      post.likes= parseInt(post.likes)+1;
+      c.data.action="likePost";
+    }
+      c.data.postId=post.id;
+      c.server.update();
+  };
+  $scope.showComment=function(post){
+    post.showComments=!post.showComments;
+  }
+  $scope.togglecomment=function(post)
+  { post.showComments=!post.showComments;
+  }
+  $scope.addComment=function(post){
+   
+    c.data.commentText=post.commentText;
+    post.showComments=true;
+    if(c.data.commentText!=""){
+     c.data.postId=post.id;
+     c.data.action="addcomment";
+     c.server.update().then(function(){
+      $scope.posts=c.data.posts;
+     
+     });
+    }
+  };
+  $scope.getComments=function(post){
+     c.data.postId=post.id;
+     c.data.action="getcomments";
+     c.server.update().then(function(){
+      post.comments= c.data.comments;
+     });
+   
+  };
+
+  $scope.likeComment=function(comment){
+      console.log("comment liked" + comment);
+      comment.liked=true;
+      comment.like= parseInt(comment.like)+1;
+      c.data.commentId= comment.id;
+      c.data.action="likecomment";
+      c.server.update();
+  };
+
+  $scope.unLikeComment=function(comment){
+      comment.liked=false;
+      c.data.commentId= comment.id;
+      comment.like= parseInt(comment.like)-1;
+      c.data.action="unlikecomment";
+      c.server.update();
+  }
+
+  $scope.hidePost=function(post){
+    // console.log(post.username + " "+c.data.logggedInUser);
+    //    if(post.username!=c.data.logggedInUser){
+    //       return true;
+    //    }else if(post)
+    //    return false;
+    return !post.canDelete;
+  };
+  $scope.clearPost=function(){
+     c.data.postText="";
+  };
+
+  $scope.followUser=function(user){
+    console.log("f");
+    c.data.action="follow";
+    c.data.id=user.sys_id;
+    c.server.update();
+  };
+c.myBackgroundUrl="";
+
+
+  $http.get('/api/now/live/profiles/sys_user.' + $scope.data.loggedInUserId).then(function (response) {
+		if (response.data.result && response.data.result.avatar){
+      console.log(response.data.result.avatar);
+			var avatarPicture = response.data.result.avatar.replace("?t=small", "");
+
+      c.myBackgroundUrl ="https://dev102074.service-now.com/a5d3c898c3222010ae17dd981840dd8b.iix";
+			c.avatarPicture = {
+				// 'background-image': "url('https://" + $window.location.host+"/"+ avatarPicture + "')",
+        "background-image" :'url("https://dev102074.service-now.com/a5d3c898c3222010ae17dd981840dd8b.iix")',
+				"color": "transparent"
+			};
+		}
+    // console.log(c.avatarPicture);
+	});
+   
+
+
+  $scope.getImage=function(){
+
+    c.data.posts.forEach(function(e){
+      $http.get('/api/now/live/profiles/sys_user.' + post.userId).then(function (response) {
+        if (response.data.result && response.data.result.avatar){
+          // console.log(response.data.result.avatar);
+          var avatarPicture = response.data.result.avatar.replace("?t=small", "");
+    
+           var imagePath = 'https://' + $window.location.host+"/"+ avatarPicture;
+           return {
+                    'background-image':'url(' + imagePath + ')'
+              };
+          // c.avatarPicture = {
+            // 'background-image': "url('https://" + $window.location.host+"/"+ avatarPicture + "')",
+            // "background-image" :'url("https://dev102074.service-now.com/a5d3c898c3222010ae17dd981840dd8b.iix")',
+            // "color": "transparent"
+          // };
+        }
+        
+      });
+    });
+
+  };
+
+
+$scope.getBackgroundStylue =function(post){
+    console.log("test");
+    console.log(post);
+    $http.get('/api/now/live/profiles/sys_user.' + post.userId).then(function (response) {
+      if (response.data.result && response.data.result.avatar){
+        // console.log(response.data.result.avatar);
+        // var avatarPicture = response.data.result.avatar.replace("?t=small", "");
+  
+         var imagePath = 'https://' + $window.location.host+"/"+ avatarPicture;
+         return {
+                  'background-image':'url(' + imagePath + ')'
+            };
+        // c.avatarPicture = {
+          // 'background-image': "url('https://" + $window.location.host+"/"+ avatarPicture + "')",
+          // "background-image" :'url("https://dev102074.service-now.com/a5d3c898c3222010ae17dd981840dd8b.iix")',
+          // "color": "transparent"
+        // };
+      }
+      
+    });
+  }
+
+  $scope.getBackgroundStyle = function(){
+    var imagepath = 'https://dev102074.service-now.com/a5d3c898c3222010ae17dd981840dd8b.iix';
+    return {
+        'background-image':'url(' + imagepath + ')'
+    };
+  }
+}
+
+$scope.deletePost=function(post){
+  c.data.postId=post.id;
+  c.data.action="deletepost";
+  $scope.confirmationDialog("Are you sure you want to delete the post!!");
+  
+};
+
+
+$scope.confirmationDialogConfig = {};
+
+	$scope.confirmationDialog = function(message) {
+		$scope.confirmationDialogConfig = {
+		  title: "Caution!!!",
+		  message: message,
+		  buttons: [{
+			label: "Delete",
+			action: "delete"
+		  }]
+		};
+		$scope.showDialog(true);
+	  };
+	
+	  $scope.executeDialogAction = function(action) {
+		if(typeof $scope[action] === "function") {
+				  $scope[action]();
+			}
+	  };
+	
+	  $scope.reset = function() {
+		$scope.showDialog();
+	  };
+	  
+	  $scope.delete = function() {
+		// c.data.action = 'deleteTracking';
+		// c.data.food_id = $scope.food_id_to_delete;
+		// c.data.tracking_id=$scope.tracking_id_to_delete;
+		c.server.update().then(function(){
+      $scope.posts=c.data.posts;
+     });
+		$scope.showDialog();
+	  };
+	  
+	  $scope.save = function() {
+		$scope.showDialog();
+	  };
+	  
+	  $scope.showDialog = function(flag) {
+		jQuery("#confirmation-dialog .modal").modal(flag ? 'show' : 'hide');
+	  };
+   
+
+};
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>body{&#13;
+    margin-top:20px;&#13;
+    background:#ebeef0;&#13;
+}&#13;
+&#13;
+.img-sm {&#13;
+    width: 46px;&#13;
+    height: 46px;&#13;
+}&#13;
+&#13;
+.panel {&#13;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.075);&#13;
+    border-radius: 0;&#13;
+    border: 0;&#13;
+    margin-bottom: 15px;&#13;
+}&#13;
+&#13;
+.panel .panel-footer, .panel&gt;:last-child {&#13;
+    border-bottom-left-radius: 0;&#13;
+    border-bottom-right-radius: 0;&#13;
+}&#13;
+&#13;
+.panel .panel-heading, .panel&gt;:first-child {&#13;
+    border-top-left-radius: 0;&#13;
+    border-top-right-radius: 0;&#13;
+}&#13;
+&#13;
+.mg-lg-top {&#13;
+	margin-top: 16px;&#13;
+}&#13;
+&#13;
+.mg-lg-bt {&#13;
+	margin-bottom: 16px;&#13;
+}&#13;
+&#13;
+.panel-body {&#13;
+    padding: 25px 20px;&#13;
+}&#13;
+&#13;
+&#13;
+.media-block .media-left {&#13;
+    display: block;&#13;
+    float: left&#13;
+}&#13;
+&#13;
+.media-block .media-right {&#13;
+    float: right&#13;
+}&#13;
+&#13;
+.media-block .media-body {&#13;
+    display: block;&#13;
+    overflow: hidden;&#13;
+    width: auto&#13;
+}&#13;
+&#13;
+.middle .media-left,&#13;
+.middle .media-right,&#13;
+.middle .media-body {&#13;
+    vertical-align: middle&#13;
+}&#13;
+&#13;
+.thumbnail {&#13;
+    border-radius: 0;&#13;
+    border-color: #e9e9e9&#13;
+}&#13;
+&#13;
+.tag.tag-sm, .btn-group-sm&gt;.tag {&#13;
+    padding: 5px 10px;&#13;
+}&#13;
+&#13;
+.tag:not(.label) {&#13;
+    background-color: #fff;&#13;
+    padding: 6px 12px;&#13;
+    border-radius: 2px;&#13;
+    border: 1px solid #cdd6e1;&#13;
+    font-size: 12px;&#13;
+    line-height: 1.42857;&#13;
+    vertical-align: middle;&#13;
+    -webkit-transition: all .15s;&#13;
+    transition: all .15s;&#13;
+}&#13;
+.text-muted, a.text-muted:hover, a.text-muted:focus {&#13;
+    color: #acacac;&#13;
+}&#13;
+.text-sm {&#13;
+    font-size: 0.9em;&#13;
+}&#13;
+.text-5x, .text-4x, .text-5x, .text-2x, .text-lg, .text-sm, .text-xs {&#13;
+    line-height: 1.25;&#13;
+}&#13;
+&#13;
+.btn-trans {&#13;
+    background-color: transparent;&#13;
+    border-color: transparent;&#13;
+    color: #929292;&#13;
+}&#13;
+&#13;
+.btn-icon {&#13;
+    padding-left: 9px;&#13;
+    padding-right: 9px;&#13;
+}&#13;
+&#13;
+.btn-sm, .btn-group-sm&gt;.btn, .btn-icon.btn-sm {&#13;
+    padding: 5px 10px !important;&#13;
+}&#13;
+&#13;
+.mar-top {&#13;
+    margin-top: 15px;&#13;
+}&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+//&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap");&#13;
+body {&#13;
+	background: #f1eee9;&#13;
+	font-family: "Roboto", sans-serif;&#13;
+}&#13;
+&#13;
+.main-content {&#13;
+	margin-top: 5px;&#13;
+	padding-top: 50px;&#13;
+	padding-bottom: 10px;&#13;
+}&#13;
+&#13;
+.post-block {&#13;
+	background: #fff;&#13;
+	padding: 25px;&#13;
+	margin-bottom: 25px;&#13;
+	border-radius: 5px;&#13;
+	overflow: hidden;&#13;
+	box-shadow: 0 2px 30px rgba(0, 0, 0, 0.1);&#13;
+	transition: all 0.2s;&#13;
+}&#13;
+.post-block img.author-img {&#13;
+	height: 45px;&#13;
+	width: 45px;&#13;
+	border-radius: 45px;&#13;
+}&#13;
+.post-block img.author-img.author-img--small {&#13;
+	height: 30px;&#13;
+	width: 30px;&#13;
+}&#13;
+.post-block__content{&#13;
+	max-width: 100%;&#13;
+	border-radius: 5px;&#13;
+    // margin-left: 50px;&#13;
+    // margin-right: 50px;&#13;
+    // padding-left:3px ;&#13;
+}&#13;
+.post-block .comment-view-box__comment {&#13;
+	border-radius: 5px;&#13;
+	background: #f5f5f5;&#13;
+	padding: 15px;&#13;
+}&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap");&#13;
+&#13;
+$primary: #007bff;&#13;
+$success: #28a745;&#13;
+$warning: #ffc107;&#13;
+$danger: #dc3545;&#13;
+&#13;
+body {&#13;
+	background: #f1eee9;&#13;
+	font-family: "Roboto", sans-serif;&#13;
+}&#13;
+&#13;
+.main-content {&#13;
+	padding-top: 4px;&#13;
+	padding-bottom: 4px;&#13;
+}&#13;
+&#13;
+.justify-content-between{&#13;
+	display: flex;&#13;
+	justify-content: space-between;&#13;
+}&#13;
+.post-block {&#13;
+	background: #fff;&#13;
+	padding: 25px;&#13;
+	margin-bottom: 25px;&#13;
+	border-radius: 5px;&#13;
+	overflow: hidden;&#13;
+	box-shadow: 0 2px 30px rgba(0, 0, 0, 0.1);&#13;
+	transition: all 0.2s;&#13;
+	img.author-img {&#13;
+		height: 45px;&#13;
+		width: 45px;&#13;
+		border-radius: 45px;&#13;
+		&amp;.author-img--small {&#13;
+			height: 30px;&#13;
+			width: 30px;&#13;
+		}&#13;
+	}&#13;
+	&amp;__content {&#13;
+		img,&#13;
+		video,&#13;
+		audio {&#13;
+			max-width: 100%;&#13;
+			border-radius: 5px;&#13;
+		}&#13;
+	}&#13;
+	.comment-view-box {&#13;
+		&amp;__comment{&#13;
+			border-radius: 5px;&#13;
+			background:#f5f5f5;&#13;
+			padding: 15px;&#13;
+		}&#13;
+	}&#13;
+}&#13;
+&#13;
+.margin-5{&#13;
+	margin-right: 5px;&#13;
+	margin-bottom: 5px;&#13;
+}&#13;
+.margin-left-5{&#13;
+	margin-left: 5px;&#13;
+}&#13;
+&#13;
+.comment-flex{&#13;
+	display: flex;&#13;
+	margin-left: 5px;&#13;
+    width: 100%;&#13;
+}&#13;
+.margin-top-5{&#13;
+	margin-top: 5px;&#13;
+}&#13;
+.followButton{&#13;
+	border-radius: 20%;&#13;
+	margin: 0px;&#13;
+	align-content: flex-end;&#13;
+}&#13;
+.follow-img{&#13;
+	width: 30px;&#13;
+	height: 30px;&#13;
+	border-radius: 30%;&#13;
+	margin-left: 2px;&#13;
+}&#13;
+.avatar_img {&#13;
+	background-size: 40px;&#13;
+	width: 40px;&#13;
+	height: 40px;&#13;
+	border-radius: 50%;&#13;
+	margin: 2px;&#13;
+}&#13;
+&#13;
+.follow-manager{&#13;
+	display: flex;&#13;
+	justify-content:space-between;&#13;
+	margin: 5px;&#13;
+}&#13;
+.follow-image{&#13;
+	background-size: 3rem;&#13;
+	width: 3rem;&#13;
+	height: 3rem;&#13;
+	border-radius: 20%;&#13;
+	// border: solid 2px red;&#13;
+&#13;
+}&#13;
+&#13;
+&#13;
+// .create_post_button{&#13;
+// 	border-radius: 50%;&#13;
+// 	width: 20px;&#13;
+// 	height: 20px;&#13;
+// }&#13;
+&#13;
+.create_post_button {&#13;
+	width: 25px;&#13;
+	height: 25px;&#13;
+	padding: 6px 0px;&#13;
+	border-radius: 15px;&#13;
+	font-size: 8px;&#13;
+	text-align: center;&#13;
+}&#13;
+&#13;
+.show_button{&#13;
+	width: 80px;&#13;
+	padding: 0px;&#13;
+    cursor: pointer;&#13;
+}&#13;
+.icon-border{&#13;
+    font-size: 14px;&#13;
+    text-shadow: -2px 0 rgb(216, 154, 154), 0 2px rgb(205, 174, 174), 2px 0 rgb(199, 124, 124), 0 -2px rgb(233, 181, 181);&#13;
+}&#13;
+&#13;
+&#13;
+.comment_avatar{&#13;
+	width: 40px;&#13;
+	height: 40px;&#13;
+	background-size: 40px;&#13;
+	border-radius: 30%;&#13;
+}&#13;
+&#13;
+.comment_and_likes{&#13;
+	display: flex;&#13;
+	justify-content: space-between;&#13;
+    width: 100%;&#13;
+    margin-left: 8px;&#13;
+}&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+nav.navbar.bootsnav{&#13;
+    font-family: 'Asap', sans-serif;&#13;
+    margin-bottom: 150px;&#13;
+    border: none;&#13;
+    background-color: transparent;&#13;
+}&#13;
+nav.navbar.bootsnav ul.nav&gt;li{ margin-right: 20px; }&#13;
+nav.navbar.bootsnav ul.nav &gt; li &gt; a{&#13;
+    color: transparent;&#13;
+    background-color: transparent;&#13;
+    font-size: 16px;&#13;
+    font-weight: 600;&#13;
+    text-transform: uppercase;&#13;
+    padding: 10px 15px;&#13;
+    overflow: hidden;&#13;
+    position: relative;&#13;
+    z-index: 1;&#13;
+    transition: all .5s ease;&#13;
+}&#13;
+nav.navbar.bootsnav ul.nav &gt; li.dropdown &gt; a{ padding: 10px 30px 10px 15px; }&#13;
+nav.navbar.bootsnav ul.nav &gt; li.active &gt; a,&#13;
+nav.navbar.bootsnav ul.nav &gt; li.active &gt; a:hover,&#13;
+nav.navbar.bootsnav ul.nav &gt; li &gt; a:hover,&#13;
+nav.navbar.bootsnav ul.nav &gt; li.on &gt; a{&#13;
+    color: transparent;&#13;
+    background-color: transparent;&#13;
+}&#13;
+nav.navbar.bootsnav ul.nav &gt; li &gt; a&gt;span:before,&#13;
+nav.navbar.bootsnav ul.nav &gt; li &gt; a&gt;span:after{&#13;
+    content: attr(data-hover);&#13;
+    color: #fff;&#13;
+    background: rgba(0,0,0,0.2);&#13;
+    text-transform: uppercase;&#13;
+    text-align: center;&#13;
+    width: 100%;&#13;
+    height: 100%;&#13;
+    padding: 10px 15px;&#13;
+    position: absolute;&#13;
+    top:0;&#13;
+    left: -100%;&#13;
+    transition: all 0.3s ease 0s;&#13;
+}&#13;
+nav.navbar.bootsnav ul.nav &gt; li &gt; a&gt;span:after{&#13;
+    background-color: transparent;&#13;
+    left: 0;&#13;
+}&#13;
+nav.navbar.bootsnav ul.nav&gt;li.on&gt;a&gt;span:before,&#13;
+nav.navbar.bootsnav ul.nav&gt;li&gt;a:hover&gt;span:before,&#13;
+nav.navbar.bootsnav ul.nav&gt;li.active&gt;a&gt;span:before{&#13;
+    left: 0;&#13;
+}&#13;
+nav.navbar.bootsnav ul.nav&gt;li.on&gt;a&gt;span:after,&#13;
+nav.navbar.bootsnav ul.nav&gt;li&gt;a:hover&gt;span:after,&#13;
+nav.navbar.bootsnav ul.nav&gt;li.active&gt;a&gt;span:after{&#13;
+    left: 100%;&#13;
+}&#13;
+nav.navbar.bootsnav li.dropdown ul.dropdown-menu.megamenu-content li a:hover,&#13;
+nav.navbar.bootsnav li.dropdown ul.dropdown-menu li a:hover,&#13;
+nav.navbar.bootsnav li.dropdown ul.dropdown-menu li a.dropdown-toggle:active,&#13;
+nav.navbar ul.nav li.dropdown.on ul.dropdown-menu li.dropdown.on &gt; a{&#13;
+    color: #fff !important;&#13;
+    background-color: #008E79 !important;&#13;
+}&#13;
+nav.navbar.bootsnav ul.nav &gt; li.dropdown &gt; a.dropdown-toggle:after{&#13;
+    color: #fff;&#13;
+    margin: 0 0 0 7px;&#13;
+    position: absolute;&#13;
+    top: 10px;&#13;
+    right: 7px;&#13;
+}&#13;
+nav.navbar.bootsnav ul.nav &gt; li.dropdown &gt; ul{&#13;
+    opacity: 0;&#13;
+    visibility: hidden;&#13;
+    left: 20%;&#13;
+    transition: all 0.3s ease-in-out 0s;&#13;
+}&#13;
+nav.navbar.bootsnav ul.nav &gt; li.dropdown.on &gt; ul{&#13;
+    opacity: 1 !important;&#13;
+    visibility: visible !important;&#13;
+    left: 0;&#13;
+}&#13;
+.dropdown-menu.multi-dropdown{&#13;
+    position: absolute;&#13;
+    left: -100% !important;&#13;
+}&#13;
+nav.navbar.bootsnav li.dropdown ul.dropdown-menu{&#13;
+    background-color: rgba(255,255,255,0.9);&#13;
+    border: none;&#13;
+    border-radius: 0;&#13;
+    top: 120%;&#13;
+}&#13;
+nav.navbar.bootsnav li.dropdown ul.dropdown-menu &gt; li &gt; a{&#13;
+    color: #555;&#13;
+    border: none;&#13;
+}&#13;
+nav.navbar.bootsnav li.dropdown ul.dropdown-menu.megamenu-content{&#13;
+    top: 90%;&#13;
+    left: 5%;&#13;
+}&#13;
+nav.navbar.bootsnav li.dropdown.on ul.dropdown-menu.megamenu-content{ left: 0; }&#13;
+nav.navbar.bootsnav li.dropdown ul.dropdown-menu.megamenu-content li{ font-size: 14px; }&#13;
+nav.navbar.bootsnav li.dropdown ul.dropdown-menu.megamenu-content .menu-col li a{&#13;
+    color: #555;&#13;
+    padding-left: 10px;&#13;
+}&#13;
+nav.navbar.bootsnav li.dropdown ul.dropdown-menu.megamenu-content .title{&#13;
+    color: #008E79;&#13;
+    font-size: 16px;&#13;
+    font-weight: bold;&#13;
+}&#13;
+@media only screen and (max-width:990px){&#13;
+    .dropdown-menu.multi-dropdown{ left: 0 !important; }&#13;
+    nav.navbar.bootsnav .navbar-toggle{&#13;
+        color: #fff;&#13;
+        background: transparent !important;&#13;
+    }&#13;
+    nav.navbar.bootsnav.navbar-mobile .navbar-collapse{ background: #00b197; }&#13;
+    nav.navbar.bootsnav ul.nav&gt;li{ margin: 5px auto 15px; }&#13;
+    nav.navbar.bootsnav.navbar-mobile ul.nav&gt;li&gt;a{&#13;
+        background-color: transparent;&#13;
+        text-align: center;&#13;
+        padding: 10px 15px;&#13;
+        border: none;&#13;
+    }&#13;
+    nav.navbar.bootsnav ul.nav&gt;li.dropdown&gt;a{ padding: 10px 10px 10px 28px; }&#13;
+    nav.navbar.bootsnav ul.nav&gt;li.dropdown&gt;a.dropdown-toggle:before{ color: #fff; }&#13;
+    nav.navbar.bootsnav ul.nav li.dropdown ul.dropdown-menu&gt;li&gt;a{&#13;
+        color: #fff;&#13;
+        padding-left: 10px;&#13;
+        border: none;&#13;
+    }&#13;
+    nav.navbar.bootsnav .dropdown-menu{ z-index: 0; }&#13;
+    nav.navbar.bootsnav li.dropdown ul.dropdown-menu.megamenu-content .title{&#13;
+        font-size: 14px;&#13;
+        font-weight: normal;&#13;
+        color: #fff;&#13;
+    }&#13;
+    nav.navbar.bootsnav li.dropdown ul.dropdown-menu.megamenu-content .col-menu li a{&#13;
+       color: #fff;&#13;
+       border: none;&#13;
+   }&#13;
+}&#13;
+&#13;
+.like{&#13;
+    margin-left: 4px;&#13;
+}&#13;
+// .delete-action{&#13;
+//     padding: 0px;&#13;
+// }&#13;
+.post-block__comments{&#13;
+    margin-top: 15px;&#13;
+}&#13;
+.post-block__user-option{&#13;
+    text-align: right;&#13;
+}&#13;
+&#13;
+.title-author {&#13;
+  color: #4f52bd;&#13;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>post</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Post</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	//var post = new Post().getPostByUserId();
+  data.posts=new Post().getLatestPost();
+  data.logggedInUser= gs.getUserDisplayName();
+  data.loggedInUserId=gs.getUserID();
+  data.userToFollow = new Follower().getUserToFollow();
+
+
+  if(input && input.action=="addPost"){
+      var message=   new Post().createPost(input.postText,input.image);
+      data.posts=new Post().getLatestPost();
+      data.postText="";
+  }else if(input && input.action=="likePost"){
+      var message = new Like().likePostOrComment(input.postId,"Post");
+      // data.posts=new Post().getLatestPost();
+  }
+  else if(input && input.action=="unlikePost"){
+      var message = new Like().unlikePostOrComment(input.postId,"Post");
+      // data.posts=new Post().getLatestPost();
+  }else if(input && input.action=="deletepost"){
+    var message = new Post().deletePost(input.postId);
+    data.posts=new Post().getLatestPost();
+  }else if(input && input.action=="addcomment"){
+    console.log(input);
+    var message = new Comment().addCommentOnPost(input.postId,input.commentText);
+    data.commentText="";
+    data.posts=new Post().getLatestPost();
+  }else if(input && input.action=="getcomments"){
+        data.comments= new Comment().getCommentOfPost(input.postId);
+        data.posts=new Post().getLatestPost();
+        console.log(data);
+  }else if(input && input.action=="likecomment"){
+    var message = new Like().likePostOrComment(input.commentId,"Comment");
+    //data.posts=new Post().getLatestPost();
+}	else if(input && input.action=="unlikecomment"){
+  var message = new Like().unlikePostOrComment(input.commentId,"Comment");
+  //data.posts=new Post().getLatestPost();
+}	else if(input && input.action=="follow"){
+    console.log("ojoji");
+    console.log(input);
+     var message =  new Follower().followUser(input.id);
+     data.userToFollow = new Follower().getUserToFollow();
+}
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-28 05:47:30</sys_created_on>
+        <sys_id>6579d0614740e510d5ff7868f36d43d7</sys_id>
+        <sys_name>Post</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sp_widget_6579d0614740e510d5ff7868f36d43d7</sys_update_name>
+        <template><![CDATA[<div ng-hide="c.posthideWidget">  
+<div class="container">
+  <button class="btn btn-primary create_post_button"   ng-click="hidePostArea()" > <span ng-if="c.showPlusSign"
+      class="glyphicon glyphicon-plus"></span> <span ng-if="!c.showPlusSign"
+      class="glyphicon glyphicon-minus"></span></button>
+      <!-- <button class="btn btn-primary create_post_button"  ng-if="!c.showPlusSign" ng-click="hidePostArea()"> <span
+        class="glyphicon glyphicon-minus"></span></button> -->
+  <span> Create Post</span>
+</div>
+
+<div class="container-fluid" ng-hide="c.hidePostArea">
+  <div class="col-sm-8">
+    <div class="form-outline w-100">
+      <textarea class="form-control" id="textAreaExample" focus-me="c.focusInput" placeholder="What are you up to?" ng-model="c.data.postText"
+        rows="6" style="background: #fff;"></textarea>
+    </div>
+    <div class="float-end mt-2 pt-1 justify-content-between margin-top-5">
+      <div>
+      </div>
+      <div>
+        <button type="button" class="btn btn-primary btn-sm" ng-click="addPost()">Post comment</button>
+        <button type="button" class="btn btn-outline-primary btn-sm" ng-click="clearPost()">Clear</button>
+      </div>
+
+    </div>
+  </div>
+  <!-- <div class="col-sm-4">
+       Who to follow
+       <div ng-repeat="u in c.data.userToFollow | limitTo: 3" class="follow-manager">
+        <a href="#!" class="text-dark"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ7F5xKLiUcTZIJ-fb5jlSPU40Td3MCvqFj6ZezJS7NA&s" alt="User" class="author-img follow-img" ">{{u.username}}</a>
+						<button class="btn btn-primary followButton" ng-click="followUser(u)">Follow</button>		
+       </div>
+</div> -->
+
+</div>
+
+<section class="main-content">
+  <div class="container-fluid">
+    <div class="row" ng-repeat="post in posts | orderBy: 'created_date':true">
+      <div class="col-sm-12 offset-sm-3">
+        <div class="post-block">
+          <div class="d-flex">
+            <div class="row">
+
+              <div class="col-sm-1">
+                <div class="d-flex mb-3">
+                  <div class="mr-2">
+                    <div ng-if="post.avatar" class="avatar_img"
+                      style="background-image: url('{{post.avatar}}.iix?t=small')"></div>
+                  </div>
+                  <div>
+                    <!-- <h6 class="mb-0"><a href="javascript:void(0)" class="text-dark"> {{post.username.length>=6 ? post.username.substring(0,6)+'...' : post.username}}</a></h6>-->
+                    <!-- <p class="mb-0 text-muted">5m</p> -->
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-sm-10 container-fluid">
+                <div class="title-author">{{post.username}}</div>
+                <div class="post-block__content mb-2">
+                  <p>{{post.caption | limitTo: captionLimit(post)}}     
+                     <span ng-if="post.caption.length>c.maxPostLength && (post.complete==undefined? true :!post.complete)">....</span>
+                     <span ng-if="post.caption.length > c.maxPostLength">
+                      <a class="show_button" ng-click="showMore(post)" ng-hide="post.complete==undefined? false :post.complete">Show More</a>
+                      <a class="show_button" ng-click="showLess(post)" ng-hide="post.complete==undefined? true :!post.complete" >Show Less</a>
+                    </span>
+                  </p>   
+                </div>
+              </div>
+              <div class="col-sm-1 delete-action">
+                <div class="post-block__user-option" ng-hide="hidePost(post)">
+                  <a class="dropdown-item text-danger" href="javascript:void(0)" ng-click="deletePost(post)"><i
+                      class="fa fa-trash mr-1"></i></a>
+                </div>
+              </div>
+            </div>
+            
+           
+            
+          </div>
+         
+          <div class="mb-3">
+            <div class="d-flex justify-content-between mb-2">
+              <div class="d-flex">
+                <a href="javascript:void(0)" ng-click="likePost(post)" class="text-danger mr-2"><span><i class="fa fa-heart"
+                      ng-hide="post.liked" style="color:#d6bdbd; border: 1px;"></i>
+                    <i class="fa fa-heart " ng-hide="!post.liked" style="color:red"></i> 
+                  </span> </a>{{post.likes}} <span class="glyphicon glyphicon-comment like"></span>  {{post.comments.length}}
+
+              </div>
+
+            </div>
+            <!-- <p class="mb-0">Liked by <a href="#!" class="text-muted font-weight-bold">{{post.likes}}</a> -->
+              <!--  & <a href="#!" class="text-muted font-weight-bold">25 others</a></p> -->
+          </div>
+          <!-- <hr> -->
+
+
+          <div class="post-block__comments">
+            <!-- Comment Input -->
+            <!-- <a href="#!" class="text-dark"><span>Comment</span></a> -->
+            <div class="input-group justify-content-between mg-lg-bt">
+              <input type="text" class="form-control margin-5" placeholder="Add your comment"
+                ng-model="post.commentText">
+              <div class="input-group-append">
+                <button class="btn btn-primary"  ng-click="addComment(post)" type="button" id="button-addon2"><i
+                    class="fa fa-paper-plane"></i></button>
+              </div>
+            </div>
+            <!-- Comment content -->
+            <div class="comment-view-box mb-3">
+            
+              <a class="text-dark pointer" data-toggle="collapse" data-target="#{{post.id}}" ng-if="post.comments.length>0" ng-click="showComment(post)">
+                {{ post.showComments ? 'Hide comments' : 'Show comments ' }}
+                <!-- {{post.comments.length}} -->
+              </a>
+
+              <!-- <button ng-click="togglecomment(post
+              )">click me</button>-->
+             
+              <!-- fsfdsfsfsfs
+              {{ post.showComments}}  -->
+              <div id="{{post.id}}" class="{{ post.showComments ? 'collapse in' : 'collapse' }} mg-lg-top" >
+                  <div class="comment-flex" ng-repeat="cmt in post.comments">
+                    <div  ng-if="cmt.avatar" class="comment_avatar"
+                    style="background-image: url('{{cmt.avatar}}.iix?t=small')"></div>
+                    <div class="container">
+                      <h6 class="margin-left-5"><a href="javascript:void(0)" class="text-dark">{{cmt.user}}</a> </h6>
+                      <div class="comment_and_likes ">
+                        <div style="margin-left: 0px;">{{cmt.comment}}</div>
+                        <div>
+                        
+                        <a href="javascript:void(0)" class="text-dark mr-2" style="margin-right: 8px;" ng-if="!cmt.liked" ng-click="likeComment(cmt)"><span><i class="fa fa-heart" style="color:#d6bdbd"></i></span></a> 
+                        <a href="javascript:void(0)" ng-if="cmt.liked"  ng-click="unLikeComment(cmt)"><span><i class="fa fa-heart" style="color:red"></i></span></a> <sup>{{cmt.like==0? '': cmt.like}}</sup>
+                          </div>
+                      </div>
+                  </div>
+							  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+
+<div id="confirmation-dialog">
+  <div class="modal fade confirmation-dialog" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{confirmationDialogConfig.title}}</h4>
+        </div>
+        <div class="modal-body">
+          <div class="span5">{{confirmationDialogConfig.message}}</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" ng-repeat="button in confirmationDialogConfig.buttons" ng-click="executeDialogAction(button.action)" class="btn btn-primary">{{button.label}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>]]></template>
+    </sp_widget>
+</record_update>

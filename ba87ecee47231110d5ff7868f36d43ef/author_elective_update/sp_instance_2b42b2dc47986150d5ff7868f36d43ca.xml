@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance">
+    <sp_instance action="DELETE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>1</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">4642b2dc47986150d5ff7868f36d4348</sp_column>
+        <sp_widget display_value="Trends">2573b54547f3d510d5ff7868f36d434c</sp_widget>
+        <sys_class_name>sp_instance</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-06 05:58:35</sys_created_on>
+        <sys_id>2b42b2dc47986150d5ff7868f36d43ca</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sp_instance_2b42b2dc47986150d5ff7868f36d43ca</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-01-06 05:58:35</sys_updated_on>
+        <title/>
+        <url/>
+        <widget_parameters/>
+    </sp_instance>
+    <sys_translated_text action="DELETE" query="documentkey=2b42b2dc47986150d5ff7868f36d43ca"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</application>
+        <file_path/>
+        <instance_id>e57b120adb9b08180b9d21c405961901</instance_id>
+        <instance_name>dev102074</instance_name>
+        <name>sp_instance_2b42b2dc47986150d5ff7868f36d43ca</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance"><sp_instance action="INSERT_OR_UPDATE"><active>true</active><class_name/><color>default</color><css/><glyph/><id/><order>1</order><roles/><short_description/><size>md</size><sp_column display_value="1">4642b2dc47986150d5ff7868f36d4348</sp_column><sp_widget display_value="Trends">2573b54547f3d510d5ff7868f36d434c</sp_widget><sys_class_name>sp_instance</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2023-01-06 05:58:35</sys_created_on><sys_id>2b42b2dc47986150d5ff7868f36d43ca</sys_id><sys_mod_count>0</sys_mod_count><sys_name/><sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package><sys_policy/><sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope><sys_update_name>sp_instance_2b42b2dc47986150d5ff7868f36d43ca</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2023-01-06 05:58:35</sys_updated_on><title/><url/><widget_parameters/></sp_instance><sys_translated_text action="delete_multiple" query="documentkey=2b42b2dc47986150d5ff7868f36d43ca"/></record_update>]]></payload>
+        <payload_hash>1225350236</payload_hash>
+        <record_name/>
+        <reverted_from/>
+        <source>76be268b47a31110d5ff7868f36d43e6</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-06 05:58:35</sys_created_on>
+        <sys_id>a742b2dc47986150d5ff7868f36d43cc</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18585a8e1c80000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-01-06 05:58:35</sys_updated_on>
+        <type>Instance</type>
+        <update_guid>ef42b2dcd9986150c03629234db55ccb</update_guid>
+        <update_guid_history>ef42b2dcd9986150c03629234db55ccb:1225350236</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="">a4737edc47986150d5ff7868f36d4373</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-01-06 06:03:34</sys_created_on>
+        <sys_db_object display_value="" name="sp_instance">sp_instance</sys_db_object>
+        <sys_id>110707291d4347d081aaf00bd5a79e40</sys_id>
+        <sys_metadata>2b42b2dc47986150d5ff7868f36d43ca</sys_metadata>
+        <sys_name/>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_scope_delete display_value="">955332a1052e4fc4a24985372ab46c84</sys_scope_delete>
+        <sys_update_name>sp_instance_2b42b2dc47986150d5ff7868f36d43ca</sys_update_name>
+        <sys_update_version display_value="sp_instance_2b42b2dc47986150d5ff7868f36d43ca">a742b2dc47986150d5ff7868f36d43cc</sys_update_version>
+    </sys_metadata_delete>
+</record_update>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl">
+    <sys_security_acl action="DELETE">
+        <active>true</active>
+        <admin_overrides>true</admin_overrides>
+        <advanced>true</advanced>
+        <condition/>
+        <description>Allow read for follower in x_942661_fitness_follower, for users with roles (admin, x_942661_fitness.admin, x_942661_fitness.user), and if the ACL script returns true.</description>
+        <name>x_942661_fitness_follower.follower</name>
+        <operation display_value="read">read</operation>
+        <script><![CDATA[g_form.setValue('follower',  g_user.userID);]]></script>
+        <sys_class_name>sys_security_acl</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-16 05:50:05</sys_created_on>
+        <sys_id>73626a2d47331110d5ff7868f36d434a</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>x_942661_fitness_follower.follower</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sys_security_acl_73626a2d47331110d5ff7868f36d434a</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-12-16 05:54:26</sys_updated_on>
+        <type display_value="record">record</type>
+    </sys_security_acl>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</application>
+        <file_path/>
+        <instance_id>e57b120adb9b08180b9d21c405961901</instance_id>
+        <instance_name>dev102074</instance_name>
+        <name>sys_security_acl_73626a2d47331110d5ff7868f36d434a</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_security_acl"&gt;&lt;sys_security_acl action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;admin_overrides&gt;true&lt;/admin_overrides&gt;&lt;advanced&gt;true&lt;/advanced&gt;&lt;condition/&gt;&lt;description&gt;Allow read for follower in x_942661_fitness_follower, for users with roles (admin, x_942661_fitness.admin, x_942661_fitness.user), and if the ACL script returns true.&lt;/description&gt;&lt;name&gt;x_942661_fitness_follower.follower&lt;/name&gt;&lt;operation display_value="read"&gt;read&lt;/operation&gt;&lt;script&gt;&lt;![CDATA[g_form.setValue('follower',  g_user.userID);]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_security_acl&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2022-12-16 05:50:05&lt;/sys_created_on&gt;&lt;sys_id&gt;73626a2d47331110d5ff7868f36d434a&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_name&gt;x_942661_fitness_follower.follower&lt;/sys_name&gt;&lt;sys_package display_value="FitnessTracker" source="x_942661_fitness"&gt;ba87ecee47231110d5ff7868f36d43ef&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="FitnessTracker"&gt;ba87ecee47231110d5ff7868f36d43ef&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_security_acl_73626a2d47331110d5ff7868f36d434a&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2022-12-16 05:54:26&lt;/sys_updated_on&gt;&lt;type display_value="record"&gt;record&lt;/type&gt;&lt;/sys_security_acl&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>975347770</payload_hash>
+        <record_name>x_942661_fitness_follower.follower</record_name>
+        <reverted_from/>
+        <source>76be268b47a31110d5ff7868f36d43e6</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-16 05:54:26</sys_created_on>
+        <sys_id>92f72a6147731110d5ff7868f36d43f3</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>185197f89290000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-12-16 05:54:26</sys_updated_on>
+        <type>Access Control</type>
+        <update_guid>5af72a61f173111084c667d23e6092f2</update_guid>
+        <update_guid_history>5af72a61f173111084c667d23e6092f2:975347770,56f6226193731110a8bf3f5720f790e9:450266411</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-16 07:08:29</sys_created_on>
+        <sys_db_object display_value="" name="sys_security_acl">sys_security_acl</sys_db_object>
+        <sys_id>689ce5f7d022439e96b83668e9273444</sys_id>
+        <sys_metadata>73626a2d47331110d5ff7868f36d434a</sys_metadata>
+        <sys_name>x_942661_fitness_follower.follower</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_parent display_value="Follower">6e6a5e1d47f31910d5ff7868f36d4337</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_scope_delete display_value="">955332a1052e4fc4a24985372ab46c84</sys_scope_delete>
+        <sys_update_name>sys_security_acl_73626a2d47331110d5ff7868f36d434a</sys_update_name>
+        <sys_update_version display_value="sys_security_acl_73626a2d47331110d5ff7868f36d434a">92f72a6147731110d5ff7868f36d43f3</sys_update_version>
+    </sys_metadata_delete>
+</record_update>

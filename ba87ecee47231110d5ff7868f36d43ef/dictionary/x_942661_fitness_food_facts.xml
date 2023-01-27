@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><database>
-    <element db_object_id="e248fc2647a31110d5ff7868f36d4393" label="Food Facts" max_length="40" name="x_942661_fitness_food_facts" type="collection">
-        <element label="Facts" max_length="40" name="facts" type="string"/>
-        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
-    </element>
-</database>

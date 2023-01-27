@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_942661_fitness.Like</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>Like</name>
+        <script><![CDATA[var Like = Class.create();
+Like.prototype = {
+    initialize: function() {
+    },
+	/*
+	 * update post or comment table for likes
+	 */
+	likePostOrComment: function(id,like_on) {
+        var gr = new GlideRecord("x_942661_fitness_like");
+        gr.setValue("parentid", id);
+        gr.setValue("user", gs.getUserID());
+
+        if (like_on=="Post") {
+            gr.setValue("choice", "Post");
+			var post = new GlideRecord("x_942661_fitness_post");
+            post.addQuery("sys_id", id);
+			post.query();
+			if(post.next()){
+				post.setValue("likes",parseInt(post.likes)+1);
+				post.update();
+			}
+        } else {
+            gr.setValue("choice", "Comment");
+			var comment = new GlideRecord("x_942661_fitness_comment");
+            comment.addQuery("sys_id", id);
+			comment.query();
+			if(comment.next()){
+				comment.setValue("likes",parseInt(comment.likes)+1);
+				comment.update();
+			}
+        }
+        var message = "";
+        try {
+            gr.insert();
+            gs.addInfoMessage("Liked!!");
+        } catch (err) {
+           gs.addInfoMessage("Something went wrong.Please try again!!");
+        }
+        return message;
+    },
+	unlikePostOrComment:function(id,un_like_on){
+		var gr = new GlideRecord("x_942661_fitness_like");
+        gr.addQuery("parentid", id);
+        gr.addQuery("user", gs.getUserID());
+        var message = "";
+		if(un_like_on=="Post"){
+        try {
+			var post = new GlideRecord("x_942661_fitness_post");
+            post.addQuery("sys_id", id);
+			post.query();
+			if(post.next()){
+				post.setValue("likes",parseInt(post.likes)-1);
+				post.update();
+			}
+			gr.query();
+			if(gr.next()){
+				gr.deleteRecord();
+			}
+            
+            message = "Disliked";
+          } catch (err) {
+            message = "Something went wrong!!";
+         }
+		} else{
+			var comment = new GlideRecord("x_942661_fitness_comment");
+            comment.addQuery("sys_id", id);
+			comment.query();
+			if(comment.next()){
+				comment.setValue("likes",parseInt(comment.likes)-1);
+				comment.update();
+			}
+			gr.query();
+			if(gr.next()){
+				gr.deleteRecord();
+			}
+            message = "Disliked";
+		}
+        return gs.addInfoMessage(message);	
+	},
+    type: 'Like'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-19 09:44:50</sys_created_on>
+        <sys_id>5e697226473fd110d5ff7868f36d4393</sys_id>
+        <sys_name>Like</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_update_name>sys_script_include_5e697226473fd110d5ff7868f36d4393</sys_update_name>
+    </sys_script_include>
+</record_update>

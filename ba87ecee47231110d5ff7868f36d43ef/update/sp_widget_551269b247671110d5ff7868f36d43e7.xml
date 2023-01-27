@@ -1,51 +1,356 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[api.controller=function($document,$log,$interval) {
-  /* widget controller */
-  var c = this;
-	$log.log("df");
-	 $log.log($document);
+        <client_script><![CDATA[api.controller = function ($scope, $document, $log, $interval,$parse) {
+	/* widget controller */
+	var c = this;
+	var input = {};
+	c.progressValue = 0;
+    c.data.viewDates = new Date();
+	c.trackhideWidget=false;
+	c.circular = {
+		background: '#ededed'
+	};
+	c.currentPercentage=0;
+	c.foodItemToAddIds=[];
+	c.foodItemToAdd=[];
+	$scope.foodItemToAdd=[];
+	c.data.listToAdd=[];
+	c.totalCalories=0;
+	$scope.hideModal=true;
+	$scope.viewDates=c.data.viewDates;
+	$scope.hideNextDate=true;
+    console.log("dfs")
+	$scope.$watch('viewDates', function() {
+		//if($scope.viewDates== new Date())
+		console.log("test" + $scope.viewDates + " "+ new Date());
+        $scope.hideNextDate = $scope.viewDates== new Date() ? true:false;
+
+    });
+
+	$scope.$on("SendCommunity", function (evt, data) {
+		c.trackhideWidget=true;
+    });
+	$scope.$on("SendHome", function (evt, data) {
+		c.trackhideWidget=false;    });
+	$scope.$on("SendTrends", function (evt, data) {
+		c.trackhideWidget=true;
+    });
+
+
+	c.selectedDropdown="";
+	c.selectedValue="";
+	c.previousSelected="";
+	c.storeIndeForOnLOAD=0;
+	$scope.onLoad=function(){
+		for(var i=0;i<c.data.meals.length;i++){
+ 		if(c.previousSelected==c.data.meals[i].meal){
+			
+			for( var key in c.data.trackingByMeals ) {
+				var value = c.data.trackingByMeals[key];
+				if(key== c.selectedValue.toLowerCase()){
+						c.selectedMealData= value;
+				}
+			  }
+		}
+		  if(i=='0' && c.previousSelected==""){
+		   
+			c.selectedValue= c.data.meals[i].meal;
+			c.data.meals[i].hideSelectedMeal=true;
+			c.previousSelected=c.data.meals[i].meal;
+			// console.log("fdsf" +c.previousSelected);
+			c.data.meals[i].selected="selected";
+			c.storeIndeForOnLOAD=i;
+			// setTimeout(function(){
+			// 	console.log("idsadadda" + c.storeIndeForOnLOAD);
+			// 	//$scope.selectFromDropdown(c.data.meals[i]);
+			// },300);
+			
+			for( var key in c.data.trackingByMeals ) {
+				var value = c.data.trackingByMeals[key];
+				
+				// console.log(c.data.trackingByMeals);
+				// console.log(key+ " "+c.selectedValue);
+				if(key== c.selectedValue.toLowerCase()){
+						c.selectedMealData= value;
+				}
+				// console.log("select emeal data" + c.selectedMealData);
+				// console.log(c.selectedMealData);
 	
-	c.progressValue=0;
-	c.breakfast=0;
-	c.snacks=0;
-	c.lunch=0;
-	c.dinner=0;
-	c.circular={
-		  background: "black" 
+			  }
+		// 	console.log("selected meal");
+		// 	console.log(c.selectedMeal);
+        //  console.log(c.data.trackingByMeals);
+			
+		  } 
+		  else{
+			c.data.meals[i].selected=false;
+		  }
+		  if(c.previousSelected.toLowerCase()==c.data.meals[i].meal){
+			c.data.meals[i].hideSelectedMeal=true;
+		  }
+		}
+
 	}
-	
-	//c.circular.background="red";
-	    // var circularProgress= $document[0].querySelectorAll(".circular-progress");
-		   //  var progressValue= $document[0].querySelectorAll(".progress-value");
+	$scope.onLoad();
+	$scope.selectFromDropdown=function(meal){
+		  c.selectedValue=meal.meal;
+		  c.previousSelected.hideSelectedMeal=false;
+		  c.data.meals.forEach(function(e){
+			// console.log(c.previousSelected+ " "+e.meal);
+			 if(c.previousSelected==e.meal){
+				e.hideSelectedMeal=false;
+			 }
+		  });
+		  c.previousSelected=meal.meal;
+		  c.selectedMeal= meal;
+		//   console.log("selectedmEAL");
+		//   console.log(c.selectedMeal);
+		//   console.log(c.data.trackingByMeals);
+		  for( var key in c.data.trackingByMeals ) {
+			var value = c.data.trackingByMeals[key];
+			
+			// console.log(c.data.trackingByMeals);
+			if(key== c.selectedMeal.meal.toLowerCase()){
+					c.selectedMealData= value;
+			}
+			// console.log("select emeal data" + c.selectedMeal.meal);
+			// console.log(c.selectedMealData);
 
-var progressEndValue = 90,    
-    speed = 1000;
-   var  progressStartValue=0;
- 
-	var progress= $interval(function(){
-    progressStartValue++;
-		console.log("dff");
-    progressValue = "'"+progressStartValue+"'";
-//    c.circular.background = "conic-gradient(#7d2ae8"+ progressStartValue*3.6+"deg, #ededed 0deg)";
- c.circular.background = "red";
+		  }
+		  meal.hideSelectedMeal=true;
+	};
 
-    //if(progressStartValue == progressEndValue){
-     //   clearInterval(progress);
-    //}    
-}, speed)
- ;
+
+	var calculateCalorieByMeal = function (){
+		
+		setTimeout(function () {
+		c.totalCalories=0;
+		for(var i=0;i<c.data.meals.length;i++){
+			var m = c.data.meals[i].meal.toString().toLocaleLowerCase();
+			 c.data[m]=0;
+			
+			for(var j =0;j<c.data.trackingByMeals[m].length;j++){
+					c.data[m]+= c.data.trackingByMeals[m][j].calories;
+					c.totalCalories+= parseFloat(c.data.trackingByMeals[m][j].calories);				
+			}
+		} 
+		for(var j=0;j<c.data.meals.length;j++)
+		setCircularInMeals(j);
+		c.targetDegree = Number((parseFloat(360 * parseFloat(c.totalCalories)) / parseFloat(c.data.fitnessUserData.targetCalories)).toFixed(1));
+		c.currentPercentage=Number(c.targetDegree/306*100).toFixed(1);
+		var progressEndValue = 90,
+		speed = 50;
+	var progressStartValue = 0;
+		var progress = $interval(function () {
+			progressStartValue++;
+			c.circular.background = 'conic-gradient(#DCA636 ' +  progressStartValue * (parseFloat(c.data.fitnessUserData.targetCalories)/500) + 'deg, #ededed 0deg)';
+			if (progressStartValue * (parseFloat(c.data.fitnessUserData.targetCalories)/500) >= c.targetDegree) {
+				$interval.cancel(progress);
+			}
+		}, speed);
+		$interval.cancel(calculateCalorieByMeal);
+		return;
+	},500);
+};
+
+ function setCircularInMeals(i){
+	c.data.meals[i].mealCircular={};
+	if(c.data.fitnessUserData.mealsCalories[i].target_calorie<=c.data[c.data.meals[i].meal.toLocaleLowerCase()]){
+		c.data.meals[i].mealCircular.background =
+		'conic-gradient(#DCA636 360deg, #ededed 0deg)';
+		c.data.meals[i].currentPercentage=100;
+	  return;
+	}
+	var speed = 50;
+
+	var progressStartValue = 0;
+		var progress = $interval(function () {
+				var degree = Number((parseFloat(360 * parseFloat(c.data[c.data.meals[i].meal.toLocaleLowerCase()])) / parseFloat(c.data.fitnessUserData.mealsCalories[i].target_calorie)).toFixed(1));
+					c.data.meals[i].currentPercentage=Number(degree/360*100).toFixed(1);
+					var progressEndValue = 90;
+			progressStartValue++;
+			c.data.meals[i].mealCircular.background =
+				'conic-gradient(#DCA636 ' +  progressStartValue * (parseFloat(c.data.fitnessUserData.mealsCalories[i].target_calorie)/500) + 'deg, #ededed 0deg)'
+			;
+			if (progressStartValue * (parseFloat(c.data.fitnessUserData.mealsCalories[i].target_calorie)/500) >= degree) {
+				$interval.cancel(progress);
+			}
+		}, speed);
+		$interval.cancel(calculateCalorieByMeal);
+	}
+	calculateCalorieByMeal();
+    $scope.food_id_to_delete="";
+	$scope.tracking_id_to_delete="";
+	$scope.deleteTracking = function (food_id,tracking_id,food) {
+		$scope.food_id_to_delete=food_id;
+		$scope.tracking_id_to_delete=tracking_id;
+		$scope.confirmationDialog("Are you sure you want to delete "+food +"!!");
+	};
+
+	$scope.prevDate=function(){
+		c.selectedDropdown="";
+	c.selectedValue="";
+	c.previousSelected="";
+	c.storeIndeForOnLOAD=0;
+		$scope.viewDates.setDate( $scope.viewDates.getDate()-1);
+	     c.data.action='updateDashboard';
+		 c.data.viewDate = $scope.viewDates;
+	     c.server.update().then(function(){
+			calculateCalorieByMeal();
+			$scope.onLoad();
+		 });
+	};
+	$scope.nextDate=function(){
+		c.selectedDropdown="";
+	c.selectedValue="";
+	c.previousSelected="";
+	c.storeIndeForOnLOAD=0;
+		$scope.viewDates.setDate( $scope.viewDates.getDate()+1);
+		 c.data.action='updateDashboard';
+		 c.data.viewDate =  $scope.viewDates;
+		 c.server.update().then(function(){
+			calculateCalorieByMeal();
+			$scope.onLoad();
+		 });
+	};
+
+	$scope.complete = function (string) {
+		$scope.hidethis = false;
+		$scope.hideTick = true;
+		var output = [];
+		angular.forEach(c.data.foodItems, function (food) {
+			if (food.name.toLowerCase().indexOf(string.toLowerCase()) >= 0) {
+				output.push(food);
+			}
+		});
+		$scope.foodList = output;
+	}
+	$scope.fillTextbox = function (string) {
+		$scope.country = string;
+	};
+	$scope.hideOkIcon = false;
+
+	$scope.hideOk = function (c) {
+		// Get the model
+		var model = $parse('hideOkIcon_' + c);
+		// Assigns a value to it
+		model.assign($scope, true);
+		// $scope.('hideOkIcon_'+c)=true;
+	};
+
+	$scope.manageCount = function(index,food){
+		$scope.foodList[index].hide =false;
+		if($scope.foodList[index].count==undefined){
+			$scope.foodList[index].count=0;
+		}
+		$scope.foodList[index].count = $scope.foodList[index].count +1;
+		$scope.hide=false;
+		if(c.foodItemToAddIds.indexOf($scope.foodList[index].id)!=-1){
+			var i= c.foodItemToAddIds.indexOf($scope.foodList[index].id);
+			$scope.foodItemToAdd[i].count=$scope.foodList[index].count;
+		}else{
+			var obj ={};
+			obj.id= $scope.foodList[index].id;
+			obj.count=$scope.foodList[index].count;
+			obj.calories=$scope.foodList[index].calories;
+			obj.name=$scope.foodList[index].name;
+			obj.mealId=c.currentMeal;
+			obj.sys_id=$scope.foodList[index].sys_id;
+			$scope.foodItemToAdd.push(obj);
+
+			c.foodItemToAddIds.push($scope.foodList[index].id);
+		}
+	};
+
+	c.data.foodItems.forEach(function(e){
+		var model = $parse(e.id);
+		model.assign($scope, false);
+		var ok = $parse('ok_'+e.id);
+		ok.assign($scope, true);
+
+	});
+
+
+	$scope.addFoodItems=function(){
+		$scope.hideModal=true;
+		c.data.action = 'addFoodItems';
+		console.log("view dates" + $scope.viewDate);
+		c.data.viewDate= $scope.viewDates;
+		c.data.listToAdd=$scope.foodItemToAdd;
+		c.server.update().then(function(){
+			calculateCalorieByMeal();
+			$scope.onLoad();
+		});
+	};
+
+	c.data.currentMeal="";
+	$scope.setMeal=function(id){
+		$scope.hideModal=false;
+		c.addMeal=id;
+		$scope.foodList=[];
+		$scope.listToAdd=[];
+		c.foodItemToAddIds=[];
+		$scope.foodItemToAdd=[];
+		c.data.meals.forEach(function(e){
+			if(e.meal.toLocaleLowerCase()==id.toLocaleLowerCase()){
+				c.data.currentMeal=e.sys_id;
+			}
+		});
+	};
+
+
+	c.capitalize=function(s){
+		return s[0].toUpperCase() + s.slice(1);
+	};
+
+	$scope.confirmationDialogConfig = {};
+
+	$scope.confirmationDialog = function(message) {
+		$scope.confirmationDialogConfig = {
+		  title: "Caution!!!",
+		  message: message,
+		  buttons: [{
+			label: "Delete",
+			action: "delete"
+		  }]
+		};
+		$scope.showDialog(true);
+	  };
 	
+	  $scope.executeDialogAction = function(action) {
+		if(typeof $scope[action] === "function") {
+				  $scope[action]();
+			}
+	  };
 	
-	
-	//
-	c.breakfast=120;
-	c.snacks=130;
-	c.lunch=122;
-	c.dinner=134;
-	
-	
+	  $scope.reset = function() {
+		$scope.showDialog();
+	  };
+	  
+	  $scope.delete = function() {
+		c.data.action = 'deleteTracking';
+		c.data.food_id = $scope.food_id_to_delete;
+		c.data.tracking_id=$scope.tracking_id_to_delete;
+		c.server.update().then(function(){
+			$scope.food_id_to_delete="";
+			$scope.tracking_id_to_delete="";
+			calculateCalorieByMeal();
+			$scope.onLoad();
+		});
+		$scope.showDialog();
+	  };
+	  
+	  $scope.save = function() {
+		$scope.showDialog();
+	  };
+	  
+	  $scope.showDialog = function(flag) {
+		jQuery("#confirmation-dialogg .modal").modal(flag ? 'show' : 'hide');
+	  };
+
+
+
 };]]></client_script>
         <controller_as>c</controller_as>
         <css>
@@ -56,11 +361,14 @@ var progressEndValue = 90,
     height: 250px;
     width: 250px;
     border-radius: 50%;
-    background: conic-gradient(#7d2ae8 3.6deg, #ededed 0deg);
+    background: conic-gradient(#DCA636 0deg, #ededed 0deg);
     display: flex;
     align-items: center;
     justify-content: center;
-  	margin:auto
+  	margin:auto;
+   //transition: background 2s;
+   //transition-timing-function: ease; 
+   //border: 1px solid red;
 }
 .circular-progress::before{
     content: "";
@@ -69,15 +377,154 @@ var progressEndValue = 90,
     width: 210px;
     border-radius: 50%;
     background-color: #fff;
+  //border: 1px solid red;
 }
 .progress-value{
     position: relative;
     font-size: 40px;
     font-weight: 600;
-    color: #7d2ae8;
+    color: #6e0e0e;
+    text-align: center;
 }
 
- </css>
+ .breakfast{
+ }
+
+ .margin-zero{
+    margin: 0px;
+ }
+
+ .shadow{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 4%;
+ }
+
+.breakfast-card{
+  margin-top:10px
+    
+}   
+
+.action{
+  text-align:center
+}
+   
+
+.action-right{
+  text-align:right
+}
+
+.meal-panel{
+  display: flex;
+  justify-content: space-between;
+}
+    
+
+#food-list li{
+  list-style:none;
+  padding:10px;
+  margin:5px 0;
+  border: 1px solid #e4e4e4;
+}
+.margin-right{
+  margin-right: 5px;
+}
+.center{
+   display: flex;
+   justify-content: center;
+   margin-top: -150px;
+}
+
+.date-change{
+    margin-top: 2px;
+    display: flex;
+    //justify-content: space-around;
+}
+
+
+
+.calendar-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-top:2rem;
+ }
+ 
+ .calendar-wrapper__calendar {
+  flex: 1 0 auto;
+  align-self: center;
+  font-size:1.8rem;
+ }
+ 
+ .calendar-wrapper__button_left {
+  border: 0;
+  outline: 0;
+  margin-left: 50%;
+  //margin-right: 1rem;
+  font-size: 2rem;
+  background-color: transparent;
+ }
+ .calendar-wrapper__button_right {
+  border: 0;
+  outline: 0;
+  // margin-left: 20rem;
+ // margin-right: ;
+  font-size: 2rem;
+  background-color: transparent;
+ }
+ 
+ 
+ .dropdown-button{
+   width: 100px;
+   padding: 6px;
+   margin-left: 15px;
+ }
+ 
+
+
+
+
+ .meal-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.meal-circular-progress{
+ position: relative;
+ height: 150px;
+ width: 150px;
+ border-radius: 50%;
+ background: conic-gradient(#DCA636 0deg, #ededed 0deg);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ margin:auto;
+//transition: background 2s;
+//transition-timing-function: ease;
+//border: 1px solid red;
+}
+.meal-circular-progress::before{
+ content: "";
+ position: absolute;
+ height: 130px;
+ width: 130px;
+ border-radius: 50%;
+ background-color: #fff;
+//border: 1px solid red;
+}
+
+
+.circular-text{
+   align-items: center;
+   display: inline;
+}
+
+.mg-sm-top {
+   margin-top: 12px;
+}
+</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -91,7 +538,130 @@ var progressEndValue = 90,
         <option_schema/>
         <public>false</public>
         <roles/>
-        <script><![CDATA[(function() {  /* populate the 'data' object */  /* e.g., data.table = $sp.getValue('table'); */})();]]></script>
+        <script><![CDATA[(function () {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+  data.meals = [];
+  //data.meals2=[];
+  // var meals = new GlideRecord("x_942661_fitness_meal");
+  // meals.query();
+  // var mealsData = [];
+  // while (meals.next()) {
+
+  //   var obj = {
+  //     mealId: meals.getValue('number'),
+  //     meal: meals.getValue("meal")
+  //   };
+  //   mealsData.push(obj);
+  // }
+  // data.meals = mealsData;
+
+
+  // console.log(input);
+  // console.log("above is input");
+
+  // data.viewDate= new Date();
+
+
+
+// d = new Date();
+// utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+// nd = new Date(utc + (3600000*+5.5));
+
+// data.viewDate=nd;
+
+// var currentTime = new Date();
+
+// var currentOffset = currentTime.getTimezoneOffset();
+
+// var ISTOffset = 330; 
+  // IST offset UTC +5:30 
+
+// data.viewDate = new Date(currentTime.getTime() + (ISTOffset + currentOffset)*60000);
+
+// ISTTime now represents the time in IST coordinates
+   console.log("test" + data.viewDate);
+
+  var listOfMeals=new Meals().getMeals();
+  data.meals=listOfMeals;
+
+	
+	var listOfFoodItems = new FoodItems().getAllFoodItem();
+	data.foodItems=listOfFoodItems;
+	
+	
+	// var listOfFoodItem = new FoodItems().getFoodItemById("FOOD0001005");
+	// data.foodItem=listOfFoodItem;
+	
+	
+	// var addTracking = new Tracking().addFoodItems("FD0001014","MEAL0001001",1);
+	
+	// data.add=addTracking;
+	
+	// var getTodaysCaloriesInfo = new TrackingData().getTodaysCaloriesInfo(gs.getUserID());
+	
+	// data.today= getTodaysCaloriesInfo;
+	
+  // data.databyMeals = new TrackingData().getTodaysTrackingByMeals();
+	
+	// data.trackingDelete= new Tracking().deleteTrackingById("bd36203447339510d5ff7868f36d43b9");
+	
+	data.fitnessUserData = new UserData().getFitnessUserData();
+
+ console.log(data);
+ console.log("inside server script"); 
+ console.log(input);
+
+  if(input && input.action =='deleteTracking'){
+    var deleteTracking =  new Tracking().deleteTrackingById(input.food_id,input.tracking_id);
+    data.deleteTracking=deleteTracking;
+    data.trackingByMeals = new Dashboard().getTrackingByMeal(input.viewDate);
+    // data.trackingByMeals = new TrackingData().getTrackingByMeal(data.viewDate.getFullYear() +"-"+ (data.viewDate.getMonth()+1)  + "-" + (data.viewDate.getDate()));
+  }else if(input && input.action=="addFoodItems"){
+      console.log(input);
+      console.log("inside addfooditems");
+      console.log(input);
+
+      new Tracking().addFoodItems(input.listToAdd,input.currentMeal,input.viewDate);
+      data.trackingByMeals = new Dashboard().getTrackingByMeal(input.viewDate);
+      console.log("inside add foritem after insertion");
+      console.log(data.trackingByMeals);
+  }else if(input && input.action=="updateDashboard"){
+    console.log("pddd" +input.viewDate);
+    data.trackingByMeals="";
+    data.trackingByMeals = new Dashboard().getTrackingByMeal(input.viewDate);
+    console.log(data.trackingByMeals);
+  }else{
+
+
+    data.viewDate= new Date();
+
+
+
+d = new Date();
+utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+nd = new Date(utc + (3600000*+5.5));
+
+data.viewDate=nd;
+
+var currentTime = new Date();
+
+var currentOffset = currentTime.getTimezoneOffset();
+
+var ISTOffset = 330; 
+console.log("date" + data.viewDate);
+  console.log(data.viewDate);
+     data.trackingByMeals = new Dashboard().getTrackingByMeal(data.viewDate.getFullYear() +"-"+ (data.viewDate.getMonth()+1)  + "-" + (data.viewDate.getDate()));
+     console.log(data.viewDate.getFullYear() +"-"+ (data.viewDate.getMonth()+1)  + "-" + (data.viewDate.getDate()));
+     console.log(new Date().getDate())
+     console.log(data.trackingByMeals);
+  }
+
+  //data.trackingByMeals = new TrackingData().getTrackingByMeal(data.viewDate.getFullYear() +"-"+ (data.viewDate.getMonth()+1)  + "-" + (data.viewDate.getDate()));
+
+
+   
+})();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admin</sys_created_by>
@@ -102,79 +672,206 @@ var progressEndValue = 90,
         <sys_policy/>
         <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
         <sys_update_name>sp_widget_551269b247671110d5ff7868f36d43e7</sys_update_name>
-        <template><![CDATA[<div>
+        <template><![CDATA[
+<div ng-hide="c.trackhideWidget">
 
-  
-  <div class="container ">
-       <div class="row">
-         <div class="col-sm-3 text-center ">
-           	<div class="row mt-auto">
-              <div class="col text-primary">
-                  <h2>BreakFast</h2>
-              </div>
-              <div>
-                   {{c.breakfast}} Cal
-              </div>
-              
-           </div> 
-           	<div class="row">
-              <div class="col text-primary">
-                  <h2>Snacks</h2>
-              </div>
-               <div>
-                   {{c.snacks}} Cal
-              </div>
-           </div> 
-          
-         </div>
-          <div class="col-sm-6 text-center">
 
-            
-            <div class="circular-progress" ng-style='{{c.circular}}'>
-                <span class="progress-value">{{c.progressValue}}%</span>
-            </div>
+<div class="container-fluid">
+   
+  <div class="row">
+    <div class="col-sm-6 text-center " ng-repeat="ml in c.data.meals">
+      <div class="row mt-auto">
+        <div class="col text-primary">
+          <h2>{{ml.meal}}</h2>
+        </div>
+        <div>
+          {{c.data[ml.meal.toLowerCase()]}} Calories
+        </div>
+      </div>
 
-            
-            
-         </div>
-          <div class="col-sm-3 text-center ">
-           
-            <div class="row">
-                  <div class="col-sm-12 text-primary">
-                    <h2> Lunch</h2>
-                  </div>
-             	 		<div class="col-sm-12">
-                   {{c.lunch}} Cal
-          				</div>
-            </div>
-             <div class="row">
-                  <div class="col-sm-12 text-primary">
-                    <h2> Dinner</h2>
-                  </div>
-             	 		<div class="col-sm-12">
-                   {{c.dinner}} Cal
-          				</div>
-            </div>
-         </div>
-          
-         
-         
-         <div class="panel panel-default">
-  <div class="panel-heading">Panel Heading</div>
-  <div class="panel-body">Panel Content</div>
-  <div class="panel-footer">Panel Footer</div>
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6  center">
+      <div class="circular-progress" ng-style="c.circular">
+        <span class="progress-value">{{c.currentPercentage>100 ? 100 : c.currentPercentage}}%</span>
+      </div>
+
+    </div>
+
+  </div>
 </div>
-         
-         <div class="card">
-  <div class="card-header">Header</div>
-  <div class="card-body">Content</div>
-  <div class="card-footer">Footer</div>
-</div>
+
+<div class="row row-center">
+  <div class="col-xl-8 col-lg-8 col-sm-10-col-12">
+    <div class="w-100 calendar-wrapper">
+      <button type="button" class="calendar-wrapper__button_left" ng-click="prevDate()">
+        <i class="glyphicon glyphicon-menu-left"></i>
+
+      </button>
+      <div class="calendar-wrapper__calendar text-center">
+        <i class="glyphicon glyphicon-calendar"></i>
+        <span>{{ viewDates | date : "dd MMMM yyyy" }}</span>
+      </div>
+      <button type="button" class="calendar-wrapper__button_right" ng-hide="hideNextDate" ng-click="nextDate()">
+        <i class="glyphicon glyphicon-menu-right"></i>
+      </button>
     </div>
   </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="meal-center">
+      <div class="meal-circular-progress" ng-repeat="co in c.data.meals" ng-style="co.mealCircular">
+        <div class="circular-text">
+          <span class="progress-value" style="font-size: 22px;">
+            <div>
+              {{co.currentPercentage}}%
+            </div>
+            <div>{{co.meal}}</div>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="dropdown mg-sm-top">
+  <button class="btn btn-primary dropdown-toggle dropdown-button" type="button" id="about-us" data-toggle="dropdown"
+    aria-haspopup="true" aria-expanded="false" ng-model="c.selectedValue">
+      {{c.selectedValue}}
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu dropdown-button" aria-labelledby="about-us">
+    <li ng-repeat="(k,v) in c.data.meals">
+      <a href="#" ng-click="selectFromDropdown(v)" ng-hide="v.hideSelectedMeal">{{v.meal}}</a></li>
+  </ul>
+</div>
+
+<div class="container-fluid mt-2 breakfast-card" ng-model="c.selectedValue" >
+  <div class="row mt-2">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="meal-panel">
+            <div class="mr-0"> <Button type="button" class="btn btn-primary" data-toggle="modal"
+                data-target="#exampleModal" ng-click="setMeal(c.selectedValue)" data-whatever="@mdo">Add</Button></div>
+          </div>
+        </div>
+        <div class="panel-body">
+
+          <table class="table table-striped">
+            <thead>
+              <div class="row">
+                <div class="col-sm-4">
+                  <b>Name</b>
+                </div>
+                <div class="col-sm-4 action">
+                  <b>Calories</b>
+                </div>
+                <div class="col-sm-4 action-right">
+                  <b>Actions</b>
+                </div>
+              </div>
+            </thead>
+
+            <hr>
+            <div ng-repeat="b in c.selectedMealData">
+
+
+              <div class="row">
+                <div class="col-sm-4">
+                  {{b.food}}
+                </div>
+                <div class="col-sm-4 action">
+                  {{b.calories}}
+                </div>
+                <div class="col-sm-4 action-right">
+                  <ul class="list-inline action-right">
+                    <li class="list-inline-item">
+                      <button class="btn btn-danger btn-sm rounded-0 open-dialog" type="button" data-toggle="tooltip"
+                        data-placement="top" ng-click="deleteTracking(b.food_id,b.tracking_id,b.food)" title="Remove"><span class="glyphicon glyphicon-remove"></button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- <button class="open-dialog" type="button" ng-click="confirmationDialog()">Single Button</button> -->
+    
+    <div id="confirmation-dialogg">
+      <div class="modal fade confirmation-dialogg" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">{{confirmationDialogConfig.title}}</h4>
+            </div>
+            <div class="modal-body">
+              <div class="span5">{{confirmationDialogConfig.message}}</div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <button type="button" ng-repeat="button in confirmationDialogConfig.buttons" ng-click="executeDialogAction(button.action)" class="btn btn-primary">{{button.label}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+<div  class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">Add {{c.addMeal}}:</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">Search foods:</label>
+            <input type="text" name="food" id="food" ng-model="food" ng-keyup="complete(food)" class="form-control" />
+            <br>
+            <ul class="list-group" ng-model="hidethis" ng-hide="hidethis">
+                      <li class="list-group-item meal-panel" ng-repeat="food in foodList track by $index"
+                        ng-click="fillTextbox(countrydata)">
+                        {{food.name}}
+                        <div>
+                          <span class="margin-right" ng-hide="foodList[$index].hide"
+                            ng-model="foodList[$index].count">{{foodList[$index].count}}</span>
+
+                          <span ng-click="manageCount($index,food)" ng-hide="{{food.id}}"
+                            class="glyphicon glyphicon-plus"></span></div>
+                      </li>
+            </ul>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <a data-dismiss="modal">
+        <button type="button" class="btn btn-primary" data-toggle="modal" ng-click="addFoodItems()">Add</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
   
-  
-  
-</div>]]></template>
+
+]]></template>
     </sp_widget>
 </record_update>

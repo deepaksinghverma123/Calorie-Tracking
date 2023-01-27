@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role">
+    <sys_security_acl_role action="INSERT_OR_UPDATE">
+        <sys_class_name>sys_security_acl_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-12-18 12:52:51</sys_created_on>
+        <sys_id>b7dad69e47fb9110d5ff7868f36d4383</sys_id>
+        <sys_name>x_942661_fitness_comment.x_942661_fitness.user</sys_name>
+        <sys_package display_value="FitnessTracker" source="x_942661_fitness">ba87ecee47231110d5ff7868f36d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FitnessTracker">ba87ecee47231110d5ff7868f36d43ef</sys_scope>
+        <sys_security_acl display_value="x_942661_fitness_comment">2a741642477f5110d5ff7868f36d436d</sys_security_acl>
+        <sys_update_name>sys_security_acl_role_b7dad69e47fb9110d5ff7868f36d4383</sys_update_name>
+        <sys_user_role display_value="x_942661_fitness.user" name="x_942661_fitness.user">0bb1f4ae47631110d5ff7868f36d43d5</sys_user_role>
+        <transaction_id/>
+    </sys_security_acl_role>
+</record_update>

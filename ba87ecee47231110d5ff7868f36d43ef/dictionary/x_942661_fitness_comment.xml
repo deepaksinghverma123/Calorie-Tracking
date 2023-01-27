@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="ed87965947f31910d5ff7868f36d43e5" label="Comment" max_length="40" name="x_942661_fitness_comment" type="collection">
+        <element label="Comment" mandatory="true" max_length="500" name="comment" type="string"/>
+        <element default="0" label="Total Likes" max_length="40" name="likes" read_only="true" type="integer"/>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element attributes="ref_auto_completer=AJAXTableCompleter,ref_ac_columns=name" label="Post" mandatory="true" max_length="32" name="post" reference="x_942661_fitness_post" type="reference"/>
+        <element default="javascript:current.follower = gs.getUserID();" label="User" mandatory="true" max_length="32" name="user" read_only="true" reference="sys_user" type="reference"/>
+        <index name="index">
+            <element name="post"/>
+        </index>
+        <index name="index2">
+            <element name="user"/>
+        </index>
+    </element>
+</database>

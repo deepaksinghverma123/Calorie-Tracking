@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="5630b12e47f7d110d5ff7868f36d4304" label="Fitness User" max_length="40" name="x_942661_fitness_fitnessuser" type="collection">
+        <element label="Height (in cm)" max_length="20" name="height" type="decimal"/>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element default="javascript:current.follower = gs.getUserID();" label="User" max_length="32" name="user" read_only="true" reference="sys_user" type="reference"/>
+        <element label="Weight (in Kg)" max_length="20" name="weight" type="decimal"/>
+        <index name="index">
+            <element name="user"/>
+        </index>
+    </element>
+</database>
